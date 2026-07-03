@@ -88,6 +88,15 @@
             pointer-events: none;
         }
 
+        #bg {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            pointer-events: none;
+        }
+
         /* 🛡️ Sanctuary Layout Column */
         .sanctuary-canvas {
             max-width: 680px;
@@ -952,6 +961,7 @@
             -webkit-backdrop-filter: none;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 </head>
 <script>
 const scene = new THREE.Scene();
@@ -1185,6 +1195,7 @@ btn.onclick = async () => {
 }; 
 </script>
 <body>
+    <canvas id="bg"></canvas>
 
     <!-- Blended Wallpaper & Glowing Overlays -->
     <div class="ambient-background-image"></div>
@@ -1365,33 +1376,11 @@ btn.onclick = async () => {
         let wordSpans = [];
         let currentWordIndex = -1;
 
-        const profileImage = document.getElementById('profile-image');
-        const auraPrimary = document.getElementById('aura-primary');
-        const auraSecondary = document.getElementById('aura-secondary');
-        const evosealShield = document.getElementById('evoseal-shield');
-        const extensionNodes = Array.from(document.querySelectorAll('.extension-node'));
-        const vocalStatus = document.getElementById('vocal-status');
-        const micBtn = document.getElementById('mic-toggle-btn');
-        const playBtn = document.getElementById('narration-btn');
-        const progressFill = document.getElementById('progress-fill');
-        const timeDisplay = document.getElementById('time-display');
-        const playerState = document.getElementById('player-state');
-        const speedInput = document.getElementById('narrator-speed');
-        const speedLabel = document.getElementById('speed-label');
-        const ambientInput = document.getElementById('ambient-volume');
-        const ambientLabel = document.getElementById('ambient-label');
-        journalEditor = document.getElementById('journal-editor');
-        saveJournalBtn = document.getElementById('save-journal-btn');
-        clearJournalBtn = document.getElementById('clear-journal-btn');
-        audioListenVolume = document.getElementById('audio-listen-volume');
-        audioListenLabel = document.getElementById('audio-listen-label');
+        let profileImage, auraPrimary, auraSecondary, evosealShield, extensionNodes;
+        let vocalStatus, micBtn, playBtn, progressFill, timeDisplay, playerState, speedInput, speedLabel, ambientInput, ambientLabel;
 
         // Telemetry UI Elements
-        const teleNav = document.getElementById('tele-nav');
-        const telePerception = document.getElementById('tele-perception');
-        const tele369 = document.getElementById('tele-369');
-        const voiceNoteBtn = document.getElementById('voice-note-btn');
-        const voiceNoteStatus = document.getElementById('voice-note-status');
+        let teleNav, telePerception, tele369, voiceNoteBtn, voiceNoteStatus;
         let trackList, clearTracksBtn;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1402,6 +1391,21 @@ btn.onclick = async () => {
             audioListenLabel = document.getElementById('audio-listen-label');
             voiceNoteBtn = document.getElementById('voice-note-btn');
             voiceNoteStatus = document.getElementById('voice-note-status');
+            profileImage = document.getElementById('profile-image');
+            auraPrimary = document.getElementById('aura-primary');
+            auraSecondary = document.getElementById('aura-secondary');
+            evosealShield = document.getElementById('evoseal-shield');
+            extensionNodes = Array.from(document.querySelectorAll('.extension-node'));
+            vocalStatus = document.getElementById('vocal-status');
+            micBtn = document.getElementById('mic-toggle-btn');
+            playBtn = document.getElementById('narration-btn');
+            progressFill = document.getElementById('progress-fill');
+            timeDisplay = document.getElementById('time-display');
+            playerState = document.getElementById('player-state');
+            speedInput = document.getElementById('narrator-speed');
+            speedLabel = document.getElementById('speed-label');
+            ambientInput = document.getElementById('ambient-volume');
+            ambientLabel = document.getElementById('ambient-label');
             trackList = document.getElementById('track-list');
             clearTracksBtn = document.getElementById('clear-tracks-btn');
 
