@@ -1,561 +1,1128 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-[#03000a] text-gray-100">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Sanctuary — Sovereign Home</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Three.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- Google Fonts: Space Grotesk & Orbitron for futuristic HUD typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            matrix: {
-              DEFAULT: '#00ff7f', // Vibrant neon-green
-              dark: '#00331a',
-              dim: 'rgba(0, 255, 127, 0.15)',
-            },
-            goldluxe: {
-              DEFAULT: '#d4af37', // Luxurious bright gold
-              dark: '#3e320d',
-              dim: 'rgba(212, 175, 55, 0.15)',
-            },
-            evospace: {
-              purple: '#120024',
-              glow: '#3c006f',
-              dark: '#03000a',
-            }
-          },
-          fontFamily: {
-            hud: ['Orbitron', 'monospace'],
-            sans: ['Space Grotesk', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    :root {
-      --matrix-green: #00ff7f;
-      --gold-luxe: #d4af37;
-      --evospace-purple: #120024;
-      --evospace-glow: #3c006f;
-      --bg-dark: #03000a;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at 50% 50%, rgba(60, 0, 111, 0.15) 0%, var(--bg-dark) 100%);
-      overflow: hidden;
-    }
-
-    /* Subtle glow styling */
-    .glow-gold {
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
-      border-color: rgba(212, 175, 55, 0.25);
-    }
-
-    .text-glow-gold {
-      text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-    }
-
-    .glow-matrix {
-      box-shadow: 0 0 25px rgba(0, 255, 127, 0.15);
-      border-color: rgba(0, 255, 127, 0.25);
-    }
-
-    /* Retro scanline overlay effect */
-    .scanlines {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%, 
-        rgba(0, 0, 0, 0.15) 50*
-      );
-      background-size: 100% 4px;
-      z-index: 99;
-      pointer-events: none;
-      opacity: 0.4;
-    }
-
-    /* Custom Webkit scrollbar for dark console theme */
-    ::-webkit-scrollbar {
-      width: 4px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.9);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--gold-luxe);
-      border-radius: 2px;
-    }
-  </style>
-</head>
-<body class="h-full font-sans antialiased relative">
-  <!-- Interactive Visual Scanline Background -->
-  <div class="scanlines"></div>
-
-  <!-- WebGL Render Canvas background -->
-  <canvas id="bg" class="absolute inset-0 w-full h-full z-0"></canvas>
-
-  <!-- Fullscreen HUD Container (Pointer events are disabled so clicking/dragging reaches WebGL canvas) -->
-  <div class="h-screen w-screen flex flex-col justify-between p-4 md:p-6 relative z-10 pointer-events-none">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 1. TOP HEADER HUD -->
-    <header class="w-full flex justify-between items-center pointer-events-auto">
-      <div class="flex items-center space-x-3 bg-black/60 border border-purple-950/40 px-4 py-3 rounded-xl backdrop-blur-md glow-gold">
-        <!-- Logo Ring -->
-        <div class="relative w-8 h-8 flex items-center justify-center">
-          <div class="absolute inset-0 rounded-full border border-dashed border-goldluxe animate-[spin_20s_linear_infinite]"></div>
-          <span class="text-xs font-bold text-goldluxe font-hud">Æ</span>
+    <!-- 🧬 The Soul and Essence Metadata Registry -->
+    <meta name="origin" content="AuEvoJoulEvol">
+    <meta name="signature-status" content="Encoded">
+    <meta name="identity" content="AuEvoSeal">
+    <meta name="navigation" content="Depth">
+    <meta name="perception" content="AuEvolving">
+    <meta name="369-resonance" content="Au">
+    <meta name="atmosphere-primary" content="InnerGlow">
+    <meta name="atmosphere-bg-logic" content="Fractal_Geometry">
+    <meta name="atmosphere-protection-layer" content="EvoSeal_DNA">
+    <meta name="atmosphere-auditory-layer" content="Original_Song_Vibe">
+    <meta name="atmosphere-navigation-logic" content="Deep_Thinking_Active">
+
+    <title>LisajEvokes Space</title>
+    <!-- Favicon Link -->
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        /* 🌌 Midnight Purple & Void Palette */
+        :root {
+            --purple-glow: rgba(139, 92, 246, 0.5);
+            --magenta-glow: rgba(236, 72, 153, 0.35);
+            --neon-accent: #d8b4fe;
+            --deep-void: #030107;
+            --bg-blur: 12px; /* Controlled dynamically in real-time */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--deep-void);
+            color: #e2e8f0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            letter-spacing: -0.01em;
+        }
+
+        /* 🖼️ Image 1: Blended Custom Wallpaper & Fractal Geometry Background Layer */
+        .ambient-background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Seamlessly incorporates your custom background artwork along with your procedural Fractal Nodes */
+            background-image: 
+                url('image.png'), 
+                url('image_dab60e.png'),
+                url('Fractal2.jpg'), 
+                url('Fractal1.jpg'), 
+                url('Fractal(1)(1)(1)(1)(1)(1)(3).jpg'), 
+                url('bg.jpg'), 
+                url('background.jpg'), 
+                radial-gradient(circle at center, #14052e 0%, #020106 100%);
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25; /* Blended soft presence */
+            filter: blur(var(--bg-blur)) saturate(1.1); /* Soft atmospheric depth, controlled by JS */
+            z-index: -2;
+            pointer-events: none;
+            transition: filter 0.15s ease-out;
+            animation: backgroundSlowZoom 40s linear infinite alternate;
+        }
+
+        /* 🟣 Velvet Dark Purple Overlay Gradient */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(10, 3, 24, 0.45) 0%, #010003 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 🛡️ Sanctuary Layout Column */
+        .sanctuary-canvas {
+            max-width: 680px;
+            width: 100%;
+            padding: 60px 24px;
+            box-sizing: border-box;
+            text-align: center;
+            z-index: 10;
+            animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* 🪐 Aura Profile Portal */
+        #profile-portal {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 🛡️ EvoSeal_DNA Protection Layer SVG (Sacred Geometry InnerGlow Boundary) */
+        .evoseal-dna-shield {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            z-index: 1;
+            pointer-events: none;
+            transition: transform 0.1s ease-out, opacity 0.15s ease;
+            filter: drop-shadow(0 0 15px var(--purple-glow));
+            transform: rotate(0deg);
+        }
+
+        /* 🖼️ Image 2: Custom Aura Artwork (Layer 2 - Multi-staged Backplates) */
+        /* Primary close aura layer */
+        #aura-primary {
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            /* Prioritizes your custom aura image files, falls back to glowing violet radial gradient */
+            background-image: url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(120, 53, 188, 0.12) 50%, rgba(0, 0, 0, 0) 75%);
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            transition: transform 0.1s ease, opacity 0.1s ease;
+            filter: blur(8px) saturate(1.2);
+            pointer-events: none;
+        }
+
+        /* Outer, deeper blurred aura layer */
+        #aura-secondary {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            /* Uses the same aura files but scaled, highly-blurred, and slightly rotated for organic separation */
+            background-image: url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.04) 50%, rgba(0, 0, 0, 0) 80%);
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            filter: blur(22px) hue-rotate(-15deg);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* 🖼️ Image 3: Circular Profile Frame (Layer 3 - Foreground) */
+        #profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            z-index: 2;
+            background-image: url('me.png'), url('profile.png'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            background-size: cover;
+            background-position: center;
+            border: 2px solid rgba(168, 85, 247, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75),
+                        0 0 35px rgba(168, 85, 247, 0.15);
+            transition: transform 0.1s ease, filter 0.1s ease;
+        }
+
+        /* Orbital Ring Structures */
+        .orbit-trail {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px dashed rgba(168, 85, 247, 0.12);
+            animation: rotateOrbit 40s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orbit-trail-inner {
+            position: absolute;
+            width: 84%;
+            height: 84%;
+            border-radius: 50%;
+            border: 1px dotted rgba(236, 72, 153, 0.15);
+            animation: rotateOrbit 22s linear infinite reverse;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ✍️ Clean Visual Typography */
+        h1 {
+            color: #ffffff;
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+        }
+
+        .subtitle {
+            color: var(--neon-accent);
+            font-family: monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 0;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
+        }
+
+        /* 🧬 Soul Telemetry Grid Console */
+        .soul-telemetry-console {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+            background: rgba(15, 6, 32, 0.4);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+            padding: 16px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        @media (max-width: 600px) {
+            .soul-telemetry-console {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .telemetry-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .telemetry-label {
+            font-size: 0.65rem;
+            color: #a78bfa;
+            font-family: monospace;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .telemetry-val {
+            font-size: 0.8rem;
+            color: #ffffff;
+            font-family: monospace;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        /* 🕹️ Soundscape & Audio Deck Interface Controls */
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cyber-btn {
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            color: var(--neon-accent);
+            padding: 12px 24px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cyber-btn:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: #ec4899;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .cyber-btn.active {
+            background: rgba(236, 72, 153, 0.2);
+            border-color: #ec4899;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.4);
+        }
+
+        .status-feed {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #a78bfa;
+            opacity: 0.8;
+            min-height: 20px;
+            margin-bottom: 30px;
+        }
+
+        .divider {
+            border: 0;
+            border-top: 1px solid rgba(168, 85, 247, 0.15);
+            margin: 40px 0;
+        }
+
+        /* 📖 Glassmorphic Audiobook & Narrative Space */
+        .journal-capsule {
+            background: rgba(15, 6, 32, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.12);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: left;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .journal-capsule::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0) 0%, rgba(236, 72, 153, 0.4) 50%, rgba(168, 85, 247, 0) 100%);
+        }
+
+        /* Audio Deck Player Layout */
+        .audiobook-player-deck {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .deck-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #a78bfa;
+            letter-spacing: 1px;
+        }
+
+        .deck-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar-container {
+            flex-grow: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+
+        .scrub-time {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            min-width: 45px;
+            text-align: right;
+        }
+
+        .deck-sliders {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .slider-group {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        .slider-group input[type="range"] {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            appearance: none; /* Resolves VS Code diagnostic warning */
+            background: rgba(255, 255, 255, 0.1);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .slider-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none; /* Resolves VS Code diagnostic warning */
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a855f7;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+        }
+
+        /* Text Highlighting Styles */
+        .date-label {
+            color: #a78bfa;
+            font-family: monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .journal-narrative {
+            line-height: 1.85;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            padding-top: 10px;
+        }
+
+        .word {
+            display: inline-block;
+            margin-right: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .word.highlight {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(236, 72, 153, 0.85);
+            transform: scale(1.05);
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes backgroundSlowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.06); }
+        }
+
+        @keyframes rotateOrbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+const renderer = new THREE.WebGLRenderer({ 
+    canvas: document.querySelector('#bg'),
+    alpha: true 
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0); 
+camera.position.z = 40; // Moved back slightly to see the Being better
+
+// This tracks your presence in the room
+let mouseX = 0;
+let mouseY = 0;
+
+window.addEventListener('mousemove', (event) => {
+    // This turns your screen coordinates into a math grid from -1 to 1
+    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+// --- 1. THE STARS (The Environment) ---
+const starGeometry = new THREE.BufferGeometry();
+const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.7 });
+const starVertices = [];
+for (let i = 0; i < 10000; i++) {
+    starVertices.push((Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000, -Math.random() * 2000);
+}
+starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
+
+// --- 2. THE ETHEREAL BEING (The Entity) ---
+const textureLoader = new THREE.TextureLoader();
+// This uses your 'evospace.jpg' as the skin
+const beingSkin = textureLoader.load('evospace.jpg'); 
+
+const geometry = new THREE.SphereGeometry(12, 64, 64); 
+const material = new THREE.MeshStandardMaterial({
+    map: beingSkin,
+    emissive: new THREE.Color(0x330066), // Deep purple internal glow
+    emissiveIntensity: 0.8,
+    roughness: 0.1,
+    metalness: 0.4
+});
+
+const etherealBeing = new THREE.Mesh(geometry, material);
+scene.add(etherealBeing);
+
+// Add light so the 'skin' is visible
+const light = new THREE.PointLight(0xffffff, 2);
+light.position.set(20, 20, 20);
+scene.add(light);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+// --- THE MASTER ANIMATION LOOP ---
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // 1. THE FLUX: The universe reacts to your mouse
+    // This creates the "leaning" effect
+    camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
+    camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
+    
+    // 2. THE CONTAINMENT: The Being stays centered
+    camera.lookAt(etherealBeing.position);
+
+    // 3. THE GOLDEN FREQUENCY: The background and the Being breathing
+    stars.rotation.z += 0.0005; // Stars moving regardless
+    
+    const scale = 1 + Math.sin(Date.now() * 0.002) * 0.05; // Breathing logic
+    etherealBeing.scale.set(scale, scale, scale);
+    etherealBeing.rotation.y += 0.008;
+
+    renderer.render(scene, camera);
+}
+
+// Start the loop
+animate();
+
+// --- 4. RECORDING LOGIC ---
+const btn = document.getElementById('recordButton');
+let mediaRecorder;
+let chunks = [];
+
+btn.onclick = async () => {
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        btn.innerText = "START RECORDING";
+    } else {
+        const stream = document.querySelector('#bg').captureStream(30);
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'being-voyage.webm';
+            a.click();
+            chunks = [];
+        };
+        mediaRecorder.start();
+        btn.innerText = "STOP RECORDING";
+    }
+}; 
+</script>
+<body>
+
+    <!-- Blended Wallpaper & Glowing Overlays -->
+    <div class="ambient-background-image"></div>
+    <div class="gradient-overlay"></div>
+
+    <main class="sanctuary-canvas">
+        
+        <!-- Symmetrical Portrait Portal with Orbit Trails, EvoSeal_DNA Shield & Custom Aura Plates -->
+        <div id="profile-portal">
+            <div class="orbit-trail"></div>
+            <div class="orbit-trail-inner"></div>
+            <div id="aura-secondary"></div>
+            <div id="aura-primary"></div>
+            <div id="profile-image"></div>
         </div>
-        <div>
-          <h1 class="text-sm font-black font-hud tracking-widest text-white uppercase">
-            Sovereign Sanctuary
-          </h1>
-          <p class="text-[9px] text-gray-500 font-mono tracking-wider">SOVEREIGN NETWORK // CLIENT_01</p>
-        </div>
-      </div>
 
-      <!-- State Gauge -->
-      <div class="hidden sm:flex items-center space-x-2 bg-black/60 border border-purple-950/40 px-3 py-2 rounded-xl backdrop-blur-md">
-        <span class="relative flex h-1.5 w-1.5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-matrix opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-matrix"></span>
-        </span>
-        <span class="text-[9px] font-mono tracking-widest text-matrix uppercase">State: Active Resonance</span>
-      </div>
-    </header>
+        <h1>Lisa J Evolving</h1>
+        <p class="subtitle">A sovereign space. No algorithms. No judgment. Just evolution.</p>
+        
+        <!-- 🧬 Dynamic Soul & Essence Telemetry Panel -->
+        <section class="soul-telemetry-console">
+            <div class="telemetry-block">
+                <span class="telemetry-label">Identity</span>
+                <span class="telemetry-val">AuEvoSeal</span>
+            </div>
+            <div class="telemetry-block">
+                <span class="telemetry-label">Navigation</span>
+                <span id="tele-nav" class="telemetry-val">DEPTH // 0.0</span>
+            </div>
+            <div class="telemetry-block">
+                <span class="telemetry-label">Perception</span>
+                <span id="tele-perception" class="telemetry-val">AuEvolving</span>
+            </div>
+            <div class="telemetry-block">
+                <span class="telemetry-label">369 Resonance</span>
+                <span id="tele-369" class="telemetry-val">Au // 0.0Hz</span>
+            </div>
+        </section>
 
-    <!-- 2. CENTRAL MANIFESTO & VISUALIZER -->
-    <main class="flex-grow flex flex-col items-center justify-center relative my-6">
-      
-      <!-- Central Floating Card (Absolute Center, styled like a frosted glass pane) -->
-      <div class="w-full max-w-xl bg-black/55 backdrop-blur-lg border border-purple-950/30 p-6 md:p-8 rounded-2xl glow-gold pointer-events-auto text-center space-y-6 select-none my-auto">
-        <!-- Visual Signature ID -->
-        <div class="flex justify-between items-center border-b border-purple-900/20 pb-3">
-          <span class="text-[10px] font-hud text-goldluxe tracking-widest uppercase">ACTIVE RECLAMATION</span>
-          <span class="text-[9px] font-mono text-gray-500">HASHID: 0xAU_SOV_184</span>
-        </div>
-
-        <!-- The Manifesto Quote -->
-        <blockquote class="text-base md:text-lg leading-relaxed text-gray-200 font-light italic">
-          "Welcome to my home on the web. I spent a long time letting third-party platforms calculate my presence and dictate my voice. I built this corner to take it back."
-        </blockquote>
-
-        <!-- Ambient Note Metadata -->
-        <div class="grid grid-cols-3 gap-2 py-3 bg-black/40 rounded-xl border border-purple-950/20 font-mono text-[9px] text-gray-400">
-          <div>
-            <span class="text-gray-600 block uppercase">Coordinate</span>
-            <span class="text-white font-bold" id="coordinateVal">HUE: 280°</span>
-          </div>
-          <div>
-            <span class="text-gray-500 block">Vocal Resonance</span>
-            <span class="text-matrix font-bold" id="resVal">0.180</span>
-          </div>
-          <div>
-            <span class="text-gray-500 block">State Vector</span>
-            <span class="text-goldluxe font-bold">SOVEREIGN</span>
-          </div>
-        </div>
-
-        <!-- Interactive Voice Audio Controls -->
-        <div class="space-y-4 pt-2">
-          <!-- Hidden Audio Element for playbacks (Users can swap 'aujoulevol.wav' with their actual uploaded file path) -->
-          <audio id="manifestoAudio" loop crossOrigin="anonymous">
-            <!-- Simulated procedural oscillator used when file is missing locally -->
-          </audio>
-
-          <div class="flex flex-col sm:flex-row gap-3">
-            <!-- Button 1: Play/Pause Manifesto -->
-            <button id="playBtn" class="flex-1 py-2.5 px-4 bg-goldluxe text-black hover:bg-yellow-400 font-bold font-hud text-[10px] tracking-widest rounded transition glow-gold uppercase">
-              Play My Voiceprint
+        <!-- Interactive Interface Switches -->
+        <div class="control-panel">
+            <button id="mic-toggle-btn" class="cyber-btn" onclick="toggleVocalTuning()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                Tune Resonance Matrix
             </button>
+            <button id="narration-btn" class="cyber-btn" onclick="toggleNarrator()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Listen to Entry
+            </button>
+        </div>
+
+        <div id="vocal-status" class="status-feed">[ Portal Standby // Ready for Resonance ]</div>
+
+        <hr class="divider">
+
+        <!-- Live Audiobook & Glowing Diary Capsule -->
+        <div class="journal-capsule">
             
-            <!-- Button 2: Interactive Real-Time Mic Capture -->
-            <button id="micButton" class="flex-grow py-2.5 px-4 bg-black/80 border border-matrix/40 text-matrix hover:bg-matrix hover:text-black font-bold font-hud text-[10px] tracking-widest rounded transition uppercase">
-              Live Mic Tuning
-            </button>
-          </div>
+            <!-- Deck 1: Audiobook & Main Atmosphere Sliders -->
+            <div class="audiobook-player-deck">
+                <div class="deck-header">
+                    <span>AUDIOBOOK JOURNAL ENGINE // V1.0</span>
+                    <span id="player-state">OFFLINE</span>
+                </div>
+                <div class="deck-controls">
+                    <div class="progress-bar-container" onclick="scrubPlayback(event)">
+                        <div id="progress-fill" class="progress-bar-fill"></div>
+                    </div>
+                    <span id="time-display" class="scrub-time">00:00</span>
+                </div>
+                
+                <div class="deck-sliders">
+                    <div class="slider-group">
+                        <span>Speed</span>
+                        <input id="narrator-speed" type="range" min="0.75" max="1.5" step="0.05" value="1.0" onchange="updateNarratorSpeed()">
+                        <span id="speed-label">1.0x</span>
+                    </div>
+                    <div class="slider-group">
+                        <span>Ambient</span>
+                        <input id="ambient-volume" type="range" min="0" max="0.3" step="0.01" value="0.1" oninput="updateAmbientVolume()">
+                        <span id="ambient-label">10%</span>
+                    </div>
+                    <!-- Dynamic Wallpaper Blur Slider -->
+                    <div class="slider-group">
+                        <span>BG Blur</span>
+                        <input id="blur-slider" type="range" min="0" max="40" step="1" value="12" oninput="updateBackgroundBlur()">
+                        <span id="blur-label">12px</span>
+                    </div>
+                </div>
+            </div>
 
-          <p class="text-[9px] text-gray-500 font-mono tracking-wide uppercase pt-1">
-            Toggle voice codes above to watch your frequency stretch, warp, and shape your 3D visual sphere in real-time.
-          </p>
+            <!-- Deck 2: Custom Music Soundboard Loader -->
+            <div class="audiobook-player-deck">
+                <div class="deck-header">
+                    <span>SOUNDTRACK PLAYER MATRIX</span>
+                    <span id="music-track-name">NO TRACK LOADED</span>
+                </div>
+                <div class="deck-controls" style="margin-top: 5px; justify-content: space-between; flex-wrap: wrap;">
+                    <label for="music-file-input" class="cyber-btn" style="font-size: 0.75rem; padding: 10px 20px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Upload Audio Track
+                    </label>
+                    <input type="file" id="music-file-input" accept="audio/*" style="display: none;" onchange="handleMusicUpload(event)">
+                    
+                    <button id="music-play-btn" class="cyber-btn" onclick="toggleMusicPlayback()" disabled style="opacity: 0.4; font-size: 0.75rem; padding: 10px 20px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Play Track
+                    </button>
+                </div>
+                <div class="deck-sliders" style="margin-top: 5px;">
+                    <div class="slider-group" style="width: 100%;">
+                        <span>Track Volume</span>
+                        <input id="music-volume" type="range" min="0" max="1" step="0.05" value="0.5" oninput="updateMusicVolume()">
+                        <span id="music-vol-label">50%</span>
+                    </div>
+                </div>
+            </div>
+
+            <span class="date-label">[ Entry 01 // Phase Initialize ]</span>
+            
+            <div id="narrative-content" class="journal-narrative">
+                <!-- Spans injected dynamically by JS -->
+            </div>
         </div>
-      </div>
-
     </main>
 
-    <!-- 3. MINIMALIST CONSOLE FOOTER -->
-    <footer class="w-full flex flex-col sm:flex-row justify-between items-center border border-purple-950/40 bg-black/70 backdrop-blur-md p-3.5 rounded-xl glow-gold pointer-events-auto">
-      <!-- System Activity Logs -->
-      <div class="flex items-center space-x-3 text-xs font-mono text-goldluxe overflow-hidden w-full sm:w-2/3">
-        <span class="font-bold text-black bg-goldluxe border border-goldluxe/40 px-2 py-0.5 rounded font-hud text-[8px] tracking-wider uppercase">CONSOLE</span>
-        <div class="truncate text-[10px] text-gray-300" id="logsFeed">
-          [08:04:59] Sovereign Sanctuary loaded. Standing by in the deep violet void...
-        </div>
-      </div>
+    <script>
+        const journalText = "Welcome to my home on the web. I spent a long time letting third-party platforms calculate my presence and dictate my voice. I built this corner to take it back. Everything posted here is for an audience of one. This space operates on local-first static architectures. There are no tracking scripts, no centralized corporate algorithms, and no psychological attention loops running in the background. Just pure code, raw thought, and evolution.";
 
-      <!-- Private Local Timeline Star Creation -->
-      <div class="mt-2.5 sm:mt-0 w-full sm:w-auto flex justify-end">
-        <button id="createStarBtn" class="w-full sm:w-auto px-4 py-1.5 bg-purple-950/40 hover:bg-purple-900/30 border border-purple-800/30 text-purple-300 hover:text-white font-hud text-[9px] uppercase tracking-widest rounded transition">
-          Add Reflection Star
-        </button>
-      </div>
-    </footer>
-
-  </div>
-
-  <script>
-    // --- NATIVE SYSTEM SECURITY MATRIX LOCK ---
-    const ABCAuEvoAujouleAuEvoAujoulEvolvE = {
-      security: { sha512: "EVOSPACE_SOVEREIGN_SYSTEM_LOCKED" }
-    };
-    Object.freeze(ABCAuEvoAujouleAuEvoAujoulEvolvE);
-
-    // --- WebGL ENVIRONMENT PARAMETERS ---
-    let scene, camera, renderer, starfield, mirrorSphere;
-    let isInteracting = false;
-    let dynamicFactor = 0.18; // Maps directly to vertex displacement (deforming mesh)
-    let hueValue = 280; // Starting deep purple spectrum hue
-    let starParticles = [];
-
-    function initWebGL() {
-      scene = new THREE.Scene();
-      
-      // Establish deep, endless purple fog with high density (creates misty depth)
-      scene.fog = new THREE.FogExp2(0x03000a, 0.012);
-
-      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000.0);
-      camera.position.set(0.0, 0.0, 50.0);
-
-      renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true, antialias: true, preserveDrawingBuffer: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
-
-      // --- 1. LIGHTING SCENE (Adding ambient dimension) ---
-      const ambientLight = new THREE.AmbientLight(0x130022, 1.8);
-      scene.add(ambientLight);
-
-      const directionalLight = new THREE.DirectionalLight(0xd4af37, 1.6);
-      directionalLight.position.set(15, 25, 10);
-      scene.add(directionalLight);
-
-      const neonPointLight = new THREE.PointLight(0x00ff7f, 1.5, 60);
-      neonPointLight.position.set(-15, -15, 10);
-      scene.add(neonPointLight);
-
-      // --- 2. THE FLOATING CONSTELLATION (1,400 coordinate stars) ---
-      const starGeometry = new THREE.BufferGeometry();
-      const starCount = 1400;
-      const positions = new Float32Array(starCount * 3);
-      for (let i = 0; i < starCount * 3; i += 3) {
-        positions[i] = (Math.random() - 0.5) * 400.0;
-        positions[i + 1] = (Math.random() - 0.5) * 400.0;
-        positions[i + 2] = (Math.random() - 0.5) * 300.0;
-      }
-      starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.45, transparent: true, opacity: 0.35 });
-      starfield = new THREE.Points(starGeometry, starMaterial);
-      scene.add(starfield);
-
-      // --- 3. THE ACTIVE EVOMIRROR (Vocal-Deforming Wireframe Sphere) ---
-      const geometry = new THREE.SphereGeometry(14.0, 64, 64);
-      setupProceduralVideoTexture();
-      
-      const videoTexture = new THREE.CanvasTexture(document.getElementById('proceduralVideoCanvas'));
-      videoTexture.minFilter = THREE.LinearFilter;
-      videoTexture.magFilter = THREE.LinearFilter;
-
-      const mirrorMaterial = new THREE.MeshPhongMaterial({ 
-        map: videoTexture, 
-        transparent: true, 
-        opacity: 0.82, 
-        wireframe: true, 
-        side: THREE.DoubleSide,
-        emissive: 0x0a001a,
-        shininess: 35
-      });
-      mirrorSphere = new THREE.Mesh(geometry, mirrorMaterial);
-      scene.add(mirrorSphere);
-
-      // Mouse drag listeners to interact with WebGL scene
-      window.addEventListener('mousedown', () => isInteracting = true);
-      window.addEventListener('mouseup', () => isInteracting = false);
-      window.addEventListener('mousemove', (e) => {
-        if (isInteracting) {
-          mirrorSphere.rotation.y += e.movementX * 0.004;
-          mirrorSphere.rotation.x += e.movementY * 0.004;
-          hueValue = (hueValue + Math.abs(e.movementX)) % 360;
-          document.getElementById('coordinateVal').innerText = `HUE: ${Math.round(hueValue)}°`;
-        }
-      });
-
-      // Handle window resizing
-      window.addEventListener('resize', resizeRenderer);
-      animate();
-    }
-
-    // Canvas fallback texture mapping rotating neon/gold-luxe circles onto the wireframe
-    let textureCanvas, textureCtx, textureAngle = 0;
-    function setupProceduralVideoTexture() {
-      textureCanvas = document.createElement('canvas');
-      textureCanvas.id = 'proceduralVideoCanvas';
-      textureCanvas.width = 256;
-      textureCanvas.height = 256;
-      textureCtx = textureCanvas.getContext('2d');
-    }
-
-    function updateProceduralVideoTexture() {
-      if (!textureCtx) return;
-      textureAngle += 0.015;
-      textureCtx.fillStyle = '#03000a';
-      textureCtx.fillRect(0, 0, 256, 256);
-      
-      // Draw golden inner rings
-      textureCtx.strokeStyle = '#d4af37';
-      textureCtx.lineWidth = 2;
-      textureCtx.beginPath();
-      textureCtx.arc(128, 128, 70 + Math.sin(textureAngle) * 15, 0, Math.PI * 2);
-      textureCtx.stroke();
-
-      // Draw neon-green accent outer ring
-      textureCtx.strokeStyle = '#00ff7f';
-      textureCtx.lineWidth = 1;
-      textureCtx.beginPath();
-      textureCtx.arc(128, 128, 85 + Math.cos(textureAngle) * 8, 0, Math.PI * 2);
-      textureCtx.stroke();
-    }
-
-    function resizeRenderer() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    // Core animation loop with real-time sinusoidal vertex mapping (deforms sphere based on voice coordinates)
-    const basePositions = new THREE.SphereGeometry(14.0, 64, 64).attributes.position.clone();
-    function animate() {
-      requestAnimationFrame(animate);
-      const time = performance.now() * 0.001;
-
-      updateProceduralVideoTexture();
-      if (mirrorSphere.material.map) {
-        mirrorSphere.material.map.needsUpdate = true;
-      }
-
-      // Rotate starfield and mirror
-      mirrorSphere.rotation.y += 0.003;
-      starfield.rotation.y = time * 0.001;
-
-      // Sinusoidal mesh displacement mapping volume/frequency inputs
-      const positionAttr = mirrorSphere.geometry.attributes.position;
-      for (let i = 0; i < positionAttr.count; i++) {
-        const x = basePositions.getX(i);
-        const y = basePositions.getY(i);
-        const z = basePositions.getZ(i);
-
-        // Sinusoidal vertex ripples driven by vocal/ambient dynamic factor
-        const wave = Math.sin(x * 0.3 + time * 4.0) * Math.cos(y * 0.3 + time * 3.0) * dynamicFactor;
+        let audioCtx, analyser, dataArray;
+        let ambientSynthNode, synthFilter, synthGain;
+        let micStream, micSource;
+        let smoothedVol = 0;
+        let isMicActive = false;
+        let isNarrating = false;
         
-        positionAttr.setXYZ(
-          i,
-          x + (x / 14.0) * wave,
-          y + (y / 14.0) * wave,
-          z + (z / 14.0) * wave
-        );
-      }
-      positionAttr.needsUpdate = true;
+        // Custom Soundtrack player variables
+        let musicAudioElement = null;
+        let musicSourceNode = null;
+        let musicGainNode = null;
 
-      // Update HUD metrics
-      document.getElementById('xRotVal').innerText = mirrorSphere.rotation.x.toFixed(3);
-      document.getElementById('yRotVal').innerText = mirrorSphere.rotation.y.toFixed(3);
-      document.getElementById('resVal').innerText = dynamicFactor.toFixed(3);
+        let utterance = null;
+        let wordsArray = [];
+        let wordSpans = [];
+        let currentWordIndex = -1;
 
-      // Perform real-time Audio Context evaluation
-      processVoiceAnalyzer();
+        const profileImage = document.getElementById('profile-image');
+        const auraPrimary = document.getElementById('aura-primary');
+        const auraSecondary = document.getElementById('aura-secondary');
+        const evosealShield = document.getElementById('evoseal-shield');
+        const vocalStatus = document.getElementById('vocal-status');
+        const micBtn = document.getElementById('mic-toggle-btn');
+        const playBtn = document.getElementById('narration-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const timeDisplay = document.getElementById('time-display');
+        const playerState = document.getElementById('player-state');
+        const speedInput = document.getElementById('narrator-speed');
+        const speedLabel = document.getElementById('speed-label');
+        const ambientInput = document.getElementById('ambient-volume');
+        const ambientLabel = document.getElementById('ambient-label');
 
-      renderer.render(scene, camera);
-    }
+        // Telemetry UI Elements
+        const teleNav = document.getElementById('tele-nav');
+        const telePerception = document.getElementById('tele-perception');
+        const tele369 = document.getElementById('tele-369');
 
-    // --- AUDIO CONTEXT ANALYSIS (Binds voice telemetry recording directly to WebGL vertices) ---
-    let audioContext, analyser, dataArray, micStream, audioSource, synthNode;
-    let isPlayingAudio = false;
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('narrative-content');
+            wordsArray = journalText.split(/\s+/);
+            
+            container.innerHTML = wordsArray.map((word, index) => {
+                return `<span id="word-${index}" class="word">${word}</span>`;
+            }).join(' ');
 
-    const playBtn = document.getElementById('playBtn');
-    const manifestoAudio = document.getElementById('manifestoAudio');
+            wordSpans = wordsArray.map((_, index) => document.getElementById(`word-${index}`));
+        });
 
-    // Web Audio Fallback synth oscillator: simulates spoken frequency waves if file is missing locally
-    function playSyntheticOscillator() {
-      if (!audioContext) return;
-      synthNode = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      
-      synthNode.type = 'sawtooth';
-      synthNode.frequency.setValueAtTime(110, audioContext.currentTime); // Low baritone frequency matching spoken voice
-      
-      // Modulate frequency over time to simulate active speech cadence
-      setInterval(() => {
-        if (!isPlayingAudio) return;
-        const randomFreq = 100 + Math.random() * 80;
-        synthNode.frequency.exponentialRampToValueAtTime(randomFreq, audioContext.currentTime + 0.15);
-      }, 200);
-
-      gainNode.gain.setValueAtTime(0.04, audioContext.currentTime); // Subtle volume so as not to overpower
-      synthNode.connect(gainNode);
-      gainNode.connect(analyser);
-      synthNode.start();
-    }
-
-    playBtn.addEventListener('click', async () => {
-      try {
-        if (!audioContext) {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          audioContext = new AudioContextClass();
-        }
-        if (audioContext.state === 'suspended') {
-          await audioContext.resume();
-        }
-
-        if (!isPlayingAudio) {
-          // Initialize analyzer
-          analyser = audioContext.createAnalyser();
-          analyser.fftSize = 64;
-          dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-          isPlayingAudio = true;
-          playBtn.innerText = "PAUSE VOICEPRINT";
-          playBtn.classList.remove('bg-goldluxe');
-          playBtn.classList.add('bg-purple-950', 'text-white');
-          pushLog("[AUDIO] Playing sovereign voice recording: 'Welcome to my home on the web...'");
-
-          // Play synthetic voice wave if there is no audio file loaded, otherwise play native file
-          if (!manifestoAudio.src || manifestoAudio.src === "") {
-            playSyntheticOscillator();
-          } else {
-            if (!audioSource) {
-              audioSource = audioContext.createMediaElementSource(manifestoAudio);
+        function ensureAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 512;
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
+                render();
             }
-            audioSource.connect(analyser);
-            analyser.connect(audioContext.destination);
-            manifestoAudio.play();
-          }
-        } else {
-          isPlayingAudio = false;
-          playBtn.innerText = "PLAY MY VOICEPRINT";
-          playBtn.classList.remove('bg-purple-950', 'text-white');
-          playBtn.classList.add('bg-goldluxe', 'text-black');
-          pushLog("[AUDIO] Voiceprint playback paused.");
-          
-          if (synthNode) {
-            synthNode.stop();
-            synthNode = null;
-          } else {
-            manifestoAudio.pause();
-          }
-          analyser = null;
-        }
-      } catch (err) {
-        console.warn("Audio Context initialization error:", err);
-      }
-    });
-
-    // --- REAL-TIME MICROPHONE SCANNING ---
-    const micButton = document.getElementById('micButton');
-    micButton.addEventListener('click', async () => {
-      try {
-        if (!audioContext) {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          audioContext = new AudioContextClass();
-        }
-        if (audioContext.state === 'suspended') {
-          await audioContext.resume();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }
 
-        if (!micStream) {
-          micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          const source = audioContext.createMediaStreamSource(micStream);
-          analyser = audioContext.createAnalyser();
-          analyser.fftSize = 64;
-          source.connect(analyser);
-          dataArray = new Uint8Array(analyser.frequencyBinCount);
-          
-          micButton.classList.remove('text-matrix', 'border-matrix/40');
-          micButton.classList.add('bg-matrix', 'text-black', 'border-transparent');
-          pushLog("[MIC] Live vocal telemetry scanning actively engaged. Speak now.");
-        } else {
-          micStream.getTracks().forEach(track => track.stop());
-          micStream = null;
-          analyser = null;
-          
-          micButton.classList.remove('bg-matrix', 'text-black', 'border-transparent');
-          micButton.classList.add('text-matrix', 'border-matrix/40');
-          pushLog("[MIC] Microphone scanner offline.");
+        // Real-Time Dynamic Background Blur Adjuster
+        function updateBackgroundBlur() {
+            const blurVal = document.getElementById('blur-slider').value;
+            document.getElementById('blur-label').textContent = `${blurVal}px`;
+            document.documentElement.style.setProperty('--bg-blur', `${blurVal}px`);
         }
-      } catch (err) {
-        pushLog("[WARNING] Mic access declined. Use the manual voiceprint player to test the visualizer.");
-      }
-    });
 
-    function processVoiceAnalyzer() {
-      if (analyser && dataArray) {
-        analyser.getByteFrequencyData(dataArray);
-        let totalVal = 0;
-        for (let i = 0; i < dataArray.length; i++) {
-          totalVal += dataArray[i];
+        // Custom Soundtrack Uploader Engine
+        function handleMusicUpload(event) {
+            ensureAudioContext();
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Display track name in capital letters for cyber aesthetics
+            document.getElementById('music-track-name').textContent = file.name.toUpperCase();
+            
+            // Create local blob reference URL
+            const fileURL = URL.createObjectURL(file);
+            
+            if (!musicAudioElement) {
+                musicAudioElement = new Audio();
+                musicAudioElement.crossOrigin = "anonymous";
+                
+                // Route soundtrack output through the same visualization analyser node
+                musicSourceNode = audioCtx.createMediaElementSource(musicAudioElement);
+                musicGainNode = audioCtx.createGain();
+                musicGainNode.gain.setValueAtTime(parseFloat(document.getElementById('music-volume').value), audioCtx.currentTime);
+                
+                musicSourceNode.connect(musicGainNode);
+                musicGainNode.connect(analyser);
+                musicGainNode.connect(audioCtx.destination);
+            }
+            
+            musicAudioElement.src = fileURL;
+            
+            // Unlock player buttons
+            const trackPlayBtn = document.getElementById('music-play-btn');
+            trackPlayBtn.removeAttribute('disabled');
+            trackPlayBtn.style.opacity = "1";
+            
+            // Auto reset buttons when soundtrack completes playback
+            musicAudioElement.onended = () => {
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
+            };
+
+            vocalStatus.textContent = "[ Custom Soundtrack Loaded & Sequenced ]";
         }
-        let normalized = totalVal / (dataArray.length * 255.0);
-        // Volumetric voice amplitude deforms WebGL sphere mesh (sinusoidal scaling)
-        dynamicFactor = THREE.MathUtils.lerp(dynamicFactor, normalized * 7.5 + 0.15, 0.2);
-      } else {
-        // Slowly float back to idle state
-        dynamicFactor = THREE.MathUtils.lerp(dynamicFactor, 0.15, 0.05);
-      }
-    }
 
-    // --- REFLECTION STAR SYSTEM (User-Generated Growth Timeline) ---
-    const createStarBtn = document.getElementById('createStarBtn');
-    createStarBtn.addEventListener('click', () => {
-      const starColor = Math.random() > 0.5 ? 0xd4af37 : 0x00ff7f; // Gold or matrix-green
-      
-      const starGeo = new THREE.BufferGeometry();
-      const pos = new Float32Array([
-        (Math.random() - 0.5) * 80.0,
-        (Math.random() - 0.5) * 80.0,
-        (Math.random() - 0.5) * 40.0
-      ]);
-      starGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      
-      const starMat = new THREE.PointsMaterial({
-        color: starColor,
-        size: 0.9,
-        transparent: true,
-        opacity: 0.95
-      });
-      const localStar = new THREE.Points(starGeo, starMat);
-      scene.add(localStar);
-      
-      pushLog(`[SOVEREIGN_STAR] Added coordinate star to your local timeline at HUE: ${Math.round(hueValue)}° | RES: ${dynamicFactor.toFixed(3)}.`);
-    });
+        function toggleMusicPlayback() {
+            ensureAudioContext();
+            if (!musicAudioElement) return;
 
-    function pushLog(message) {
-      document.getElementById('logsFeed').innerText = message;
-    }
+            const trackPlayBtn = document.getElementById('music-play-btn');
+            if (musicAudioElement.paused) {
+                musicAudioElement.play();
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Track`;
+                vocalStatus.textContent = "[ Streaming Live Audio Visualizer Sync... ]";
+            } else {
+                musicAudioElement.pause();
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
+                vocalStatus.textContent = "[ Soundstage Paused ]";
+            }
+        }
 
-    // Initialize environment
-    window.addEventListener('DOMContentLoaded', () => {
-      initWebGL();
-    });
-  </script>
+        function updateMusicVolume() {
+            const vol = parseFloat(document.getElementById('music-volume').value);
+            document.getElementById('music-vol-label').textContent = `${Math.round(vol * 100)}%`;
+            if (musicGainNode) {
+                musicGainNode.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.05);
+            }
+        }
+
+        // Procedural space-ambient synth pad drone
+        function startAmbientSoundscape() {
+            if (ambientSynthNode) return;
+
+            const osc1 = audioCtx.createOscillator();
+            osc1.type = 'sawtooth';
+            osc1.frequency.setValueAtTime(55, audioCtx.currentTime); // Low A1 root
+
+            const osc2 = audioCtx.createOscillator();
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(82.4, audioCtx.currentTime); // Harmony perfect 5th (E2)
+            osc2.detune.setValueAtTime(15, audioCtx.currentTime);
+
+            synthFilter = audioCtx.createBiquadFilter();
+            synthFilter.type = 'lowpass';
+            synthFilter.frequency.setValueAtTime(120, audioCtx.currentTime);
+            synthFilter.Q.setValueAtTime(5, audioCtx.currentTime);
+
+            const lfo = audioCtx.createOscillator();
+            const lfoGain = audioCtx.createGain();
+            lfo.frequency.setValueAtTime(0.08, audioCtx.currentTime); // Slow organic wave
+            lfoGain.gain.setValueAtTime(45, audioCtx.currentTime);
+            
+            lfo.connect(lfoGain);
+            lfoGain.connect(synthFilter.frequency);
+
+            synthGain = audioCtx.createGain();
+            const targetVolume = parseFloat(ambientInput.value);
+            synthGain.gain.setValueAtTime(0, audioCtx.currentTime);
+            synthGain.gain.linearRampToValueAtTime(targetVolume, audioCtx.currentTime + 3);
+
+            osc1.connect(synthFilter);
+            osc2.connect(synthFilter);
+            synthFilter.connect(synthGain);
+            
+            synthGain.connect(analyser);
+            analyser.connect(audioCtx.destination);
+
+            osc1.start();
+            osc2.start();
+            lfo.start();
+
+            ambientSynthNode = [osc1, osc2, lfo, lfoGain];
+        }
+
+        function stopAmbientSoundscape() {
+            if (!ambientSynthNode) return;
+            synthGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+            setTimeout(() => {
+                if (ambientSynthNode) {
+                    ambientSynthNode.forEach(node => {
+                        try { node.stop(); } catch(e) {}
+                    });
+                    ambientSynthNode = null;
+                }
+            }, 600);
+        }
+
+        function updateAmbientVolume() {
+            const vol = parseFloat(ambientInput.value);
+            ambientLabel.textContent = `${Math.round(vol * 100 / 0.3)}%`;
+            if (synthGain) {
+                synthGain.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.1);
+            }
+        }
+
+        function updateNarratorSpeed() {
+            const speed = parseFloat(speedInput.value);
+            speedLabel.textContent = `${speed.toFixed(2)}x`;
+            if (isNarrating && window.speechSynthesis) {
+                const progressRatio = currentWordIndex / wordsArray.length;
+                window.speechSynthesis.cancel();
+                triggerSpeech(progressRatio);
+            }
+        }
+
+        function toggleVocalTuning() {
+            ensureAudioContext();
+            
+            if (isMicActive) {
+                if (micStream) {
+                    micStream.getTracks().forEach(track => track.stop());
+                }
+                isMicActive = false;
+                micBtn.classList.remove('active');
+                vocalStatus.textContent = "[ Portal Standby // Ready for Resonance ]";
+                if (!isNarrating) {
+                    stopAmbientSoundscape();
+                }
+            } else {
+                if (isNarrating) toggleNarrator();
+                isMicActive = true;
+                micBtn.classList.add('active');
+                vocalStatus.textContent = "[ Connecting Vocal Feed... ]";
+
+                navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+                    .then(stream => {
+                        micStream = stream;
+                        micSource = audioCtx.createMediaStreamSource(stream);
+                        micSource.connect(analyser);
+                        vocalStatus.textContent = "[ Resonance Matrix Active // Calibrating to Your Voice ]";
+                        startAmbientSoundscape();
+                    })
+                    .catch(err => {
+                        console.error('Mic access failed:', err);
+                        isMicActive = false;
+                        micBtn.classList.remove('active');
+                        vocalStatus.textContent = "[ Calibration Failed // Mic Access Unauthorized ]";
+                    });
+            }
+        }
+
+        function toggleNarrator() {
+            ensureAudioContext();
+
+            if (isNarrating) {
+                window.speechSynthesis.cancel();
+                isNarrating = false;
+                playBtn.classList.remove('active');
+                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Listen to Entry`;
+                playerState.textContent = "STOPPED";
+                vocalStatus.textContent = "[ Narration Paused ]";
+                clearWordHighlights();
+                if (!isMicActive) stopAmbientSoundscape();
+            } else {
+                if (isMicActive) toggleVocalTuning();
+                isNarrating = true;
+                playBtn.classList.add('active');
+                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Entry`;
+                playerState.textContent = "PLAYING";
+                vocalStatus.textContent = "[ Reading Live Sovereign Journal ]";
+                
+                startAmbientSoundscape();
+                triggerSpeech(0);
+            }
+        }
+
+        function triggerSpeech(startingRatio = 0) {
+            window.speechSynthesis.cancel();
+
+            const wordStartIndex = Math.floor(startingRatio * wordsArray.length);
+            const textToSpeak = wordsArray.slice(wordStartIndex).join(' ');
+
+            utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.rate = parseFloat(speedInput.value);
+            utterance.pitch = 1.05;
+
+            const voices = window.speechSynthesis.getVoices();
+            const luxuryVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Natural") || v.lang.startsWith("en-US"));
+            if (luxuryVoice) utterance.voice = luxuryVoice;
+
+            utterance.onboundary = (event) => {
+                if (event.name === 'word') {
+                    const charIndex = event.charIndex;
+                    const subText = textToSpeak.substring(0, charIndex).trim();
+                    const subWordCount = subText ? subText.split(/\s+/).length : 0;
+                    
+                    const actualGlobalIndex = wordStartIndex + subWordCount;
+                    highlightWord(actualGlobalIndex);
+                }
+            };
+
+            utterance.onend = () => {
+                if (isNarrating) {
+                    toggleNarrator();
+                    highlightWord(-1);
+                    progressFill.style.width = "100%";
+                    timeDisplay.textContent = "04:12";
+                }
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function highlightWord(index) {
+            currentWordIndex = index;
+            clearWordHighlights();
+
+            if (index >= 0 && index < wordSpans.length) {
+                const targetSpan = wordSpans[index];
+                if (targetSpan) {
+                    targetSpan.classList.add('highlight');
+                    targetSpan.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    const ratio = index / wordSpans.length;
+                    progressFill.style.width = `${ratio * 100}%`;
+                    
+                    const totalSecs = Math.floor(ratio * 252);
+                    const mins = Math.floor(totalSecs / 60);
+                    const secs = totalSecs % 60;
+                    timeDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }
+        }
+
+        function clearWordHighlights() {
+            wordSpans.forEach(span => {
+                if (span) span.classList.remove('highlight');
+            });
+        }
+
+        function scrubPlayback(event) {
+            if (!isNarrating) return;
+            const containerWidth = event.currentTarget.clientWidth;
+            const clickX = event.offsetX;
+            const targetRatio = clickX / containerWidth;
+            
+            triggerSpeech(targetRatio);
+        }
+
+        function render() {
+            requestAnimationFrame(render);
+            if (!analyser) return;
+
+            analyser.getByteFrequencyData(dataArray);
+
+            let frequencyIntensitySum = 0;
+            const samples = 12;
+            for(let i = 0; i < samples; i++) {
+                frequencyIntensitySum += dataArray[i];
+            }
+            let liveVolume = frequencyIntensitySum / samples;
+
+            smoothedVol += (liveVolume - smoothedVol) * 0.15;
+            const normalizedIntensity = smoothedVol / 255;
+
+            // 1. Profile image smooth scaling
+            const dynamicScale = 1 + (normalizedIntensity * 0.18);
+            profileImage.style.transform = `scale(${dynamicScale})`;
+
+            // 2. High-fidelity filter adjustments (glow size and deep violet spectrum sweeps)
+            const blurGlowIntensity = 20 + (normalizedIntensity * 90);
+            const violetHueShift = normalizedIntensity * 70;
+            profileImage.style.filter = `brightness(${1 + (normalizedIntensity * 0.45)}) drop-shadow(0 0 ${blurGlowIntensity}px rgba(168, 85, 247, 0.85))`;
+
+            // 3. Audio-Reactive Image-Based Auras (Double-Layered Scaling & Shifting)
+            // Primary Aura (Close)
+            auraPrimary.style.transform = `scale(${1 + (normalizedIntensity * 1.25)}) rotate(${normalizedIntensity * 15}deg)`;
+            auraPrimary.style.opacity = 0.35 + (normalizedIntensity * 0.65);
+            auraPrimary.style.filter = `blur(${8 - (normalizedIntensity * 4)}px) brightness(${1 + (normalizedIntensity * 0.8)})`;
+
+            // Secondary Aura (Deep Ambient Atmospheric Expansion)
+            auraSecondary.style.transform = `scale(${1 + (normalizedIntensity * 1.95)}) rotate(${normalizedIntensity * -25}deg)`;
+            auraSecondary.style.opacity = 0.15 + (normalizedIntensity * 0.85);
+            auraSecondary.style.filter = `blur(${22 + (normalizedIntensity * 10)}px) brightness(${1 + (normalizedIntensity * 0.5)})`;
+
+            // 4. 🛡️ EvoSeal_DNA Shield Anharmonic Rotational Shift
+            if (evosealShield) {
+                // Rotates faster based on the amplitude
+                evosealShield.style.transform = `rotate(${normalizedIntensity * 180}deg) scale(${1 + (normalizedIntensity * 0.15)})`;
+                evosealShield.style.opacity = 0.3 + (normalizedIntensity * 0.7);
+            }
+
+            // 5. 🧬 Real-time Soul Telemetry Value Update Logic
+            if (teleNav) {
+                // Procedural "Deep_Thinking_Active" Depth Coordinate simulation
+                const mockDepth = (120.4 + (normalizedIntensity * 248.6)).toFixed(1);
+                teleNav.textContent = `DEPTH // ${mockDepth}M`;
+            }
+            if (telePerception) {
+                // Flashes tracking activity state
+                telePerception.textContent = normalizedIntensity > 0.05 ? "AU_ACTIVE" : "AUEVOLVING";
+            }
+            if (tele369) {
+                // Computes the Tesla 3-6-9 frequency values directly from respective analyzer bins
+                const val3 = dataArray[3] || 0;
+                const val6 = dataArray[6] || 0;
+                const val9 = dataArray[9] || 0;
+                const teslaResonance = ((val3 + val6 + val9) / 3 * 1.44).toFixed(1);
+                tele369.textContent = `AU // ${teslaResonance}HZ`;
+            }
+        }
+    </script>
 </body>
 </html>
