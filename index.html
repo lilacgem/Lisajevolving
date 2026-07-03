@@ -326,6 +326,7 @@
         .slider-group input[type="range"] {
             flex-grow: 1;
             -webkit-appearance: none;
+            appearance: none; /* Added standard property to resolve VS Code warning */
             background: rgba(255, 255, 255, 0.1);
             height: 4px;
             border-radius: 2px;
@@ -334,6 +335,7 @@
 
         .slider-group input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            appearance: none; /* Added standard property to resolve VS Code warning */
             width: 12px;
             height: 12px;
             border-radius: 50%;
