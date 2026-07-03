@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- 🧬 The Soul and Essence Metadata Registry -->
-    <meta name="origin" content="AuEvoJoulEvol">
+    <meta name="origin" content="LisaJEvolving">
     <meta name="signature-status" content="Encoded">
-    <meta name="identity" content="AuEvoSeal">
-    <meta name="navigation" content="Depth">
-    <meta name="perception" content="AuEvolving">
-    <meta name="369-resonance" content="Au">
+    <meta name="identity" content="LisaJEvolving">
+    <meta name="navigation" content="Flow">
+    <meta name="perception" content="PersonalFlow">
+    <meta name="369-resonance" content="Soul">
+    <meta name="domain" content="lisajevolving.com">
     <meta name="atmosphere-primary" content="InnerGlow">
     <meta name="atmosphere-bg-logic" content="Fractal_Geometry">
-    <meta name="atmosphere-protection-layer" content="EvoSeal_DNA">
-    <meta name="atmosphere-auditory-layer" content="Original_Song_Vibe">
-    <meta name="atmosphere-navigation-logic" content="Deep_Thinking_Active">
+    <meta name="atmosphere-protection-layer" content="SoulShield">
+    <meta name="atmosphere-auditory-layer" content="PersonalSoundscape">
+    <meta name="atmosphere-navigation-logic" content="Calm_Active">
 
-    <title>LisajEvokes Space</title>
+    <title>lisajevolving.com — personal sanctuary</title>
     <!-- Favicon Link -->
     <link rel="icon" href="favicon.png" type="image/png">
     <style>
@@ -96,6 +97,39 @@
             text-align: center;
             z-index: 10;
             animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .brand-banner {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            pointer-events: none;
+        }
+
+        .brand-banner h1 {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            font-size: clamp(2.8rem, 5vw, 5.2rem);
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+            color: #f5e8ff;
+            text-shadow: 0 0 28px rgba(238, 197, 255, 0.45), 0 0 6px rgba(98, 12, 135, 0.55);
+            transform: translateZ(0);
+        }
+
+        .brand-banner p {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            font-size: 0.9rem;
+            color: rgba(240, 234, 255, 0.92);
+            text-transform: uppercase;
+            letter-spacing: 0.24em;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 14px rgba(149, 77, 255, 0.3));
         }
 
         /* 🪐 Aura Profile Portal */
@@ -193,6 +227,70 @@
             z-index: 0;
         }
 
+        .extension-constellation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .extension-constellation .extension-node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(236, 72, 153, 0.55);
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.18);
+            border: 1px solid rgba(236, 72, 153, 0.25);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            pointer-events: auto;
+        }
+
+        .extension-node:nth-child(1) {
+            top: 12%;
+            left: 52%;
+        }
+
+        .extension-node:nth-child(2) {
+            bottom: 14%;
+            left: 18%;
+        }
+
+        .extension-node:nth-child(3) {
+            bottom: 18%;
+            right: 14%;
+        }
+
+        .extension-node::after {
+            content: attr(data-label);
+            position: absolute;
+            top: -1.4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(15, 6, 32, 0.88);
+            color: rgba(216, 180, 254, 0.9);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            opacity: 0;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .extension-node:hover {
+            transform: scale(1.3);
+        }
+
+        .extension-node:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-2px);
+        }
+
         /* ✍️ Clean Visual Typography */
         h1 {
             color: #ffffff;
@@ -229,9 +327,137 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
+        @media (max-width: 900px) {
+            .sanctuary-canvas {
+                padding: 40px 18px;
+                max-width: 100vw;
+            }
+
+            #profile-portal {
+                width: 240px;
+                height: 240px;
+                margin-bottom: 22px;
+            }
+
+            #aura-primary {
+                width: 160px;
+                height: 160px;
+            }
+
+            #aura-secondary {
+                width: 210px;
+                height: 210px;
+            }
+
+            #profile-image {
+                width: 130px;
+                height: 130px;
+            }
+
+            .extension-node {
+                width: 10px;
+                height: 10px;
+            }
+
+            .journal-capsule {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body {
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+            .sanctuary-viewport {
+                height: auto;
+                padding-top: 24px;
+                padding-bottom: 24px;
+                justify-content: flex-start;
+            }
+
+            .sanctuary-canvas {
+                transform: none;
+                padding: 24px 18px;
+                max-width: 100vw;
+            }
+
+            .brand-banner {
+                left: 12px;
+                top: 12px;
+            }
+
+            .brand-banner h1 {
+                font-size: clamp(2rem, 9vw, 3.2rem);
+            }
+
+            .subtitle {
+                font-size: 0.78rem;
+                margin-bottom: 28px;
+            }
+
+            .soul-telemetry-console {
+                grid-template-columns: 1fr;
+                padding: 14px;
+            }
+
+            .control-panel {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .control-panel .cyber-btn {
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 0.78rem;
+            }
+
+            .journal-capsule {
+                padding: 24px;
+            }
+
+            .deck-controls,
+            .deck-sliders,
+            .editor-actions {
+                flex-direction: column;
+            }
+
+            .slider-group {
+                min-width: 100%;
+            }
+
+            .track-manager-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
         @media (max-width: 600px) {
             .soul-telemetry-console {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .track-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .track-item button {
+                width: 100%;
+            }
+
+            .deck-controls {
+                gap: 10px;
+            }
+
+            .progress-bar-container {
+                min-height: 10px;
+            }
+
+            .date-label {
+                margin-bottom: 16px;
             }
         }
 
@@ -434,6 +660,125 @@
             box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
         }
 
+        .track-manager {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 18px;
+            padding: 16px;
+            margin-top: 10px;
+        }
+
+        .track-manager-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #cbd5e1;
+        }
+
+        .track-list {
+            display: grid;
+            gap: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .track-list-empty {
+            color: rgba(203, 213, 225, 0.55);
+            font-family: monospace;
+            font-size: 0.8rem;
+            padding: 12px 0;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(15, 6, 32, 0.72);
+            border: 1px solid rgba(168, 85, 247, 0.12);
+            border-radius: 14px;
+            font-family: monospace;
+            font-size: 0.78rem;
+            color: #e2e8f0;
+        }
+
+        .track-item.selected {
+            border-color: rgba(236, 72, 153, 0.28);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.08);
+        }
+
+        .track-item button {
+            font-size: 0.72rem;
+            padding: 6px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.06);
+            color: #f8fafc;
+            cursor: pointer;
+        }
+
+        .track-item button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .journal-editor-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .journal-editor-panel .editor-label {
+            font-family: monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            color: #d8b4fe;
+            text-transform: uppercase;
+        }
+
+        .journal-editor-panel textarea {
+            width: 100%;
+            min-height: 150px;
+            resize: vertical;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            border-radius: 16px;
+            padding: 16px;
+            background: rgba(15, 6, 32, 0.6);
+            color: #e2e8f0;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            outline: none;
+        }
+
+        .journal-editor-panel textarea::placeholder {
+            color: rgba(203, 213, 225, 0.55);
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .empty-journal {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(203, 213, 225, 0.65);
+            padding: 20px 0;
+        }
+
         /* Text Highlighting Styles */
         .date-label {
             color: #a78bfa;
@@ -479,6 +824,132 @@
         @keyframes rotateOrbit {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        /* Layout: keep everything visible without scrolling */
+        html, body {
+            height: 100%;
+            overflow: hidden; /* prevent scrollbars so content is manifesting-in-view */
+        }
+
+        .sanctuary-viewport {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* clip any overflow while we scale content */
+            box-sizing: border-box;
+        }
+
+        .sanctuary-canvas {
+            transform-origin: top center;
+            transition: transform 120ms ease-out, opacity 180ms ease;
+            max-width: 92vw;
+            box-sizing: border-box;
+        }
+
+        /* Hidden UI state */
+        .sanctuary-canvas.hidden-ui {
+            opacity: 0; /* visually hidden */
+            pointer-events: none;
+            transform: translateX(20px) scale(0.98);
+        }
+
+        /* Floating controls */
+        :root { --manifest-font: Georgia, 'Times New Roman', serif; }
+
+        .ui-controls {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+            align-items: center;
+        }
+
+        .ui-controls button {
+            width: 44px;
+            height: 44px;
+            background: rgba(0,0,0,0.55);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 50%;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--manifest-font);
+            font-size: 0.85rem;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+            opacity: 0.92;
+        }
+
+        .ui-controls button svg { width: 18px; height: 18px; }
+
+        /* Dashboard overlay */
+        .dashboard-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.45);
+            z-index: 9998;
+        }
+
+        .dashboard-overlay.hidden {
+            display: none;
+        }
+
+        .dashboard-panel {
+            width: min(720px, 92vw);
+            max-height: 80vh;
+            background: rgba(10,6,26,0.92);
+            border: 1px solid rgba(168,85,247,0.12);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #dashboard-input {
+            width: 100%;
+            height: 48vh;
+            resize: vertical;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(0,0,0,0.35);
+            color: #e6e6fa;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        /* Compact / side mode: shift all UI to the right side and reduce its footprint */
+        .sanctuary-canvas.side-compact {
+            position: absolute;
+            right: 4%;
+            top: 6%;
+            max-width: 38vw;
+            width: auto;
+            padding: 24px;
+            transform-origin: top right;
+            transform: scale(0.95) !important;
+            opacity: 0.95;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
         }
     </style>
 </head>
@@ -564,6 +1035,128 @@ function animate() {
 // Start the loop
 animate();
 
+// ---- Left-side ethereal galaxy, planets, and constellation ----
+let leftGalaxyGroup, planetGroup, constellationGroup;
+function initLeftGalaxy(){
+    leftGalaxyGroup = new THREE.Group();
+    // generate a soft spiral of particles
+    const count = 1200;
+    const geom = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    for(let i=0;i<count;i++){
+        const t = i / count;
+        const angle = t * Math.PI * 6; // multiple rotations
+        const radius = 6 + t * 120;
+        const x = -80 + Math.cos(angle) * radius * 0.6;
+        const y = (Math.sin(angle) * radius * 0.25) + (Math.random()-0.5)*6;
+        const z = -120 + (Math.sin(angle*1.3) * 40) + (Math.random()-0.5)*20;
+        positions[i*3] = x;
+        positions[i*3+1] = y;
+        positions[i*3+2] = z;
+    }
+    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const mat = new THREE.PointsMaterial({ size: 1.5, color: 0x6b21a8, transparent: true, opacity: 0.85 });
+    const points = new THREE.Points(geom, mat);
+    leftGalaxyGroup.add(points);
+    scene.add(leftGalaxyGroup);
+}
+
+function initPlanets(){
+    planetGroup = new THREE.Group();
+    const colors = [0xffd27f, 0x9ad3ff, 0xd4a3ff];
+    for(let i=0;i<3;i++){
+        const geom = new THREE.SphereGeometry(2.5 - i*0.6, 24, 24);
+        const mat = new THREE.MeshStandardMaterial({ color: colors[i], emissive: colors[i], emissiveIntensity: 0.08, roughness: 0.7 });
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.userData = { orbitRadius: 18 + i*8, orbitSpeed: 0.001 + i*0.0008, angle: Math.random()*Math.PI*2 };
+        mesh.position.set(-60 - i*6, -6 + i*2, -140 - i*20);
+        planetGroup.add(mesh);
+    }
+    scene.add(planetGroup);
+}
+
+function initConstellation(){
+    constellationGroup = new THREE.Group();
+    // default: rough Orion-like shape (simple positions)
+    const pts = [
+        {x:-30,y:20,z:-160}, // Betelgeuse
+        {x:-26,y:6,z:-150},  // Bellatrix
+        {x:-18,y:-4,z:-155}, // Rigel
+        {x:-10,y:2,z:-148},  // Saiph
+        {x:-22,y:-8,z:-152}, // Belt1
+        {x:-20,y:-10,z:-150}, // Belt2
+        {x:-18,y:-12,z:-148}  // Belt3
+    ];
+
+    const positions = [];
+    pts.forEach(p=> positions.push(p.x,p.y,p.z));
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+    const mat = new THREE.PointsMaterial({ size: 3.2, color: 0xfff6e5, transparent: true, opacity: 0.95 });
+    const stars = new THREE.Points(geom, mat);
+    constellationGroup.add(stars);
+
+    // line connecting in order
+    const lineGeom = new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+    const lineMat = new THREE.LineBasicMaterial({ color: 0xfff6e5, transparent:true, opacity:0.5 });
+    const line = new THREE.Line(lineGeom, lineMat);
+    constellationGroup.add(line);
+    scene.add(constellationGroup);
+}
+
+// init optional elements
+initLeftGalaxy();
+initPlanets();
+initConstellation();
+
+// visibility controlled by saved settings
+function applyVisualSettings(){
+    const s = JSON.parse(localStorage.getItem('visualSettings') || '{}');
+    constellationGroup.visible = s.showConstellation !== false;
+    planetGroup.visible = s.showPlanets !== false;
+    leftGalaxyGroup.visible = s.showGalaxy !== false;
+}
+applyVisualSettings();
+
+// modify animate loop for these elements
+function animate(){
+    requestAnimationFrame(animate);
+
+    // original scene motion (camera reacts to mouse and Being breathes)
+    camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
+    camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
+    camera.lookAt(etherealBeing.position);
+    stars.rotation.z += 0.0005;
+    const scale = 1 + Math.sin(Date.now() * 0.002) * 0.05;
+    etherealBeing.scale.set(scale, scale, scale);
+    etherealBeing.rotation.y += 0.008;
+
+    // left galaxy subtle rotation
+    if (leftGalaxyGroup) leftGalaxyGroup.rotation.y += 0.0008;
+
+    // animate planets in orbit
+    if (planetGroup){
+        planetGroup.children.forEach((p, idx)=>{
+            p.userData.angle += p.userData.orbitSpeed * (1 + idx*0.2);
+            const r = p.userData.orbitRadius;
+            p.position.x = -60 + Math.cos(p.userData.angle) * r;
+            p.position.z = -140 + Math.sin(p.userData.angle) * r * 0.6;
+            p.position.y = -6 + Math.sin(p.userData.angle*1.3) * 2.5;
+        });
+    }
+
+    // twinkle constellation
+    if (constellationGroup){
+        constellationGroup.children.forEach(c=>{
+            if (c.material) c.material.opacity = 0.6 + Math.abs(Math.sin(Date.now()*0.001))*0.5;
+        });
+    }
+
+    // The visualizer render
+    renderer.render(scene, camera);
+}
+
+
 // --- 4. RECORDING LOGIC ---
 const btn = document.getElementById('recordButton');
 let mediaRecorder;
@@ -597,37 +1190,48 @@ btn.onclick = async () => {
     <div class="ambient-background-image"></div>
     <div class="gradient-overlay"></div>
 
-    <main class="sanctuary-canvas">
+    <div class="brand-banner">
+        <h1>EvoMirror Resonance Room</h1>
+        <p>A personal Aujoule extension on lisajevolving.com — private, resonant, and tuned to your voice.</p>
+    </div>
+
+    <div class="sanctuary-viewport">
+    <main class="sanctuary-canvas side-compact">
         
-        <!-- Symmetrical Portrait Portal with Orbit Trails, EvoSeal_DNA Shield & Custom Aura Plates -->
+        <!-- Symmetrical Portrait Portal with Orbit Trails, SoulShield & Custom Aura Plates -->
         <div id="profile-portal">
             <div class="orbit-trail"></div>
             <div class="orbit-trail-inner"></div>
             <div id="aura-secondary"></div>
             <div id="aura-primary"></div>
             <div id="profile-image"></div>
+            <div class="extension-constellation">
+                <span class="extension-node" data-label="EvoMirror"></span>
+                <span class="extension-node" data-label="Aujoule"></span>
+                <span class="extension-node" data-label="Roots"></span>
+            </div>
         </div>
 
-        <h1>Lisa J Evolving</h1>
-        <p class="subtitle">A sovereign space. No algorithms. No judgment. Just evolution.</p>
-        
+        <h1>EvoMirror Resonance Room</h1>
+        <p class="subtitle">A private room for LisaJEvolving, bridging EvoMirror identity resonance with Aujoule presence.</p>
+
         <!-- 🧬 Dynamic Soul & Essence Telemetry Panel -->
         <section class="soul-telemetry-console">
             <div class="telemetry-block">
                 <span class="telemetry-label">Identity</span>
-                <span class="telemetry-val">AuEvoSeal</span>
+                <span class="telemetry-val">LisaJEvolving</span>
             </div>
             <div class="telemetry-block">
                 <span class="telemetry-label">Navigation</span>
-                <span id="tele-nav" class="telemetry-val">DEPTH // 0.0</span>
+                <span id="tele-nav" class="telemetry-val">FLOW // 0.0</span>
             </div>
             <div class="telemetry-block">
                 <span class="telemetry-label">Perception</span>
-                <span id="tele-perception" class="telemetry-val">AuEvolving</span>
+                <span id="tele-perception" class="telemetry-val">Personal</span>
             </div>
             <div class="telemetry-block">
                 <span class="telemetry-label">369 Resonance</span>
-                <span id="tele-369" class="telemetry-val">Au // 0.0Hz</span>
+                <span id="tele-369" class="telemetry-val">Soul // 0.0Hz</span>
             </div>
         </section>
 
@@ -635,15 +1239,20 @@ btn.onclick = async () => {
         <div class="control-panel">
             <button id="mic-toggle-btn" class="cyber-btn" onclick="toggleVocalTuning()">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                Tune Resonance Matrix
+                Voice Resonance
+            </button>
+            <button id="voice-note-btn" class="cyber-btn" type="button">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v10"/><path d="M8 17h8"/><path d="M6 10a6 6 0 0 0 12 0"/></svg>
+                Voice Note
             </button>
             <button id="narration-btn" class="cyber-btn" onclick="toggleNarrator()">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                Listen to Entry
+                Resonant Playback
             </button>
         </div>
 
-        <div id="vocal-status" class="status-feed">[ Portal Standby // Ready for Resonance ]</div>
+        <div id="vocal-status" class="status-feed">[ Quiet mode engaged // ready when you are ]</div>
+        <div id="voice-note-status" class="status-feed">[ Voice note ready — press to speak your resonance ]</div>
 
         <hr class="divider">
 
@@ -653,7 +1262,7 @@ btn.onclick = async () => {
             <!-- Deck 1: Audiobook & Main Atmosphere Sliders -->
             <div class="audiobook-player-deck">
                 <div class="deck-header">
-                    <span>AUDIOBOOK JOURNAL ENGINE // V1.0</span>
+                    <span>EvoMirror Resonant Diary // V1.0</span>
                     <span id="player-state">OFFLINE</span>
                 </div>
                 <div class="deck-controls">
@@ -674,11 +1283,19 @@ btn.onclick = async () => {
                         <input id="ambient-volume" type="range" min="0" max="0.3" step="0.01" value="0.1" oninput="updateAmbientVolume()">
                         <span id="ambient-label">10%</span>
                     </div>
-                    <!-- Dynamic Wallpaper Blur Slider -->
                     <div class="slider-group">
-                        <span>BG Blur</span>
-                        <input id="blur-slider" type="range" min="0" max="40" step="1" value="12" oninput="updateBackgroundBlur()">
-                        <span id="blur-label">12px</span>
+                                        <span>Listen</span>
+                        <input id="audio-listen-volume" type="range" min="0" max="1" step="0.05" value="0.6" oninput="updateAudioListenVolume()">
+                        <span id="audio-listen-label">60%</span>
+                    </div>
+                </div>
+
+                <div class="journal-editor-panel">
+                    <label class="editor-label" for="journal-editor">Live Journal Draft</label>
+                    <textarea id="journal-editor" placeholder="Type your thoughts here. Then tap Hear Journal to listen or let the words flow visually."></textarea>
+                    <div class="editor-actions">
+                        <button id="save-journal-btn" class="cyber-btn" type="button">Save Draft</button>
+                        <button id="clear-journal-btn" class="cyber-btn" type="button">Clear Draft</button>
                     </div>
                 </div>
             </div>
@@ -692,20 +1309,30 @@ btn.onclick = async () => {
                 <div class="deck-controls" style="margin-top: 5px; justify-content: space-between; flex-wrap: wrap;">
                     <label for="music-file-input" class="cyber-btn" style="font-size: 0.75rem; padding: 10px 20px;">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        Upload Audio Track
+                        Add Resonant Track
                     </label>
-                    <input type="file" id="music-file-input" accept="audio/*" style="display: none;" onchange="handleMusicUpload(event)">
+                    <input type="file" id="music-file-input" accept="audio/*" multiple style="display: none;" onchange="handleMusicUpload(event)">
                     
                     <button id="music-play-btn" class="cyber-btn" onclick="toggleMusicPlayback()" disabled style="opacity: 0.4; font-size: 0.75rem; padding: 10px 20px;">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                         Play Track
                     </button>
                 </div>
+                <div class="track-manager">
+                    <div class="track-manager-header">
+                        <span>Resonant Track List</span>
+                        <button id="clear-tracks-btn" class="cyber-btn" type="button">Clear All</button>
+                    </div>
+                    <div id="track-list" class="track-list">
+                        <div class="track-list-empty">No audio files loaded.</div>
+                    </div>
+                </div>
+                </div>
                 <div class="deck-sliders" style="margin-top: 5px;">
                     <div class="slider-group" style="width: 100%;">
                         <span>Track Volume</span>
-                        <input id="music-volume" type="range" min="0" max="1" step="0.05" value="0.5" oninput="updateMusicVolume()">
-                        <span id="music-vol-label">50%</span>
+                        <input id="music-volume" type="range" min="0" max="1" step="0.05" value="0.15" oninput="updateMusicVolume()">
+                        <span id="music-vol-label">15%</span>
                     </div>
                 </div>
             </div>
@@ -717,10 +1344,11 @@ btn.onclick = async () => {
             </div>
         </div>
     </main>
+    </div>
 
     <script>
-        const journalText = "Welcome to my home on the web. I spent a long time letting third-party platforms calculate my presence and dictate my voice. I built this corner to take it back. Everything posted here is for an audience of one. This space operates on local-first static architectures. There are no tracking scripts, no centralized corporate algorithms, and no psychological attention loops running in the background. Just pure code, raw thought, and evolution.";
-
+        let journalText = "Welcome to my home on the web. I spent a long time letting third-party platforms calculate my presence and dictate my voice. I built this corner to take it back. Everything posted here is for an audience of one. This space operates on local-first static architectures. There are no tracking scripts, no centralized corporate algorithms, and no psychological attention loops running in the background. Just pure code, raw thought, and evolution.";
+        let journalEditor, saveJournalBtn, clearJournalBtn, audioListenVolume, audioListenLabel;
         let audioCtx, analyser, dataArray;
         let ambientSynthNode, synthFilter, synthGain;
         let micStream, micSource;
@@ -729,9 +1357,8 @@ btn.onclick = async () => {
         let isNarrating = false;
         
         // Custom Soundtrack player variables
-        let musicAudioElement = null;
-        let musicSourceNode = null;
-        let musicGainNode = null;
+        let musicTracks = [];
+        let currentTrackIndex = -1;
 
         let utterance = null;
         let wordsArray = [];
@@ -742,6 +1369,7 @@ btn.onclick = async () => {
         const auraPrimary = document.getElementById('aura-primary');
         const auraSecondary = document.getElementById('aura-secondary');
         const evosealShield = document.getElementById('evoseal-shield');
+        const extensionNodes = Array.from(document.querySelectorAll('.extension-node'));
         const vocalStatus = document.getElementById('vocal-status');
         const micBtn = document.getElementById('mic-toggle-btn');
         const playBtn = document.getElementById('narration-btn');
@@ -752,21 +1380,48 @@ btn.onclick = async () => {
         const speedLabel = document.getElementById('speed-label');
         const ambientInput = document.getElementById('ambient-volume');
         const ambientLabel = document.getElementById('ambient-label');
+        journalEditor = document.getElementById('journal-editor');
+        saveJournalBtn = document.getElementById('save-journal-btn');
+        clearJournalBtn = document.getElementById('clear-journal-btn');
+        audioListenVolume = document.getElementById('audio-listen-volume');
+        audioListenLabel = document.getElementById('audio-listen-label');
 
         // Telemetry UI Elements
         const teleNav = document.getElementById('tele-nav');
         const telePerception = document.getElementById('tele-perception');
         const tele369 = document.getElementById('tele-369');
+        const voiceNoteBtn = document.getElementById('voice-note-btn');
+        const voiceNoteStatus = document.getElementById('voice-note-status');
+        let trackList, clearTracksBtn;
 
         window.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('narrative-content');
-            wordsArray = journalText.split(/\s+/);
-            
-            container.innerHTML = wordsArray.map((word, index) => {
-                return `<span id="word-${index}" class="word">${word}</span>`;
-            }).join(' ');
+            journalEditor = document.getElementById('journal-editor');
+            saveJournalBtn = document.getElementById('save-journal-btn');
+            clearJournalBtn = document.getElementById('clear-journal-btn');
+            audioListenVolume = document.getElementById('audio-listen-volume');
+            audioListenLabel = document.getElementById('audio-listen-label');
+            voiceNoteBtn = document.getElementById('voice-note-btn');
+            voiceNoteStatus = document.getElementById('voice-note-status');
+            trackList = document.getElementById('track-list');
+            clearTracksBtn = document.getElementById('clear-tracks-btn');
 
-            wordSpans = wordsArray.map((_, index) => document.getElementById(`word-${index}`));
+            const savedDraft = localStorage.getItem('lisajevolvingJournalDraft');
+            if (savedDraft) {
+                journalText = savedDraft;
+            }
+            journalEditor.value = journalText;
+            updateJournalPreview(journalText);
+
+            journalEditor.addEventListener('input', () => {
+                updateJournalPreview(journalEditor.value);
+            });
+            saveJournalBtn.addEventListener('click', saveJournalDraft);
+            clearJournalBtn.addEventListener('click', clearJournalDraft);
+            audioListenVolume.addEventListener('input', updateAudioListenVolume);
+            voiceNoteBtn.addEventListener('click', startVoiceNote);
+            clearTracksBtn.addEventListener('click', clearAllTracks);
+
+            tryAutoLoadAujoulevo();
         });
 
         function ensureAudioContext() {
@@ -792,65 +1447,226 @@ btn.onclick = async () => {
         // Custom Soundtrack Uploader Engine
         function handleMusicUpload(event) {
             ensureAudioContext();
-            const file = event.target.files[0];
-            if (!file) return;
+            const files = Array.from(event.target.files || []);
+            if (!files.length) return;
 
-            // Display track name in capital letters for cyber aesthetics
-            document.getElementById('music-track-name').textContent = file.name.toUpperCase();
-            
-            // Create local blob reference URL
+            files.forEach(file => addTrack(file));
+            updateTrackListUI();
+            event.target.value = '';
+            vocalStatus.textContent = `[ ${musicTracks.length} resonant track${musicTracks.length === 1 ? '' : 's'} loaded ]`;
+        }
+
+        function addTrack(file) {
             const fileURL = URL.createObjectURL(file);
-            
-            if (!musicAudioElement) {
-                musicAudioElement = new Audio();
-                musicAudioElement.crossOrigin = "anonymous";
-                
-                // Route soundtrack output through the same visualization analyser node
-                musicSourceNode = audioCtx.createMediaElementSource(musicAudioElement);
-                musicGainNode = audioCtx.createGain();
-                musicGainNode.gain.setValueAtTime(parseFloat(document.getElementById('music-volume').value), audioCtx.currentTime);
-                
-                musicSourceNode.connect(musicGainNode);
-                musicGainNode.connect(analyser);
-                musicGainNode.connect(audioCtx.destination);
-            }
-            
-            musicAudioElement.src = fileURL;
-            
-            // Unlock player buttons
-            const trackPlayBtn = document.getElementById('music-play-btn');
-            trackPlayBtn.removeAttribute('disabled');
-            trackPlayBtn.style.opacity = "1";
-            
-            // Auto reset buttons when soundtrack completes playback
-            musicAudioElement.onended = () => {
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
+            const audio = new Audio(fileURL);
+            audio.crossOrigin = 'anonymous';
+            audio.preload = 'metadata';
+
+            const sourceNode = audioCtx.createMediaElementSource(audio);
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(parseFloat(document.getElementById('music-volume').value), audioCtx.currentTime);
+            sourceNode.connect(gainNode);
+            gainNode.connect(analyser);
+            gainNode.connect(audioCtx.destination);
+
+            const track = {
+                id: `track-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+                name: file.name,
+                url: fileURL,
+                audio,
+                sourceNode,
+                gainNode
             };
 
-            vocalStatus.textContent = "[ Custom Soundtrack Loaded & Sequenced ]";
+            audio.onended = () => {
+                if (musicTracks[currentTrackIndex] && musicTracks[currentTrackIndex].id === track.id) {
+                    updatePlayButton(false);
+                }
+            };
+
+            musicTracks.push(track);
+            if (currentTrackIndex === -1) {
+                selectTrack(0);
+            }
+        }
+
+        function addBuiltInTrack(src, name) {
+            const audio = new Audio(src);
+            audio.preload = 'auto';
+            audio.crossOrigin = 'anonymous';
+            audio.volume = 0.15;
+
+            const sourceNode = audioCtx.createMediaElementSource(audio);
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(parseFloat(document.getElementById('music-volume').value), audioCtx.currentTime);
+            sourceNode.connect(gainNode);
+            gainNode.connect(analyser);
+            gainNode.connect(audioCtx.destination);
+
+            const track = {
+                id: `track-built-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+                name,
+                url: src,
+                audio,
+                sourceNode,
+                gainNode
+            };
+
+            audio.onended = () => {
+                if (musicTracks[currentTrackIndex] && musicTracks[currentTrackIndex].id === track.id) {
+                    updatePlayButton(false);
+                }
+            };
+
+            musicTracks.push(track);
+            if (currentTrackIndex === -1) {
+                selectTrack(0);
+            }
+        }
+
+        function tryAutoLoadAujoulevo() {
+            ensureAudioContext();
+            addBuiltInTrack('aujoulevol.wav', 'Aujoulevo');
+            updateTrackListUI();
+            if (musicTracks.length) {
+                const track = musicTracks[0];
+                const playBtn = document.getElementById('music-play-btn');
+                playBtn.removeAttribute('disabled');
+                playBtn.style.opacity = '1';
+                document.getElementById('music-track-name').textContent = track.name.toUpperCase();
+                track.audio.volume = 0.15;
+                track.audio.muted = false;
+                track.audio.play().then(() => {
+                    updatePlayButton(true);
+                    vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
+                }).catch(() => {
+                    updatePlayButton(false);
+                    vocalStatus.textContent = '[ Aujoulevo ready — tap play if autoplay is blocked ]';
+                });
+            }
+        }
+
+        function selectTrack(index) {
+            if (index < 0 || index >= musicTracks.length) return;
+            if (currentTrackIndex === index) return;
+
+            if (musicTracks[currentTrackIndex]) {
+                musicTracks[currentTrackIndex].audio.pause();
+                musicTracks[currentTrackIndex].audio.currentTime = 0;
+            }
+
+            currentTrackIndex = index;
+            updateTrackListUI();
+            document.getElementById('music-track-name').textContent = musicTracks[index].name.toUpperCase();
+            document.getElementById('music-play-btn').removeAttribute('disabled');
+            document.getElementById('music-play-btn').style.opacity = '1';
+        }
+
+        function updateTrackListUI() {
+            if (!trackList) return;
+            if (!musicTracks.length) {
+                trackList.innerHTML = '<div class="track-list-empty">No audio files loaded.</div>';
+                document.getElementById('music-track-name').textContent = 'NO TRACK LOADED';
+                document.getElementById('music-play-btn').setAttribute('disabled', '');
+                document.getElementById('music-play-btn').style.opacity = '0.4';
+                return;
+            }
+
+            trackList.innerHTML = musicTracks.map((track, idx) => {
+                const selectedClass = idx === currentTrackIndex ? 'selected' : '';
+                return `
+                    <div class="track-item ${selectedClass}" data-index="${idx}">
+                        <span>${track.name}</span>
+                        <div style="display:flex;gap:8px;">
+                            <button data-action="select" data-index="${idx}">Select</button>
+                            <button data-action="remove" data-index="${idx}">Remove</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            trackList.querySelectorAll('.track-item button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const action = button.getAttribute('data-action');
+                    const index = Number(button.getAttribute('data-index'));
+                    if (action === 'select') {
+                        selectTrack(index);
+                    } else if (action === 'remove') {
+                        removeTrack(index);
+                    }
+                });
+            });
+        }
+
+        function removeTrack(index) {
+            if (index < 0 || index >= musicTracks.length) return;
+
+            const track = musicTracks[index];
+            track.audio.pause();
+            track.sourceNode.disconnect();
+            track.gainNode.disconnect();
+            URL.revokeObjectURL(track.url);
+            musicTracks.splice(index, 1);
+
+            if (currentTrackIndex === index) {
+                currentTrackIndex = musicTracks.length ? 0 : -1;
+                if (currentTrackIndex >= 0) {
+                    selectTrack(currentTrackIndex);
+                }
+            } else if (currentTrackIndex > index) {
+                currentTrackIndex -= 1;
+            }
+
+            updateTrackListUI();
+            vocalStatus.textContent = `[ Track removed — ${musicTracks.length} remaining ]`;
+        }
+
+        function clearAllTracks() {
+            musicTracks.forEach(track => {
+                track.audio.pause();
+                track.sourceNode.disconnect();
+                track.gainNode.disconnect();
+                URL.revokeObjectURL(track.url);
+            });
+            musicTracks = [];
+            currentTrackIndex = -1;
+            updateTrackListUI();
+            vocalStatus.textContent = '[ All resonant tracks cleared ]';
         }
 
         function toggleMusicPlayback() {
             ensureAudioContext();
-            if (!musicAudioElement) return;
+            if (currentTrackIndex < 0 || !musicTracks[currentTrackIndex]) return;
 
+            const track = musicTracks[currentTrackIndex];
             const trackPlayBtn = document.getElementById('music-play-btn');
-            if (musicAudioElement.paused) {
-                musicAudioElement.play();
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Track`;
+            if (track.audio.paused) {
+                track.audio.play();
+                updatePlayButton(true);
                 vocalStatus.textContent = "[ Streaming Live Audio Visualizer Sync... ]";
+                playerState.textContent = 'PLAYING';
             } else {
-                musicAudioElement.pause();
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
+                track.audio.pause();
+                updatePlayButton(false);
                 vocalStatus.textContent = "[ Soundstage Paused ]";
+                playerState.textContent = 'PAUSED';
+            }
+        }
+
+        function updatePlayButton(isPlaying) {
+            const trackPlayBtn = document.getElementById('music-play-btn');
+            if (isPlaying) {
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Track`;
+            } else {
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
             }
         }
 
         function updateMusicVolume() {
             const vol = parseFloat(document.getElementById('music-volume').value);
             document.getElementById('music-vol-label').textContent = `${Math.round(vol * 100)}%`;
-            if (musicGainNode) {
-                musicGainNode.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.05);
+            if (currentTrackIndex >= 0 && musicTracks[currentTrackIndex]) {
+                musicTracks[currentTrackIndex].gainNode.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.05);
             }
         }
 
@@ -930,6 +1746,108 @@ btn.onclick = async () => {
             }
         }
 
+        function updateAudioListenVolume() {
+            const vol = parseFloat(audioListenVolume.value);
+            audioListenLabel.textContent = `${Math.round(vol * 100)}%`;
+            if (musicGainNode) {
+                const trackVol = parseFloat(document.getElementById('music-volume').value);
+                musicGainNode.gain.setTargetAtTime(trackVol * vol, audioCtx.currentTime, 0.05);
+            }
+        }
+
+        function updateJournalPreview(text) {
+            journalText = text || '';
+            const container = document.getElementById('narrative-content');
+            wordsArray = journalText.trim().length ? journalText.split(/\s+/) : [];
+            container.innerHTML = wordsArray.map((word, index) => {
+                return `<span id="word-${index}" class="word">${word}</span>`;
+            }).join(' ');
+            wordSpans = wordsArray.map((_, index) => document.getElementById(`word-${index}`));
+            if (!wordsArray.length) {
+                container.innerHTML = '<div class="empty-journal">Type something here to make the journal flow.</div>';
+            }
+        }
+
+        function saveJournalDraft() {
+            const text = journalEditor.value;
+            localStorage.setItem('lisajevolvingJournalDraft', text);
+            vocalStatus.textContent = '[ Draft saved locally ]';
+        }
+
+        function clearJournalDraft() {
+            journalEditor.value = '';
+            updateJournalPreview('');
+            localStorage.removeItem('lisajevolvingJournalDraft');
+            vocalStatus.textContent = '[ Draft cleared ]';
+        }
+
+        function startVoiceNote() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                voiceNoteStatus.textContent = '[ Speech recognition not supported in this browser ]';
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            voiceNoteStatus.textContent = '[ Listening for your voice resonance... ]';
+            voiceNoteBtn.classList.add('active');
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                const existing = journalEditor.value.trim();
+                journalEditor.value = existing ? `${existing} ${transcript}` : transcript;
+                updateJournalPreview(journalEditor.value);
+                voiceNoteStatus.textContent = `[ Voice note captured ]`;
+                saveJournalDraft();
+            };
+
+            recognition.onerror = (event) => {
+                voiceNoteStatus.textContent = `[ Voice capture failed: ${event.error} ]`;
+                voiceNoteBtn.classList.remove('active');
+            };
+
+            recognition.onend = () => {
+                voiceNoteBtn.classList.remove('active');
+                if (voiceNoteStatus.textContent.includes('Listening')) {
+                    voiceNoteStatus.textContent = '[ Voice note ready — press to speak again ]';
+                }
+            };
+        }
+
+        function toggleNarrator() {
+            ensureAudioContext();
+            updateJournalPreview(journalEditor.value);
+
+            if (isNarrating) {
+                window.speechSynthesis.cancel();
+                isNarrating = false;
+                playBtn.classList.remove('active');
+                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Hear Journal`;
+                playerState.textContent = "STOPPED";
+                vocalStatus.textContent = "[ Narration Paused ]";
+                clearWordHighlights();
+                if (!isMicActive) stopAmbientSoundscape();
+            } else {
+                if (isMicActive) toggleVocalTuning();
+                if (!journalText.trim()) {
+                    vocalStatus.textContent = "[ Nothing to read. Type your journal first. ]";
+                    return;
+                }
+                isNarrating = true;
+                playBtn.classList.add('active');
+                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause`;
+                playerState.textContent = "PLAYING";
+                vocalStatus.textContent = "[ Narration Playing ]";
+                startAmbientSoundscape();
+                triggerSpeech(0);
+            }
+        }
+
         function toggleVocalTuning() {
             ensureAudioContext();
             
@@ -939,7 +1857,7 @@ btn.onclick = async () => {
                 }
                 isMicActive = false;
                 micBtn.classList.remove('active');
-                vocalStatus.textContent = "[ Portal Standby // Ready for Resonance ]";
+                vocalStatus.textContent = "[ Quiet mode engaged // ready when you are ]";
                 if (!isNarrating) {
                     stopAmbientSoundscape();
                 }
@@ -963,31 +1881,6 @@ btn.onclick = async () => {
                         micBtn.classList.remove('active');
                         vocalStatus.textContent = "[ Calibration Failed // Mic Access Unauthorized ]";
                     });
-            }
-        }
-
-        function toggleNarrator() {
-            ensureAudioContext();
-
-            if (isNarrating) {
-                window.speechSynthesis.cancel();
-                isNarrating = false;
-                playBtn.classList.remove('active');
-                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Listen to Entry`;
-                playerState.textContent = "STOPPED";
-                vocalStatus.textContent = "[ Narration Paused ]";
-                clearWordHighlights();
-                if (!isMicActive) stopAmbientSoundscape();
-            } else {
-                if (isMicActive) toggleVocalTuning();
-                isNarrating = true;
-                playBtn.classList.add('active');
-                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Entry`;
-                playerState.textContent = "PLAYING";
-                vocalStatus.textContent = "[ Reading Live Sovereign Journal ]";
-                
-                startAmbientSoundscape();
-                triggerSpeech(0);
             }
         }
 
@@ -1100,7 +1993,14 @@ btn.onclick = async () => {
             auraSecondary.style.opacity = 0.15 + (normalizedIntensity * 0.85);
             auraSecondary.style.filter = `blur(${22 + (normalizedIntensity * 10)}px) brightness(${1 + (normalizedIntensity * 0.5)})`;
 
-            // 4. 🛡️ EvoSeal_DNA Shield Anharmonic Rotational Shift
+            // 4. Subtle constellation node resonance
+            extensionNodes.forEach((node, idx) => {
+                const nodePulse = 1 + (normalizedIntensity * 0.08) * (0.9 + idx * 0.05);
+                node.style.transform = `scale(${nodePulse})`;
+                node.style.opacity = `${0.55 + normalizedIntensity * 0.2}`;
+            });
+
+            // 5. 🛡️ EvoSeal_DNA Shield Anharmonic Rotational Shift
             if (evosealShield) {
                 // Rotates faster based on the amplitude
                 evosealShield.style.transform = `rotate(${normalizedIntensity * 180}deg) scale(${1 + (normalizedIntensity * 0.15)})`;
@@ -1115,7 +2015,7 @@ btn.onclick = async () => {
             }
             if (telePerception) {
                 // Flashes tracking activity state
-                telePerception.textContent = normalizedIntensity > 0.05 ? "AU_ACTIVE" : "AUEVOLVING";
+                telePerception.textContent = normalizedIntensity > 0.05 ? "PERSONAL_ACTIVE" : "PERSONAL_FLOW";
             }
             if (tele369) {
                 // Computes the Tesla 3-6-9 frequency values directly from respective analyzer bins
@@ -1126,6 +2026,136 @@ btn.onclick = async () => {
                 tele369.textContent = `AU // ${teslaResonance}HZ`;
             }
         }
+    </script>
+    <script>
+        (function fitToViewport(){
+            const viewport = document.querySelector('.sanctuary-viewport');
+            const canvas = document.querySelector('.sanctuary-canvas');
+            if (!viewport || !canvas) return;
+
+            function updateScale(){
+                // reset to natural size to measure
+                canvas.style.transform = 'scale(1)';
+                const vw = viewport.clientWidth;
+                const vh = viewport.clientHeight;
+                const cw = canvas.scrollWidth;
+                const ch = canvas.scrollHeight;
+
+                // compute scale that fits both width and height
+                const scaleW = vw / cw;
+                const scaleH = vh / ch;
+                const scale = Math.max(0.5, Math.min(1, Math.min(scaleW, scaleH)));
+
+                canvas.style.transform = `scale(${scale})`;
+            }
+
+            window.addEventListener('resize', updateScale);
+            window.addEventListener('load', updateScale);
+            // run shortly after load to allow images/fonts to settle
+            setTimeout(updateScale, 120);
+        })();
+    </script>
+    <!-- Floating UI controls: hide/show and open dashboard -->
+    <div class="ui-controls" aria-hidden="false">
+        <button id="toggle-ui-btn" aria-pressed="false" title="Hide UI" aria-label="Hide or show the UI">
+            <!-- eye / eye-off icon toggled by JS -->
+            <svg id="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+        <button id="open-dashboard-btn" title="Open Dashboard" aria-label="Open dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+        </button>
+    </div>
+
+    <!-- Simple dashboard overlay for quick notes/actions -->
+    <div id="dashboard-overlay" class="dashboard-overlay hidden" role="dialog" aria-modal="true">
+        <div class="dashboard-panel">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <strong style="color:#fff;">Dashboard</strong>
+                <div style="color:#a78bfa;font-family:monospace;font-size:0.85rem;">EvoMirror / Aujoule</div>
+            </div>
+            <div style="font-family:monospace;color:#cbd5e1;font-size:0.85rem;line-height:1.5;padding:10px 0;">
+                EvoMirror is your living identity room. Aujoule is the connective infrastructure. EvolvingRoots is the archive for articles, resources, and the slow growth of your personal library.
+            </div>
+            <textarea id="dashboard-input" placeholder="Enter whatever you need to manifest here..." spellcheck="false"></textarea>
+            <div class="dashboard-actions">
+                <button id="save-dashboard">Save</button>
+                <button id="close-dashboard">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // Toggle UI visibility (icon button)
+        const toggleBtn = document.getElementById('toggle-ui-btn');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const sanctuaryCanvas = document.querySelector('.sanctuary-canvas');
+        const dashboardOverlay = document.getElementById('dashboard-overlay');
+        const openDashboardBtn = document.getElementById('open-dashboard-btn');
+        const closeDashboardBtn = document.getElementById('close-dashboard');
+        const saveDashboardBtn = document.getElementById('save-dashboard');
+        const dashboardInput = document.getElementById('dashboard-input');
+
+        function setToggleState(hidden){
+            toggleBtn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+            toggleBtn.title = hidden ? 'Show UI' : 'Hide UI';
+            // eye-off when hidden
+            if (hidden) {
+                toggleIcon.innerHTML = '<path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.77 21.77 0 0 1 5.06-6.06"/><path d="M1 1l22 22"/>';
+            } else {
+                toggleIcon.innerHTML = '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>';
+            }
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = sanctuaryCanvas.classList.toggle('hidden-ui');
+            setToggleState(isHidden);
+        });
+
+        // Dashboard open/close
+        openDashboardBtn.addEventListener('click', () => {
+            // show dashboard and hide the main UI for focus
+            dashboardOverlay.classList.remove('hidden');
+            sanctuaryCanvas.classList.add('hidden-ui');
+            setToggleState(true);
+            dashboardInput.focus();
+        });
+
+        closeDashboardBtn.addEventListener('click', () => {
+            dashboardOverlay.classList.add('hidden');
+        });
+
+        saveDashboardBtn.addEventListener('click', () => {
+            const val = dashboardInput.value || '';
+            localStorage.setItem('dashboardContent', val);
+            dashboardOverlay.classList.add('hidden');
+        });
+
+        // Keyboard shortcuts: Ctrl+Shift+D opens dashboard, Ctrl+Shift+H toggles UI
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') {
+                e.preventDefault();
+                dashboardOverlay.classList.remove('hidden');
+                dashboardInput.focus();
+            }
+            if (e.ctrlKey && e.shiftKey && e.code === 'KeyH') {
+                e.preventDefault();
+                const isHidden = sanctuaryCanvas.classList.toggle('hidden-ui');
+                updateToggleLabel(isHidden);
+            }
+            if (e.key === 'Escape') {
+                dashboardOverlay.classList.add('hidden');
+            }
+        });
+
+        // Load saved dashboard content and apply serif manifest font
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('dashboardContent');
+            if (saved) dashboardInput.value = saved;
+            // apply manifest font to dashboard for comfortable writing
+            const panel = document.querySelector('.dashboard-panel');
+            if (panel) panel.style.fontFamily = getComputedStyle(document.documentElement).getPropertyValue('--manifest-font') || 'Georgia, serif';
+        });
     </script>
 </body>
 </html>
