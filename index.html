@@ -3,19 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lisaj Evokes Space</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="evo-signature" content="iVBORw0KGgoAAAAnSUhEUgAACWAAAAk6CAYAAAChWCf/AAAEJmVYSWZNTQAqAAA">
+    <title>Lisa J Evolving</title>
+    <style>
+        /* 🌌 Cinematic Quantum Canvas */
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #0d121d 0%, #030509 100%);
+            color: #e2e8f0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        /* 🛡️ Content Container */
+        .sanctuary-canvas {
+            max-width: 680px;
+            width: 100%;
+            padding: 60px 24px;
+            box-sizing: border-box;
+            text-align: center;
+            animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* 🪐 The Spectral Audio Orb */
+        #orb-container {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #core {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 35% 35%, #8032ff 0%, #3a0099 70%, #110033 100%);
+            border-radius: 50%;
+            z-index: 2;
+            transition: transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+            filter: drop-shadow(0 0 30px rgba(128, 50, 255, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #aura {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(102, 252, 241, 0.15) 0%, rgba(128, 50, 255, 0.05) 50%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: 1;
+            transition: transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.1s ease;
+            pointer-events: none;
+        }
+
+        /* 🔮 Visualizer Frequency Rings (Orbiting Particles) */
+        .frequency-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px dashed rgba(102, 252, 241, 0.2);
+            animation: rotateRing 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .frequency-ring-inner {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            border: 1px dotted rgba(128, 50, 255, 0.3);
+            animation: rotateRing 12s linear infinite reverse;
+            pointer-events: none;
+        }
+
+        /* ✍️ Clean, Minimalist Typography */
+        h1 {
+            color: #ffffff;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+        }
+
+        .subtitle {
+            color: #66fcf1; /* Custom cyan energy */
+            font-family: monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 0;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+        }
+
+        /* 🕹️ The Holographic Interface Button */
+        #tune-btn {
+            background: rgba(102, 252, 241, 0.03);
+            border: 1px solid rgba(102, 252, 241, 0.4);
+            color: #66fcf1;
+            padding: 14px 28px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #tune-btn:hover {
+            background: rgba(102, 252, 241, 0.15);
+            border-color: #66fcf1;
+            box-shadow: 0 0 25px rgba(102, 252, 241, 0.35);
+            transform: translateY(-2px);
+        }
+
+        #tune-btn:active {
+            transform: translateY(1px);
+        }
+
+        .status-container {
+            min-height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .status-text {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #45a29e;
+            opacity: 0.8;
+        }
+
+        .divider {
+            border: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin: 50px 0;
+        }
+
+        /* 📝 Premium Glassmorphic Journal Capsule */
+        .journal-entry {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journal-entry::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(102, 252, 241, 0) 0%, rgba(102, 252, 241, 0.4) 50%, rgba(102, 252, 241, 0) 100%);
+        }
+
+        .date {
+            color: #45a29e;
+            font-family: monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .journal-entry p {
+            margin: 0 0 20px 0;
+        }
+
+        .journal-entry p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 🎬 Keyframe Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
 
     <main class="sanctuary-canvas">
-        <img src="me.jpg" alt="Lisa J Evolving" class="hero-art">
+        
+        <!-- 🪐 Symmetrical Interactive Audio-Reactive System -->
+        <div id="orb-container">
+            <div class="frequency-ring"></div>
+            <div class="frequency-ring-inner"></div>
+            <div id="aura"></div>
+            <div id="core"></div>
+        </div>
 
         <h1>Lisa J Evolving</h1>
         <p class="subtitle">A sovereign space. No algorithms. No judgment. Just evolution.</p>
         
+        <div class="status-container">
+            <button id="tune-btn" onclick="initAudio()">Tune Resonance Matrix</button>
+            <div id="status" class="status-text" style="display: none;"></div>
+        </div>
+
         <hr class="divider">
 
+        <!-- 📖 Your True Story Sandbox -->
         <article class="journal-entry">
             <span class="date">[ Entry 01 // Phase Initialize ]</span>
             <p>
@@ -23,8 +238,79 @@
                 platforms calculate my presence and dictate my voice. I built this 
                 corner to take it back. Everything posted here is for an audience of one.
             </p>
+            <p>
+                This space operates on local-first static architectures. There are no tracking scripts, 
+                no centralized corporate algorithms, and no psychological attention loops running in the 
+                background. Just pure code, raw thought, and evolution.
+            </p>
         </article>
     </main>
 
+    <script>
+        let audioCtx, analyser, dataArray;
+        let smoothedVol = 0;
+        
+        const core = document.getElementById('core');
+        const aura = document.getElementById('aura');
+        const btn = document.getElementById('tune-btn');
+        const statusDiv = document.getElementById('status');
+
+        function initAudio() {
+            btn.style.display = 'none';
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = "[ Connecting Vocal Feed... ]";
+
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+                .then(stream => {
+                    statusDiv.textContent = "[ Resonance Established // Listening... ]";
+                    
+                    // Standard Web Audio Context connection
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = audioCtx.createMediaStreamSource(stream);
+                    analyser = audioCtx.createAnalyser();
+                    
+                    source.connect(analyser);
+                    analyser.fftSize = 512;
+                    dataArray = new Uint8Array(analyser.frequencyBinCount);
+                    
+                    // Launch smooth render loop
+                    render();
+                })
+                .catch(err => {
+                    console.error('Audio initialization failed:', err);
+                    statusDiv.textContent = "[ Calibration Offline // Mic Access Required ]";
+                    btn.style.display = 'inline-block';
+                });
+        }
+
+        function render() {
+            requestAnimationFrame(render);
+            analyser.getByteFrequencyData(dataArray);
+
+            // Focus purely on bass frequencies (first 15 frequency channels)
+            let bassSum = 0;
+            for(let i = 0; i < 15; i++) {
+                bassSum += dataArray[i];
+            }
+            let volume = bassSum / 15;
+
+            // Exponential smoothing to make the movement look organic and liquid
+            smoothedVol += (volume - smoothedVol) * 0.15;
+            const intensity = smoothedVol / 255;
+
+            // 1. THE BREATH: Soft fluid scaling
+            let scale = 1 + (intensity * 0.45);
+            core.style.transform = `scale(${scale})`;
+
+            // 2. THE RADIANCE: Dynamically shifts brightness, hue and drops cyan/purple backlights
+            let glow = 20 + (intensity * 80);
+            let hue = intensity * 90; // Subtle color spectrum morphing
+            core.style.filter = `brightness(${1 + (intensity * 1.5)}) hue-rotate(${hue}deg) drop-shadow(0 0 ${glow}px rgba(102, 252, 241, 0.8))`;
+
+            // 3. THE ATMOSPHERE: Expands and illuminates the outer aura
+            aura.style.transform = `scale(${1 + (intensity * 0.9)})`;
+            aura.style.opacity = 0.2 + (intensity * 0.8);
+        }
+    </script>
 </body>
 </html>
