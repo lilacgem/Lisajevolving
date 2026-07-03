@@ -6,11 +6,18 @@
     <meta name="evo-signature" content="iVBORw0KGgoAAAAnSUhEUgAACWAAAAk6CAYAAAChWCf/AAAEJmVYSWZNTQAqAAA">
     <title>Lisa J Evolving</title>
     <style>
-        /* 🌌 Cinematic Quantum Canvas */
+        /* 🌌 Deep Midnight Purple Void */
+        :root {
+            --purple-glow: rgba(168, 85, 247, 0.6);
+            --magenta-glow: rgba(236, 72, 153, 0.4);
+            --neon-accent: #d8b4fe;
+            --deep-void: #04010a;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at center, #0d121d 0%, #030509 100%);
+            background-color: var(--deep-void);
             color: #e2e8f0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
@@ -18,77 +25,127 @@
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
             letter-spacing: -0.01em;
         }
 
-        /* 🛡️ Content Container */
+        /* 🖼️ Atmospheric Background Image Blend */
+        .ambient-background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('bg.jpg'), url('background.jpg'), radial-gradient(circle at center, #160a30 0%, #03010a 100%);
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15; /* Soft, mysterious background visibility */
+            filter: blur(20px) saturate(1.2);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* 🟣 Midnight Purple Overlay */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(12, 4, 28, 0.5) 0%, #020106 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 🛡️ Sanctuary Canvas Layout */
         .sanctuary-canvas {
             max-width: 680px;
             width: 100%;
-            padding: 60px 24px;
+            padding: 80px 24px;
             box-sizing: border-box;
             text-align: center;
+            z-index: 10;
             animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* 🪐 The Spectral Audio Orb */
-        #orb-container {
+        /* 🪐 Aura Profile Portal */
+        #profile-portal {
             position: relative;
-            width: 260px;
-            height: 260px;
-            margin: 0 auto 40px auto;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 30px auto;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        #core {
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at 35% 35%, #8032ff 0%, #3a0099 70%, #110033 100%);
-            border-radius: 50%;
-            z-index: 2;
-            transition: transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
-            filter: drop-shadow(0 0 30px rgba(128, 50, 255, 0.4));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        #aura {
+        /* Ambient Dynamic Aura Layers behind photo */
+        #aura-primary {
             position: absolute;
-            width: 220px;
-            height: 220px;
-            background: radial-gradient(circle, rgba(102, 252, 241, 0.15) 0%, rgba(128, 50, 255, 0.05) 50%, rgba(0, 0, 0, 0) 70%);
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(120, 53, 188, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
             border-radius: 50%;
             z-index: 1;
-            transition: transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.1s ease;
+            transition: transform 0.1s ease, opacity 0.1s ease;
+            filter: blur(10px);
             pointer-events: none;
         }
 
-        /* 🔮 Visualizer Frequency Rings (Orbiting Particles) */
-        .frequency-ring {
+        #aura-secondary {
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 80%);
+            border-radius: 50%;
+            z-index: 1;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            filter: blur(15px);
+            pointer-events: none;
+        }
+
+        /* 🖼️ Circular Framed Profile Picture */
+        #profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            z-index: 2;
+            background-image: url('me.jpg'), url('profile.jpg'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            background-size: cover;
+            background-position: center;
+            border: 2px solid rgba(168, 85, 247, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7),
+                        0 0 40px rgba(168, 85, 247, 0.15);
+            transition: transform 0.1s ease, filter 0.1s ease;
+        }
+
+        /* Rotating Orbital Trails */
+        .orbit-trail {
             position: absolute;
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 1px dashed rgba(102, 252, 241, 0.2);
-            animation: rotateRing 20s linear infinite;
+            border: 1px dashed rgba(168, 85, 247, 0.12);
+            animation: rotateOrbit 40s linear infinite;
             pointer-events: none;
+            z-index: 0;
         }
 
-        .frequency-ring-inner {
+        .orbit-trail-inner {
             position: absolute;
-            width: 80%;
-            height: 80%;
+            width: 84%;
+            height: 84%;
             border-radius: 50%;
-            border: 1px dotted rgba(128, 50, 255, 0.3);
-            animation: rotateRing 12s linear infinite reverse;
+            border: 1px dotted rgba(236, 72, 153, 0.15);
+            animation: rotateOrbit 22s linear infinite reverse;
             pointer-events: none;
+            z-index: 0;
         }
 
-        /* ✍️ Clean, Minimalist Typography */
+        /* ✍️ Header Typography */
         h1 {
             color: #ffffff;
-            font-size: 2.4rem;
+            font-size: 2.3rem;
             font-weight: 800;
             letter-spacing: -0.04em;
             margin-bottom: 8px;
@@ -96,90 +153,190 @@
         }
 
         .subtitle {
-            color: #66fcf1; /* Custom cyan energy */
+            color: var(--neon-accent);
             font-family: monospace;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-top: 0;
             margin-bottom: 40px;
-            text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
         }
 
-        /* 🕹️ The Holographic Interface Button */
-        #tune-btn {
-            background: rgba(102, 252, 241, 0.03);
-            border: 1px solid rgba(102, 252, 241, 0.4);
-            color: #66fcf1;
-            padding: 14px 28px;
+        /* 🎙️ Holographic Button Controls */
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cyber-btn {
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            color: var(--neon-accent);
+            padding: 12px 24px;
             font-family: monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer;
             border-radius: 30px;
             backdrop-filter: blur(8px);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        #tune-btn:hover {
-            background: rgba(102, 252, 241, 0.15);
-            border-color: #66fcf1;
-            box-shadow: 0 0 25px rgba(102, 252, 241, 0.35);
+        .cyber-btn:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: #ec4899;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
             transform: translateY(-2px);
         }
 
-        #tune-btn:active {
-            transform: translateY(1px);
+        .cyber-btn.active {
+            background: rgba(236, 72, 153, 0.2);
+            border-color: #ec4899;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.4);
         }
 
-        .status-container {
-            min-height: 50px;
-            margin-bottom: 20px;
-        }
-
-        .status-text {
+        .status-feed {
             font-family: monospace;
             font-size: 0.8rem;
-            color: #45a29e;
+            color: #a78bfa;
             opacity: 0.8;
+            min-height: 20px;
+            margin-bottom: 30px;
         }
 
         .divider {
             border: 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin: 50px 0;
+            border-top: 1px solid rgba(168, 85, 247, 0.15);
+            margin: 40px 0;
         }
 
-        /* 📝 Premium Glassmorphic Journal Capsule */
-        .journal-entry {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
+        /* 📖 Glassmorphic Audiobook & Live Journal Capsule */
+        .journal-capsule {
+            background: rgba(15, 6, 32, 0.25);
+            border: 1px solid rgba(168, 85, 247, 0.12);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
             padding: 40px;
             text-align: left;
-            line-height: 1.8;
-            font-size: 1.05rem;
-            color: #cbd5e1;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
         }
 
-        .journal-entry::before {
+        .journal-capsule::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, rgba(102, 252, 241, 0) 0%, rgba(102, 252, 241, 0.4) 50%, rgba(102, 252, 241, 0) 100%);
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0) 0%, rgba(236, 72, 153, 0.4) 50%, rgba(168, 85, 247, 0) 100%);
         }
 
-        .date {
-            color: #45a29e;
+        /* 🎧 Integrated Audio Player Deck */
+        .audiobook-player-deck {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .deck-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #a78bfa;
+        }
+
+        .deck-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Scrubbing progress bar */
+        .progress-bar-container {
+            flex-grow: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+
+        .scrub-time {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            min-width: 45px;
+            text-align: right;
+        }
+
+        /* Dynamic Sliders */
+        .deck-sliders {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .slider-group {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        .slider-group input[type="range"] {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .slider-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a855f7;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+        }
+
+        /* 📖 Audiobook Text & Interactive Word Highlighting */
+        .date-label {
+            color: #a78bfa;
             font-family: monospace;
             font-size: 0.75rem;
             letter-spacing: 2px;
@@ -188,21 +345,34 @@
             text-transform: uppercase;
         }
 
-        .journal-entry p {
-            margin: 0 0 20px 0;
+        .journal-narrative {
+            line-height: 1.85;
+            font-size: 1.1rem;
+            color: #cbd5e1;
         }
 
-        .journal-entry p:last-child {
-            margin-bottom: 0;
+        /* Interactive words */
+        .word {
+            display: inline-block;
+            margin-right: 4px;
+            transition: all 0.2s ease;
+            position: relative;
         }
 
-        /* 🎬 Keyframe Animations */
+        .word.highlight {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(236, 72, 153, 0.8);
+            transform: scale(1.06);
+            font-weight: 600;
+        }
+
+        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes rotateRing {
+        @keyframes rotateOrbit {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
@@ -210,106 +380,406 @@
 </head>
 <body>
 
+    <!-- Double Image and Ambient Void Backdrop Layers -->
+    <div class="ambient-background-image"></div>
+    <div class="gradient-overlay"></div>
+
     <main class="sanctuary-canvas">
         
-        <!-- 🪐 Symmetrical Interactive Audio-Reactive System -->
-        <div id="orb-container">
-            <div class="frequency-ring"></div>
-            <div class="frequency-ring-inner"></div>
-            <div id="aura"></div>
-            <div id="core"></div>
+        <!-- Symmetrical Interactive Profile Portal -->
+        <div id="profile-portal">
+            <div class="orbit-trail"></div>
+            <div class="orbit-trail-inner"></div>
+            <div id="aura-secondary"></div>
+            <div id="aura-primary"></div>
+            <div id="profile-image"></div>
         </div>
 
         <h1>Lisa J Evolving</h1>
         <p class="subtitle">A sovereign space. No algorithms. No judgment. Just evolution.</p>
         
-        <div class="status-container">
-            <button id="tune-btn" onclick="initAudio()">Tune Resonance Matrix</button>
-            <div id="status" class="status-text" style="display: none;"></div>
+        <!-- Unified Calibration Center -->
+        <div class="control-panel">
+            <button id="mic-toggle-btn" class="cyber-btn" onclick="toggleVocalTuning()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                Tune Resonance Matrix
+            </button>
+            <button id="narration-btn" class="cyber-btn" onclick="toggleNarrator()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Listen to Entry
+            </button>
         </div>
+
+        <div id="vocal-status" class="status-feed">[ Portal Standby // Ready for Resonance ]</div>
 
         <hr class="divider">
 
-        <!-- 📖 Your True Story Sandbox -->
-        <article class="journal-entry">
-            <span class="date">[ Entry 01 // Phase Initialize ]</span>
-            <p>
-                Welcome to my home on the web. I spent a long time letting third-party 
-                platforms calculate my presence and dictate my voice. I built this 
-                corner to take it back. Everything posted here is for an audience of one.
-            </p>
-            <p>
-                This space operates on local-first static architectures. There are no tracking scripts, 
-                no centralized corporate algorithms, and no psychological attention loops running in the 
-                background. Just pure code, raw thought, and evolution.
-            </p>
-        </article>
+        <!-- Immersive Living Audiobook Journal Capsule -->
+        <div class="journal-capsule">
+            
+            <!-- Dynamic Audio Deck -->
+            <div class="audiobook-player-deck">
+                <div class="deck-header">
+                    <span>AUDIOBOOK JOURNAL ENGINE // V1.0</span>
+                    <span id="player-state">OFFLINE</span>
+                </div>
+                <div class="deck-controls">
+                    <!-- Progress Bar -->
+                    <div class="progress-bar-container" onclick="scrubPlayback(event)">
+                        <div id="progress-fill" class="progress-bar-fill"></div>
+                    </div>
+                    <span id="time-display" class="scrub-time">00:00</span>
+                </div>
+                
+                <!-- Deck Controls & Speed / Volume Sliders -->
+                <div class="deck-sliders">
+                    <div class="slider-group">
+                        <span>Speed</span>
+                        <input id="narrator-speed" type="range" min="0.75" max="1.5" step="0.05" value="1.0" onchange="updateNarratorSpeed()">
+                        <span id="speed-label">1.0x</span>
+                    </div>
+                    <div class="slider-group">
+                        <span>Ambient</span>
+                        <input id="ambient-volume" type="range" min="0" max="0.3" step="0.01" value="0.1" oninput="updateAmbientVolume()">
+                        <span id="ambient-label">10%</span>
+                    </div>
+                </div>
+            </div>
+
+            <span class="date-label">[ Entry 01 // Phase Initialize ]</span>
+            
+            <!-- Narrative Block for Interactive Word Highlighting -->
+            <div id="narrative-content" class="journal-narrative">
+                <!-- Text processed into spans dynamically by JS -->
+            </div>
+        </div>
     </main>
 
     <script>
+        // Core Text to be spoken and highlighted
+        const journalText = "Welcome to my home on the web. I spent a long time letting third-party platforms calculate my presence and dictate my voice. I built this corner to take it back. Everything posted here is for an audience of one. This space operates on local-first static architectures. There are no tracking scripts, no centralized corporate algorithms, and no psychological attention loops running in the background. Just pure code, raw thought, and evolution.";
+
+        // Audio System State
         let audioCtx, analyser, dataArray;
+        let ambientSynthNode, noiseNode, synthFilter, synthGain;
+        let micStream, micSource;
         let smoothedVol = 0;
+        let isMicActive = false;
+        let isNarrating = false;
         
-        const core = document.getElementById('core');
-        const aura = document.getElementById('aura');
-        const btn = document.getElementById('tune-btn');
-        const statusDiv = document.getElementById('status');
+        // Audiobook Narrator State
+        let utterance = null;
+        let wordsArray = [];
+        let wordSpans = [];
+        let currentWordIndex = -1;
 
-        function initAudio() {
-            btn.style.display = 'none';
-            statusDiv.style.display = 'block';
-            statusDiv.textContent = "[ Connecting Vocal Feed... ]";
+        // Elements
+        const profileImage = document.getElementById('profile-image');
+        const auraPrimary = document.getElementById('aura-primary');
+        const auraSecondary = document.getElementById('aura-secondary');
+        const vocalStatus = document.getElementById('vocal-status');
+        const micBtn = document.getElementById('mic-toggle-btn');
+        const playBtn = document.getElementById('narration-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const timeDisplay = document.getElementById('time-display');
+        const playerState = document.getElementById('player-state');
+        const speedInput = document.getElementById('narrator-speed');
+        const speedLabel = document.getElementById('speed-label');
+        const ambientInput = document.getElementById('ambient-volume');
+        const ambientLabel = document.getElementById('ambient-label');
 
-            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-                .then(stream => {
-                    statusDiv.textContent = "[ Resonance Established // Listening... ]";
-                    
-                    // Standard Web Audio Context connection
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    const source = audioCtx.createMediaStreamSource(stream);
-                    analyser = audioCtx.createAnalyser();
-                    
-                    source.connect(analyser);
-                    analyser.fftSize = 512;
-                    dataArray = new Uint8Array(analyser.frequencyBinCount);
-                    
-                    // Launch smooth render loop
-                    render();
-                })
-                .catch(err => {
-                    console.error('Audio initialization failed:', err);
-                    statusDiv.textContent = "[ Calibration Offline // Mic Access Required ]";
-                    btn.style.display = 'inline-block';
-                });
+        // On Load: Render the journal narrative words into interactive elements
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('narrative-content');
+            wordsArray = journalText.split(/\s+/);
+            
+            container.innerHTML = wordsArray.map((word, index) => {
+                return `<span id="word-${index}" class="word">${word}</span>`;
+            }).join(' ');
+
+            wordSpans = wordsArray.map((_, index) => document.getElementById(`word-${index}`));
+        });
+
+        // Initialize Audio context only after user gesture
+        function ensureAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 512;
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
+                render(); // Run permanent loop
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }
 
+        // Procedurally Synthesized Soothing Deep Midnight Ambient Drone (Web Audio Synth)
+        function startAmbientSoundscape() {
+            if (ambientSynthNode) return; // Already running
+
+            // 1. Oscillator 1 - Warm low root note (A1 = 55Hz)
+            const osc1 = audioCtx.createOscillator();
+            osc1.type = 'sawtooth';
+            osc1.frequency.setValueAtTime(55, audioCtx.currentTime);
+
+            // 2. Oscillator 2 - Perfect fifth interval harmony (E2 = 82.4Hz) detuned for chorus width
+            const osc2 = audioCtx.createOscillator();
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(82.4, audioCtx.currentTime);
+            osc2.detune.setValueAtTime(15, audioCtx.currentTime);
+
+            // 3. Low Pass Filter to remove harsh frequencies and leave a comforting deep space sub drone
+            synthFilter = audioCtx.createBiquadFilter();
+            synthFilter.type = 'lowpass';
+            synthFilter.frequency.setValueAtTime(120, audioCtx.currentTime);
+            synthFilter.Q.setValueAtTime(5, audioCtx.currentTime);
+
+            // 4. LFO to slowly automate/modulate filter frequency (Creating that breathing soundscape)
+            const lfo = audioCtx.createOscillator();
+            const lfoGain = audioCtx.createGain();
+            lfo.frequency.setValueAtTime(0.08, audioCtx.currentTime); // very slow sweep (12 seconds per cycle)
+            lfoGain.gain.setValueAtTime(45, audioCtx.currentTime); // Sweep between 75Hz and 165Hz
+            
+            lfo.connect(lfoGain);
+            lfoGain.connect(synthFilter.frequency);
+
+            // 5. Connect and route audio through the global analyser for reactive aura visualization
+            synthGain = audioCtx.createGain();
+            const targetVolume = parseFloat(ambientInput.value);
+            synthGain.gain.setValueAtTime(0, audioCtx.currentTime); // fade in gracefully
+            synthGain.gain.linearRampToValueAtTime(targetVolume, audioCtx.currentTime + 3);
+
+            osc1.connect(synthFilter);
+            osc2.connect(synthFilter);
+            synthFilter.connect(synthGain);
+            
+            // Connect to analyser so the aura dances to the ambient music
+            synthGain.connect(analyser);
+            analyser.connect(audioCtx.destination);
+
+            // Start soundscape oscillators
+            osc1.start();
+            osc2.start();
+            lfo.start();
+
+            // Save node array for cleanup
+            ambientSynthNode = [osc1, osc2, lfo, lfoGain];
+        }
+
+        function stopAmbientSoundscape() {
+            if (!ambientSynthNode) return;
+            synthGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+            setTimeout(() => {
+                if (ambientSynthNode) {
+                    ambientSynthNode.forEach(node => {
+                        try { node.stop(); } catch(e) {}
+                    });
+                    ambientSynthNode = null;
+                }
+            }, 600);
+        }
+
+        function updateAmbientVolume() {
+            const vol = parseFloat(ambientInput.value);
+            ambientLabel.textContent = `${Math.round(vol * 100 / 0.3)}%`;
+            if (synthGain) {
+                synthGain.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.1);
+            }
+        }
+
+        function updateNarratorSpeed() {
+            const speed = parseFloat(speedInput.value);
+            speedLabel.textContent = `${speed.toFixed(2)}x`;
+            if (isNarrating && window.speechSynthesis) {
+                // To apply speed changes seamlessly on standard Web Speech API, we re-trigger utterance
+                const progressRatio = currentWordIndex / wordsArray.length;
+                window.speechSynthesis.cancel();
+                triggerSpeech(progressRatio);
+            }
+        }
+
+        // Toggle Vocal/Microphone tuning visualizer
+        function toggleVocalTuning() {
+            ensureAudioContext();
+            
+            if (isMicActive) {
+                // Shut off mic
+                if (micStream) {
+                    micStream.getTracks().forEach(track => track.stop());
+                }
+                isMicActive = false;
+                micBtn.classList.remove('active');
+                vocalStatus.textContent = "[ Portal Standby // Ready for Resonance ]";
+                if (!isNarrating) {
+                    stopAmbientSoundscape();
+                }
+            } else {
+                // Turn on mic
+                if (isNarrating) toggleNarrator(); // Turn off audiobook first
+                isMicActive = true;
+                micBtn.classList.add('active');
+                vocalStatus.textContent = "[ Connecting Vocal Feed... ]";
+
+                navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+                    .then(stream => {
+                        micStream = stream;
+                        micSource = audioCtx.createMediaStreamSource(stream);
+                        micSource.connect(analyser);
+                        vocalStatus.textContent = "[ Resonance Matrix Active // Calibrating to Your Voice ]";
+                        startAmbientSoundscape(); // Turn on ambient background music drone to tune with
+                    })
+                    .catch(err => {
+                        console.error('Mic access failed:', err);
+                        isMicActive = false;
+                        micBtn.classList.remove('active');
+                        vocalStatus.textContent = "[ Calibration Failed // Mic Access Unauthorized ]";
+                    });
+            }
+        }
+
+        // Toggle Interactive Audiobook Journal Narrator
+        function toggleNarrator() {
+            ensureAudioContext();
+
+            if (isNarrating) {
+                window.speechSynthesis.cancel();
+                isNarrating = false;
+                playBtn.classList.remove('active');
+                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Listen to Entry`;
+                playerState.textContent = "STOPPED";
+                vocalStatus.textContent = "[ Narration Paused ]";
+                clearWordHighlights();
+                if (!isMicActive) stopAmbientSoundscape();
+            } else {
+                if (isMicActive) toggleVocalTuning(); // Disconnect live microphone tuning first
+                isNarrating = true;
+                playBtn.classList.add('active');
+                playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Entry`;
+                playerState.textContent = "PLAYING";
+                vocalStatus.textContent = "[ Reading Live Sovereign Journal ]";
+                
+                startAmbientSoundscape();
+                triggerSpeech(0); // Start speech synthesis from beginning
+            }
+        }
+
+        // Speech Synthesis & Highlight Sync Loop
+        function triggerSpeech(startingRatio = 0) {
+            window.speechSynthesis.cancel();
+
+            const wordStartIndex = Math.floor(startingRatio * wordsArray.length);
+            const textToSpeak = wordsArray.slice(wordStartIndex).join(' ');
+
+            utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.rate = parseFloat(speedInput.value);
+            utterance.pitch = 1.05; // Slightly enhanced pitch clarity
+
+            // Find a premium smooth reading voice
+            const voices = window.speechSynthesis.getVoices();
+            const luxuryVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Natural") || v.lang.startsWith("en-US"));
+            if (luxuryVoice) utterance.voice = luxuryVoice;
+
+            // Track character boundary events to pinpoint the spoken words in real-time
+            utterance.onboundary = (event) => {
+                if (event.name === 'word') {
+                    // Approximate text positions to index
+                    const charIndex = event.charIndex;
+                    const subText = textToSpeak.substring(0, charIndex).trim();
+                    const subWordCount = subText ? subText.split(/\s+/).length : 0;
+                    
+                    const actualGlobalIndex = wordStartIndex + subWordCount;
+                    highlightWord(actualGlobalIndex);
+                }
+            };
+
+            utterance.onend = () => {
+                if (isNarrating) {
+                    toggleNarrator(); // Gracefully reset player on finished reading
+                    highlightWord(-1);
+                    progressFill.style.width = "100%";
+                    timeDisplay.textContent = "04:12"; // Final simulated track length
+                }
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function highlightWord(index) {
+            currentWordIndex = index;
+            clearWordHighlights();
+
+            if (index >= 0 && index < wordSpans.length) {
+                const targetSpan = wordSpans[index];
+                if (targetSpan) {
+                    targetSpan.classList.add('highlight');
+                    
+                    // Smoothly scroll the journal entry container to keep the active reading visible on mobile
+                    targetSpan.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // Update progress scrub bar
+                    const ratio = index / wordSpans.length;
+                    progressFill.style.width = `${ratio * 100}%`;
+                    
+                    // Simulate minutes/seconds based on word length
+                    const totalSecs = Math.floor(ratio * 252); // Estimate 4:12 mins overall length
+                    const mins = Math.floor(totalSecs / 60);
+                    const secs = totalSecs % 60;
+                    timeDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }
+        }
+
+        function clearWordHighlights() {
+            wordSpans.forEach(span => {
+                if (span) span.classList.remove('highlight');
+            });
+        }
+
+        // Interactive Player Scrubbing Action
+        function scrubPlayback(event) {
+            if (!isNarrating) return;
+            const containerWidth = event.currentTarget.clientWidth;
+            const clickX = event.offsetX;
+            const targetRatio = clickX / containerWidth;
+            
+            triggerSpeech(targetRatio);
+        }
+
+        // Web Audio Render Loop: Translates frequency patterns into responsive visual feedback
         function render() {
             requestAnimationFrame(render);
+            if (!analyser) return;
+
             analyser.getByteFrequencyData(dataArray);
 
-            // Focus purely on bass frequencies (first 15 frequency channels)
-            let bassSum = 0;
-            for(let i = 0; i < 15; i++) {
-                bassSum += dataArray[i];
+            // Synthesize responsive visual intensity using low/bass frequencies (first 12 bins)
+            let frequencyIntensitySum = 0;
+            const samples = 12;
+            for(let i = 0; i < samples; i++) {
+                frequencyIntensitySum += dataArray[i];
             }
-            let volume = bassSum / 15;
+            let liveVolume = frequencyIntensitySum / samples;
 
-            // Exponential smoothing to make the movement look organic and liquid
-            smoothedVol += (volume - smoothedVol) * 0.15;
-            const intensity = smoothedVol / 255;
+            // Smooth volume sweeps
+            smoothedVol += (liveVolume - smoothedVol) * 0.15;
+            const normalizedIntensity = smoothedVol / 255;
 
-            // 1. THE BREATH: Soft fluid scaling
-            let scale = 1 + (intensity * 0.45);
-            core.style.transform = `scale(${scale})`;
+            // 1. Core Profile pulse
+            const dynamicScale = 1 + (normalizedIntensity * 0.2); // Clean scaling
+            profileImage.style.transform = `scale(${dynamicScale})`;
 
-            // 2. THE RADIANCE: Dynamically shifts brightness, hue and drops cyan/purple backlights
-            let glow = 20 + (intensity * 80);
-            let hue = intensity * 90; // Subtle color spectrum morphing
-            core.style.filter = `brightness(${1 + (intensity * 1.5)}) hue-rotate(${hue}deg) drop-shadow(0 0 ${glow}px rgba(102, 252, 241, 0.8))`;
+            // 2. Midnight Glow Brightness and Hue shifts based on acoustic frequencies
+            const blurGlowIntensity = 20 + (normalizedIntensity * 90);
+            const violetHueShift = normalizedIntensity * 70; // Transits beautiful purple/pinks
+            profileImage.style.filter = `brightness(${1 + (normalizedIntensity * 0.45)}) drop-shadow(0 0 ${blurGlowIntensity}px rgba(168, 85, 247, 0.85))`;
 
-            // 3. THE ATMOSPHERE: Expands and illuminates the outer aura
-            aura.style.transform = `scale(${1 + (intensity * 0.9)})`;
-            aura.style.opacity = 0.2 + (intensity * 0.8);
+            // 3. Ambient Back-Aura transformations
+            auraPrimary.style.transform = `scale(${1 + (normalizedIntensity * 1.35)})`;
+            auraPrimary.style.opacity = 0.25 + (normalizedIntensity * 0.75);
+
+            auraSecondary.style.transform = `scale(${1 + (normalizedIntensity * 0.95)})`;
+            auraSecondary.style.opacity = 0.15 + (normalizedIntensity * 0.65);
         }
     </script>
 </body>
