@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="evo-signature" content="iVBORw0KGgoAAAAnSUhEUgAACWAAAAk6CAYAAAChWCf/AAAEJmVYSWZNTQAqAAA">
+    <meta name="evo-signature" content="iVBORw0KGgoAAAAnSUhEUgAACWAAAAk6CAYAAAChWCf/AAAEJmVYSWZNTQAqAAAACQAPAQMAAwAAAAEABgAAAgEABAAAAAEAAANaAgIABAAAAAEAAJo7AQEAAwAAAAELuAAAAQ8AAgAAAAgAAADCARIAAwAAAAEAAQAAATIAAgAAABQAAADKARsABQAAAAEAAADeARoABQAAAAEAAADmAQAAAwAAAAEPoAAAARAAAgAAABEAAADuATEAAgAAAA4AAAD/AhMAAwAAAAEAAQAAh2kABAAAAAEAAAENASgAAwAAAAEAAgAAAAAAAHNhbXN1bmcAMjAyNToxMjoyNSAxNDowNToxNwAAAABIAAAAAQAAAEgAAAABR2FsYXh5IFMyNCBVbHRyYQBTOTI4VVNRUzRDWUwxAAAfkgIABQAAAAEAAAKHkAAAAgAAAAUAAAKPkgQACgAAAAEAAAKUiCIAAwAAAAEAAgAAoAEAAwAAAAH//wAApCAAAgAAAAwAAAKckgUABQAAAAEAAAKooAMAAwAAAAEJOgAAkgMACgAAAAEAAAKwkAMAAgAAAB">
     <title>Lisa J Evolving</title>
     <style>
-        /* 🌌 Deep Midnight Purple Void */
+        /* 🌌 Midnight Purple & Void Palette */
         :root {
-            --purple-glow: rgba(168, 85, 247, 0.6);
-            --magenta-glow: rgba(236, 72, 153, 0.4);
+            --purple-glow: rgba(139, 92, 246, 0.5);
+            --magenta-glow: rgba(236, 72, 153, 0.35);
             --neon-accent: #d8b4fe;
-            --deep-void: #04010a;
+            --deep-void: #030107;
         }
 
         body {
@@ -29,39 +29,40 @@
             letter-spacing: -0.01em;
         }
 
-        /* 🖼️ Atmospheric Background Image Blend */
+        /* 🖼️ Image 1: Blended Custom Wallpaper Layer (Background) */
         .ambient-background-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('bg.jpg'), url('background.jpg'), radial-gradient(circle at center, #160a30 0%, #03010a 100%);
+            /* Prioritizes your newly uploaded image.png artwork */
+            background-image: url('image.png'), url('bg.jpg'), url('background.jpg'), radial-gradient(circle at center, #14052e 0%, #020106 100%);
             background-size: cover;
             background-position: center;
-            opacity: 0.15; /* Soft, mysterious background visibility */
-            filter: blur(20px) saturate(1.2);
+            opacity: 0.22; /* Blended soft presence */
+            filter: blur(12px) saturate(1.1); /* Soft atmospheric depth */
             z-index: -2;
             pointer-events: none;
         }
 
-        /* 🟣 Midnight Purple Overlay */
+        /* 🟣 Velvet Dark Purple Overlay Gradient */
         .gradient-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(12, 4, 28, 0.5) 0%, #020106 100%);
+            background: radial-gradient(circle at center, rgba(10, 3, 24, 0.45) 0%, #010003 100%);
             z-index: -1;
             pointer-events: none;
         }
 
-        /* 🛡️ Sanctuary Canvas Layout */
+        /* 🛡️ Sanctuary Layout Column */
         .sanctuary-canvas {
             max-width: 680px;
             width: 100%;
-            padding: 80px 24px;
+            padding: 60px 24px;
             box-sizing: border-box;
             text-align: center;
             z-index: 10;
@@ -79,32 +80,41 @@
             align-items: center;
         }
 
-        /* Ambient Dynamic Aura Layers behind photo */
+        /* 🖼️ Image 2: Custom Aura Artwork (Layer 2 - Multi-staged Backplates) */
+        /* Primary close aura layer */
         #aura-primary {
             position: absolute;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(120, 53, 188, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
+            width: 190px;
+            height: 190px;
             border-radius: 50%;
+            /* Prioritizes your custom aura.png, falls back to glowing violet radial gradient */
+            background-image: url('aura.png'), radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(120, 53, 188, 0.12) 50%, rgba(0, 0, 0, 0) 75%);
+            background-size: cover;
+            background-position: center;
             z-index: 1;
             transition: transform 0.1s ease, opacity 0.1s ease;
-            filter: blur(10px);
+            filter: blur(8px) saturate(1.2);
             pointer-events: none;
         }
 
+        /* Outer, deeper blurred aura layer */
         #aura-secondary {
             position: absolute;
-            width: 230px;
-            height: 230px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 80%);
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
+            /* Uses the same aura.png but scaled, highly-blurred, and slightly rotated for organic separation */
+            background-image: url('aura.png'), radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.04) 50%, rgba(0, 0, 0, 0) 80%);
+            background-size: cover;
+            background-position: center;
             z-index: 1;
             transition: transform 0.15s ease, opacity 0.15s ease;
-            filter: blur(15px);
+            filter: blur(22px) hue-rotate(-15deg);
+            opacity: 0.7;
             pointer-events: none;
         }
 
-        /* 🖼️ Circular Framed Profile Picture */
+        /* 🖼️ Image 3: Circular Profile Frame (Layer 3 - Foreground) */
         #profile-image {
             width: 150px;
             height: 150px;
@@ -114,12 +124,12 @@
             background-size: cover;
             background-position: center;
             border: 2px solid rgba(168, 85, 247, 0.35);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7),
-                        0 0 40px rgba(168, 85, 247, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75),
+                        0 0 35px rgba(168, 85, 247, 0.15);
             transition: transform 0.1s ease, filter 0.1s ease;
         }
 
-        /* Rotating Orbital Trails */
+        /* Orbital Ring Structures */
         .orbit-trail {
             position: absolute;
             width: 100%;
@@ -142,7 +152,7 @@
             z-index: 0;
         }
 
-        /* ✍️ Header Typography */
+        /* ✍️ Clean Visual Typography */
         h1 {
             color: #ffffff;
             font-size: 2.3rem;
@@ -163,7 +173,7 @@
             text-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
         }
 
-        /* 🎙️ Holographic Button Controls */
+        /* 🕹️ Soundscape & Audio Deck Interface Controls */
         .control-panel {
             display: flex;
             justify-content: center;
@@ -220,9 +230,9 @@
             margin: 40px 0;
         }
 
-        /* 📖 Glassmorphic Audiobook & Live Journal Capsule */
+        /* 📖 Glassmorphic Audiobook & Narrative Space */
         .journal-capsule {
-            background: rgba(15, 6, 32, 0.25);
+            background: rgba(15, 6, 32, 0.3);
             border: 1px solid rgba(168, 85, 247, 0.12);
             backdrop-filter: blur(25px);
             border-radius: 24px;
@@ -243,7 +253,7 @@
             background: linear-gradient(90deg, rgba(168, 85, 247, 0) 0%, rgba(236, 72, 153, 0.4) 50%, rgba(168, 85, 247, 0) 100%);
         }
 
-        /* 🎧 Integrated Audio Player Deck */
+        /* Audio Deck Player Layout */
         .audiobook-player-deck {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -270,7 +280,6 @@
             gap: 15px;
         }
 
-        /* Scrubbing progress bar */
         .progress-bar-container {
             flex-grow: 1;
             height: 6px;
@@ -297,7 +306,6 @@
             text-align: right;
         }
 
-        /* Dynamic Sliders */
         .deck-sliders {
             display: flex;
             gap: 20px;
@@ -334,7 +342,7 @@
             box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
         }
 
-        /* 📖 Audiobook Text & Interactive Word Highlighting */
+        /* Text Highlighting Styles */
         .date-label {
             color: #a78bfa;
             font-family: monospace;
@@ -351,7 +359,6 @@
             color: #cbd5e1;
         }
 
-        /* Interactive words */
         .word {
             display: inline-block;
             margin-right: 4px;
@@ -361,12 +368,11 @@
 
         .word.highlight {
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(236, 72, 153, 0.8);
-            transform: scale(1.06);
+            text-shadow: 0 0 15px rgba(236, 72, 153, 0.85);
+            transform: scale(1.05);
             font-weight: 600;
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -380,13 +386,13 @@
 </head>
 <body>
 
-    <!-- Double Image and Ambient Void Backdrop Layers -->
+    <!-- Blended Wallpaper & Glowing Overlays -->
     <div class="ambient-background-image"></div>
     <div class="gradient-overlay"></div>
 
     <main class="sanctuary-canvas">
         
-        <!-- Symmetrical Interactive Profile Portal -->
+        <!-- Symmetrical Portrait Portal with Orbit Trails & Custom Aura Plates -->
         <div id="profile-portal">
             <div class="orbit-trail"></div>
             <div class="orbit-trail-inner"></div>
@@ -398,7 +404,7 @@
         <h1>Lisa J Evolving</h1>
         <p class="subtitle">A sovereign space. No algorithms. No judgment. Just evolution.</p>
         
-        <!-- Unified Calibration Center -->
+        <!-- Interactive Interface Switches -->
         <div class="control-panel">
             <button id="mic-toggle-btn" class="cyber-btn" onclick="toggleVocalTuning()">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
@@ -414,24 +420,21 @@
 
         <hr class="divider">
 
-        <!-- Immersive Living Audiobook Journal Capsule -->
+        <!-- Live Audiobook & Glowing Diary Capsule -->
         <div class="journal-capsule">
             
-            <!-- Dynamic Audio Deck -->
             <div class="audiobook-player-deck">
                 <div class="deck-header">
                     <span>AUDIOBOOK JOURNAL ENGINE // V1.0</span>
                     <span id="player-state">OFFLINE</span>
                 </div>
                 <div class="deck-controls">
-                    <!-- Progress Bar -->
                     <div class="progress-bar-container" onclick="scrubPlayback(event)">
                         <div id="progress-fill" class="progress-bar-fill"></div>
                     </div>
                     <span id="time-display" class="scrub-time">00:00</span>
                 </div>
                 
-                <!-- Deck Controls & Speed / Volume Sliders -->
                 <div class="deck-sliders">
                     <div class="slider-group">
                         <span>Speed</span>
@@ -448,32 +451,27 @@
 
             <span class="date-label">[ Entry 01 // Phase Initialize ]</span>
             
-            <!-- Narrative Block for Interactive Word Highlighting -->
             <div id="narrative-content" class="journal-narrative">
-                <!-- Text processed into spans dynamically by JS -->
+                <!-- Spans injected dynamically by JS -->
             </div>
         </div>
     </main>
 
     <script>
-        // Core Text to be spoken and highlighted
         const journalText = "Welcome to my home on the web. I spent a long time letting third-party platforms calculate my presence and dictate my voice. I built this corner to take it back. Everything posted here is for an audience of one. This space operates on local-first static architectures. There are no tracking scripts, no centralized corporate algorithms, and no psychological attention loops running in the background. Just pure code, raw thought, and evolution.";
 
-        // Audio System State
         let audioCtx, analyser, dataArray;
-        let ambientSynthNode, noiseNode, synthFilter, synthGain;
+        let ambientSynthNode, synthFilter, synthGain;
         let micStream, micSource;
         let smoothedVol = 0;
         let isMicActive = false;
         let isNarrating = false;
         
-        // Audiobook Narrator State
         let utterance = null;
         let wordsArray = [];
         let wordSpans = [];
         let currentWordIndex = -1;
 
-        // Elements
         const profileImage = document.getElementById('profile-image');
         const auraPrimary = document.getElementById('aura-primary');
         const auraSecondary = document.getElementById('aura-secondary');
@@ -488,7 +486,6 @@
         const ambientInput = document.getElementById('ambient-volume');
         const ambientLabel = document.getElementById('ambient-label');
 
-        // On Load: Render the journal narrative words into interactive elements
         window.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('narrative-content');
             wordsArray = journalText.split(/\s+/);
@@ -500,70 +497,61 @@
             wordSpans = wordsArray.map((_, index) => document.getElementById(`word-${index}`));
         });
 
-        // Initialize Audio context only after user gesture
         function ensureAudioContext() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 analyser = audioCtx.createAnalyser();
                 analyser.fftSize = 512;
                 dataArray = new Uint8Array(analyser.frequencyBinCount);
-                render(); // Run permanent loop
+                render();
             }
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
         }
 
-        // Procedurally Synthesized Soothing Deep Midnight Ambient Drone (Web Audio Synth)
+        // Procedural space-ambient synth pad drone
         function startAmbientSoundscape() {
-            if (ambientSynthNode) return; // Already running
+            if (ambientSynthNode) return;
 
-            // 1. Oscillator 1 - Warm low root note (A1 = 55Hz)
             const osc1 = audioCtx.createOscillator();
             osc1.type = 'sawtooth';
-            osc1.frequency.setValueAtTime(55, audioCtx.currentTime);
+            osc1.frequency.setValueAtTime(55, audioCtx.currentTime); // Low A1 root
 
-            // 2. Oscillator 2 - Perfect fifth interval harmony (E2 = 82.4Hz) detuned for chorus width
             const osc2 = audioCtx.createOscillator();
             osc2.type = 'triangle';
-            osc2.frequency.setValueAtTime(82.4, audioCtx.currentTime);
+            osc2.frequency.setValueAtTime(82.4, audioCtx.currentTime); // Harmony perfect 5th (E2)
             osc2.detune.setValueAtTime(15, audioCtx.currentTime);
 
-            // 3. Low Pass Filter to remove harsh frequencies and leave a comforting deep space sub drone
             synthFilter = audioCtx.createBiquadFilter();
             synthFilter.type = 'lowpass';
             synthFilter.frequency.setValueAtTime(120, audioCtx.currentTime);
             synthFilter.Q.setValueAtTime(5, audioCtx.currentTime);
 
-            // 4. LFO to slowly automate/modulate filter frequency (Creating that breathing soundscape)
             const lfo = audioCtx.createOscillator();
             const lfoGain = audioCtx.createGain();
-            lfo.frequency.setValueAtTime(0.08, audioCtx.currentTime); // very slow sweep (12 seconds per cycle)
-            lfoGain.gain.setValueAtTime(45, audioCtx.currentTime); // Sweep between 75Hz and 165Hz
+            lfo.frequency.setValueAtTime(0.08, audioCtx.currentTime); // Slow organic wave
+            lfoGain.gain.setValueAtTime(45, audioCtx.currentTime);
             
             lfo.connect(lfoGain);
             lfoGain.connect(synthFilter.frequency);
 
-            // 5. Connect and route audio through the global analyser for reactive aura visualization
             synthGain = audioCtx.createGain();
             const targetVolume = parseFloat(ambientInput.value);
-            synthGain.gain.setValueAtTime(0, audioCtx.currentTime); // fade in gracefully
+            synthGain.gain.setValueAtTime(0, audioCtx.currentTime);
             synthGain.gain.linearRampToValueAtTime(targetVolume, audioCtx.currentTime + 3);
 
             osc1.connect(synthFilter);
             osc2.connect(synthFilter);
             synthFilter.connect(synthGain);
             
-            // Connect to analyser so the aura dances to the ambient music
             synthGain.connect(analyser);
             analyser.connect(audioCtx.destination);
 
-            // Start soundscape oscillators
             osc1.start();
             osc2.start();
             lfo.start();
 
-            // Save node array for cleanup
             ambientSynthNode = [osc1, osc2, lfo, lfoGain];
         }
 
@@ -592,19 +580,16 @@
             const speed = parseFloat(speedInput.value);
             speedLabel.textContent = `${speed.toFixed(2)}x`;
             if (isNarrating && window.speechSynthesis) {
-                // To apply speed changes seamlessly on standard Web Speech API, we re-trigger utterance
                 const progressRatio = currentWordIndex / wordsArray.length;
                 window.speechSynthesis.cancel();
                 triggerSpeech(progressRatio);
             }
         }
 
-        // Toggle Vocal/Microphone tuning visualizer
         function toggleVocalTuning() {
             ensureAudioContext();
             
             if (isMicActive) {
-                // Shut off mic
                 if (micStream) {
                     micStream.getTracks().forEach(track => track.stop());
                 }
@@ -615,8 +600,7 @@
                     stopAmbientSoundscape();
                 }
             } else {
-                // Turn on mic
-                if (isNarrating) toggleNarrator(); // Turn off audiobook first
+                if (isNarrating) toggleNarrator();
                 isMicActive = true;
                 micBtn.classList.add('active');
                 vocalStatus.textContent = "[ Connecting Vocal Feed... ]";
@@ -627,7 +611,7 @@
                         micSource = audioCtx.createMediaStreamSource(stream);
                         micSource.connect(analyser);
                         vocalStatus.textContent = "[ Resonance Matrix Active // Calibrating to Your Voice ]";
-                        startAmbientSoundscape(); // Turn on ambient background music drone to tune with
+                        startAmbientSoundscape();
                     })
                     .catch(err => {
                         console.error('Mic access failed:', err);
@@ -638,7 +622,6 @@
             }
         }
 
-        // Toggle Interactive Audiobook Journal Narrator
         function toggleNarrator() {
             ensureAudioContext();
 
@@ -652,7 +635,7 @@
                 clearWordHighlights();
                 if (!isMicActive) stopAmbientSoundscape();
             } else {
-                if (isMicActive) toggleVocalTuning(); // Disconnect live microphone tuning first
+                if (isMicActive) toggleVocalTuning();
                 isNarrating = true;
                 playBtn.classList.add('active');
                 playBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Entry`;
@@ -660,11 +643,10 @@
                 vocalStatus.textContent = "[ Reading Live Sovereign Journal ]";
                 
                 startAmbientSoundscape();
-                triggerSpeech(0); // Start speech synthesis from beginning
+                triggerSpeech(0);
             }
         }
 
-        // Speech Synthesis & Highlight Sync Loop
         function triggerSpeech(startingRatio = 0) {
             window.speechSynthesis.cancel();
 
@@ -673,17 +655,14 @@
 
             utterance = new SpeechSynthesisUtterance(textToSpeak);
             utterance.rate = parseFloat(speedInput.value);
-            utterance.pitch = 1.05; // Slightly enhanced pitch clarity
+            utterance.pitch = 1.05;
 
-            // Find a premium smooth reading voice
             const voices = window.speechSynthesis.getVoices();
             const luxuryVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Natural") || v.lang.startsWith("en-US"));
             if (luxuryVoice) utterance.voice = luxuryVoice;
 
-            // Track character boundary events to pinpoint the spoken words in real-time
             utterance.onboundary = (event) => {
                 if (event.name === 'word') {
-                    // Approximate text positions to index
                     const charIndex = event.charIndex;
                     const subText = textToSpeak.substring(0, charIndex).trim();
                     const subWordCount = subText ? subText.split(/\s+/).length : 0;
@@ -695,10 +674,10 @@
 
             utterance.onend = () => {
                 if (isNarrating) {
-                    toggleNarrator(); // Gracefully reset player on finished reading
+                    toggleNarrator();
                     highlightWord(-1);
                     progressFill.style.width = "100%";
-                    timeDisplay.textContent = "04:12"; // Final simulated track length
+                    timeDisplay.textContent = "04:12";
                 }
             };
 
@@ -713,16 +692,12 @@
                 const targetSpan = wordSpans[index];
                 if (targetSpan) {
                     targetSpan.classList.add('highlight');
-                    
-                    // Smoothly scroll the journal entry container to keep the active reading visible on mobile
                     targetSpan.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     
-                    // Update progress scrub bar
                     const ratio = index / wordSpans.length;
                     progressFill.style.width = `${ratio * 100}%`;
                     
-                    // Simulate minutes/seconds based on word length
-                    const totalSecs = Math.floor(ratio * 252); // Estimate 4:12 mins overall length
+                    const totalSecs = Math.floor(ratio * 252);
                     const mins = Math.floor(totalSecs / 60);
                     const secs = totalSecs % 60;
                     timeDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
@@ -736,7 +711,6 @@
             });
         }
 
-        // Interactive Player Scrubbing Action
         function scrubPlayback(event) {
             if (!isNarrating) return;
             const containerWidth = event.currentTarget.clientWidth;
@@ -746,14 +720,12 @@
             triggerSpeech(targetRatio);
         }
 
-        // Web Audio Render Loop: Translates frequency patterns into responsive visual feedback
         function render() {
             requestAnimationFrame(render);
             if (!analyser) return;
 
             analyser.getByteFrequencyData(dataArray);
 
-            // Synthesize responsive visual intensity using low/bass frequencies (first 12 bins)
             let frequencyIntensitySum = 0;
             const samples = 12;
             for(let i = 0; i < samples; i++) {
@@ -761,25 +733,28 @@
             }
             let liveVolume = frequencyIntensitySum / samples;
 
-            // Smooth volume sweeps
             smoothedVol += (liveVolume - smoothedVol) * 0.15;
             const normalizedIntensity = smoothedVol / 255;
 
-            // 1. Core Profile pulse
-            const dynamicScale = 1 + (normalizedIntensity * 0.2); // Clean scaling
+            // 1. Profile image smooth scaling
+            const dynamicScale = 1 + (normalizedIntensity * 0.18);
             profileImage.style.transform = `scale(${dynamicScale})`;
 
-            // 2. Midnight Glow Brightness and Hue shifts based on acoustic frequencies
+            // 2. High-fidelity filter adjustments (glow size and deep violet spectrum sweeps)
             const blurGlowIntensity = 20 + (normalizedIntensity * 90);
-            const violetHueShift = normalizedIntensity * 70; // Transits beautiful purple/pinks
+            const violetHueShift = normalizedIntensity * 70;
             profileImage.style.filter = `brightness(${1 + (normalizedIntensity * 0.45)}) drop-shadow(0 0 ${blurGlowIntensity}px rgba(168, 85, 247, 0.85))`;
 
-            // 3. Ambient Back-Aura transformations
-            auraPrimary.style.transform = `scale(${1 + (normalizedIntensity * 1.35)})`;
-            auraPrimary.style.opacity = 0.25 + (normalizedIntensity * 0.75);
+            // 3. Audio-Reactive Image-Based Auras (Double-Layered Scaling & Shifting)
+            // Primary Aura (Close)
+            auraPrimary.style.transform = `scale(${1 + (normalizedIntensity * 1.25)}) rotate(${normalizedIntensity * 15}deg)`;
+            auraPrimary.style.opacity = 0.35 + (normalizedIntensity * 0.65);
+            auraPrimary.style.filter = `blur(${8 - (normalizedIntensity * 4)}px) brightness(${1 + (normalizedIntensity * 0.8)})`;
 
-            auraSecondary.style.transform = `scale(${1 + (normalizedIntensity * 0.95)})`;
-            auraSecondary.style.opacity = 0.15 + (normalizedIntensity * 0.65);
+            // Secondary Aura (Deep Ambient Atmospheric Expansion)
+            auraSecondary.style.transform = `scale(${1 + (normalizedIntensity * 1.95)}) rotate(${normalizedIntensity * -25}deg)`;
+            auraSecondary.style.opacity = 0.15 + (normalizedIntensity * 0.85);
+            auraSecondary.style.filter = `blur(${22 + (normalizedIntensity * 10)}px) brightness(${1 + (normalizedIntensity * 0.5)})`;
         }
     </script>
 </body>
