@@ -27,7 +27,7 @@
             --magenta-glow: rgba(236, 72, 153, 0.35);
             --neon-accent: #d8b4fe;
             --deep-void: #030107;
-            --bg-blur: 12px; /* Controlled dynamically in real-time */
+            --bg-blur: 0px; /* blur removed per user preference */
         }
 
         body {
@@ -68,7 +68,7 @@
             /* Blend the top image with the underlying gradient/texture for a soft, visible presence */
             background-blend-mode: overlay;
             opacity: 0.65; /* More visible while still blended */
-            filter: blur(var(--bg-blur)) saturate(1.05) contrast(0.98); /* Soft atmospheric depth */
+            filter: saturate(1.05) contrast(0.98); /* Blur removed for crisper aesthetic */
             z-index: -2;
             pointer-events: none;
             transition: filter 0.15s ease-out, opacity 0.2s ease;
