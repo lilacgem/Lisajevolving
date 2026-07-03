@@ -1168,32 +1168,60 @@ function animate(){
 }
 
 
-// --- 4. RECORDING LOGIC ---
-const btn = document.getElementById('recordButton');
-let mediaRecorder;
-let chunks = [];
+// --- 4. VOICE RECORDING LOGIC ---
 
-btn.onclick = async () => {
-    if (mediaRecorder && mediaRecorder.state === "recording") {
-        mediaRecorder.stop();
-        btn.innerText = "START RECORDING";
-    } else {
-        const stream = document.querySelector('#bg').captureStream(30);
-        mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.ondataavailable = e => chunks.push(e.data);
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'video/webm' });
+function toggleVoiceRecording() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        voiceRecordStatus.textContent = '[ Microphone access is not supported by this browser ]';
+        return;
+    }
+
+    if (voiceMediaRecorder && voiceMediaRecorder.state === 'recording') {
+        voiceMediaRecorder.stop();
+        return;
+    }
+
+    startVoiceRecording();
+}
+
+async function startVoiceRecording() {
+    try {
+        voiceRecordingStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        voiceChunks = [];
+        voiceMediaRecorder = new MediaRecorder(voiceRecordingStream);
+
+        voiceMediaRecorder.ondataavailable = event => {
+            if (event.data && event.data.size > 0) {
+                voiceChunks.push(event.data);
+            }
+        };
+
+        voiceMediaRecorder.onstop = () => {
+            const blob = new Blob(voiceChunks, { type: 'audio/webm' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'being-voyage.webm';
+            a.download = 'voice-note.webm';
             a.click();
-            chunks = [];
+            voiceRecordStatus.innerHTML = '[ Voice capture saved locally ] <span style="opacity:0.8; font-size:0.85rem; display:block; margin-top:4px;">File downloaded: voice-note.webm</span>';
+            voiceRecordingStream.getTracks().forEach(track => track.stop());
+            voiceRecordingStream = null;
+            voiceMediaRecorder = null;
+            recordVoiceBtn.classList.remove('active');
         };
-        mediaRecorder.start();
-        btn.innerText = "STOP RECORDING";
+
+        voiceMediaRecorder.start();
+        voiceRecordStatus.textContent = '[ Recording your voice — press again to stop ]';
+        recordVoiceBtn.classList.add('active');
+    } catch (error) {
+        console.error('Voice recording failed:', error);
+        voiceRecordStatus.textContent = '[ Microphone access denied or unavailable ]';
+        if (voiceRecordingStream) {
+            voiceRecordingStream.getTracks().forEach(track => track.stop());
+            voiceRecordingStream = null;
+        }
     }
-}; 
+}
 </script>
 <body>
     <canvas id="bg"></canvas>
@@ -1257,6 +1285,10 @@ btn.onclick = async () => {
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v10"/><path d="M8 17h8"/><path d="M6 10a6 6 0 0 0 12 0"/></svg>
                 Voice Note
             </button>
+            <button id="record-voice-btn" class="cyber-btn" type="button">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V8a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                Record Voice
+            </button>
             <button id="narration-btn" class="cyber-btn" onclick="toggleNarrator()">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 Resonant Playback
@@ -1265,6 +1297,7 @@ btn.onclick = async () => {
 
         <div id="vocal-status" class="status-feed">[ Quiet mode engaged // ready when you are ]</div>
         <div id="voice-note-status" class="status-feed">[ Voice note ready — press to speak your resonance ]</div>
+        <div id="voice-record-status" class="status-feed">[ Microphone recorder ready — press Record Voice ]</div>
 
         <hr class="divider">
 
@@ -1381,9 +1414,12 @@ btn.onclick = async () => {
         let vocalStatus, micBtn, playBtn, progressFill, timeDisplay, playerState, speedInput, speedLabel, ambientInput, ambientLabel;
 
         // Telemetry UI Elements
-        let teleNav, telePerception, tele369, voiceNoteBtn, voiceNoteStatus;
+        let teleNav, telePerception, tele369, voiceNoteBtn, voiceNoteStatus, recordVoiceBtn, voiceRecordStatus;
         let trackList, clearTracksBtn;
         let speechVoice = null;
+        let voiceMediaRecorder = null;
+        let voiceRecordingStream = null;
+        let voiceChunks = [];
 
         function loadSpeechVoices() {
             if (!window.speechSynthesis) return;
@@ -1417,6 +1453,8 @@ btn.onclick = async () => {
             audioListenLabel = document.getElementById('audio-listen-label');
             voiceNoteBtn = document.getElementById('voice-note-btn');
             voiceNoteStatus = document.getElementById('voice-note-status');
+            recordVoiceBtn = document.getElementById('record-voice-btn');
+            voiceRecordStatus = document.getElementById('voice-record-status');
             profileImage = document.getElementById('profile-image');
             auraPrimary = document.getElementById('aura-primary');
             auraSecondary = document.getElementById('aura-secondary');
@@ -1449,6 +1487,7 @@ btn.onclick = async () => {
             clearJournalBtn.addEventListener('click', clearJournalDraft);
             audioListenVolume.addEventListener('input', updateAudioListenVolume);
             voiceNoteBtn.addEventListener('click', startVoiceNote);
+            recordVoiceBtn.addEventListener('click', toggleVoiceRecording);
             clearTracksBtn.addEventListener('click', clearAllTracks);
 
             tryAutoLoadAujoulevo();
