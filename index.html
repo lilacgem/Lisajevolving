@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="evo-signature" content="iVBORw0KGgoAAAAnSUhEUgAACWAAAAk6CAYAAAChWCf/AAAEJmVYSWZNTQAqAAAACQAPAQMAAwAAAAEABgAAAgEABAAAAAEAAANaAgIABAAAAAEAAJo7AQEAAwAAAAELuAAAAQ8AAgAAAAgAAADCARIAAwAAAAEAAQAAATIAAgAAABQAAADKARsABQAAAAEAAADeARoABQAAAAEAAADmAQAAAwAAAAEPoAAAARAAAgAAABEAAADuATEAAgAAAA4AAAD/AhMAAwAAAAEAAQAAh2kABAAAAAEAAAENASgAAwAAAAEAAgAAAAAAAHNhbXN1bmcAMjAyNToxMjoyNSAxNDowNToxNwAAAABIAAAAAQAAAEgAAAABR2FsYXh5IFMyNCBVbHRyYQBTOTI4VVNRUzRDWUwxAAAfkgIABQAAAAEAAAKHkAAAAgAAAAUAAAKPkgQACgAAAAEAAAKUiCIAAwAAAAEAAgAAoAEAAwAAAAH//wAApCAAAgAAAAwAAAKckgUABQAAAAEAAAKooAMAAwAAAAEJOgAAkgMACgAAAAEAAAKwkAMAAgAAAB">
-    <title>Lisa J Evolving</title>
+    <title>LisajEvokes Space</title>
     <style>
         /* 🌌 Midnight Purple & Void Palette */
         :root {
@@ -12,6 +12,7 @@
             --magenta-glow: rgba(236, 72, 153, 0.35);
             --neon-accent: #d8b4fe;
             --deep-void: #030107;
+            --bg-blur: 12px; /* Controlled dynamically in real-time */
         }
 
         body {
@@ -36,14 +37,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Prioritizes your newly uploaded image.png artwork */
+            /* Prioritizes your custom image.png artwork */
             background-image: url('image.png'), url('bg.jpg'), url('background.jpg'), radial-gradient(circle at center, #14052e 0%, #020106 100%);
             background-size: cover;
             background-position: center;
-            opacity: 0.22; /* Blended soft presence */
-            filter: blur(12px) saturate(1.1); /* Soft atmospheric depth */
+            opacity: 0.25; /* Muted atmospheric background layer */
+            filter: blur(var(--bg-blur)) saturate(1.1); /* Connected directly to CSS variable */
             z-index: -2;
             pointer-events: none;
+            transition: filter 0.15s ease-out;
         }
 
         /* 🟣 Velvet Dark Purple Overlay Gradient */
@@ -241,6 +243,9 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .journal-capsule::before {
@@ -259,7 +264,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 20px;
-            margin-bottom: 30px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -272,6 +276,7 @@
             font-family: monospace;
             font-size: 0.75rem;
             color: #a78bfa;
+            letter-spacing: 1px;
         }
 
         .deck-controls {
@@ -326,7 +331,7 @@
         .slider-group input[type="range"] {
             flex-grow: 1;
             -webkit-appearance: none;
-            appearance: none; /* Added standard property to resolve VS Code warning */
+            appearance: none; /* Resolves VS Code diagnostic warns */
             background: rgba(255, 255, 255, 0.1);
             height: 4px;
             border-radius: 2px;
@@ -335,7 +340,7 @@
 
         .slider-group input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            appearance: none; /* Added standard property to resolve VS Code warning */
+            appearance: none; /* Resolves VS Code diagnostic warns */
             width: 12px;
             height: 12px;
             border-radius: 50%;
@@ -359,6 +364,7 @@
             line-height: 1.85;
             font-size: 1.1rem;
             color: #cbd5e1;
+            padding-top: 10px;
         }
 
         .word {
@@ -425,6 +431,7 @@
         <!-- Live Audiobook & Glowing Diary Capsule -->
         <div class="journal-capsule">
             
+            <!-- Deck 1: Audiobook & Main Atmosphere Sliders -->
             <div class="audiobook-player-deck">
                 <div class="deck-header">
                     <span>AUDIOBOOK JOURNAL ENGINE // V1.0</span>
@@ -448,6 +455,39 @@
                         <input id="ambient-volume" type="range" min="0" max="0.3" step="0.01" value="0.1" oninput="updateAmbientVolume()">
                         <span id="ambient-label">10%</span>
                     </div>
+                    <!-- Dynamic Wallpaper Blur Slider -->
+                    <div class="slider-group">
+                        <span>BG Blur</span>
+                        <input id="blur-slider" type="range" min="0" max="40" step="1" value="12" oninput="updateBackgroundBlur()">
+                        <span id="blur-label">12px</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deck 2: Custom Music Soundboard Loader -->
+            <div class="audiobook-player-deck">
+                <div class="deck-header">
+                    <span>SOUNDTRACK PLAYER MATRIX</span>
+                    <span id="music-track-name">NO TRACK LOADED</span>
+                </div>
+                <div class="deck-controls" style="margin-top: 5px; justify-content: space-between; flex-wrap: wrap;">
+                    <label for="music-file-input" class="cyber-btn" style="font-size: 0.75rem; padding: 10px 20px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Upload Audio Track
+                    </label>
+                    <input type="file" id="music-file-input" accept="audio/*" style="display: none;" onchange="handleMusicUpload(event)">
+                    
+                    <button id="music-play-btn" class="cyber-btn" onclick="toggleMusicPlayback()" disabled style="opacity: 0.4; font-size: 0.75rem; padding: 10px 20px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Play Track
+                    </button>
+                </div>
+                <div class="deck-sliders" style="margin-top: 5px;">
+                    <div class="slider-group" style="width: 100%;">
+                        <span>Track Volume</span>
+                        <input id="music-volume" type="range" min="0" max="1" step="0.05" value="0.5" oninput="updateMusicVolume()">
+                        <span id="music-vol-label">50%</span>
+                    </div>
                 </div>
             </div>
 
@@ -469,6 +509,11 @@
         let isMicActive = false;
         let isNarrating = false;
         
+        // Custom Soundtrack player variables
+        let musicAudioElement = null;
+        let musicSourceNode = null;
+        let musicGainNode = null;
+
         let utterance = null;
         let wordsArray = [];
         let wordSpans = [];
@@ -509,6 +554,78 @@
             }
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
+            }
+        }
+
+        // Real-Time Dynamic Background Blur Adjuster
+        function updateBackgroundBlur() {
+            const blurVal = document.getElementById('blur-slider').value;
+            document.getElementById('blur-label').textContent = `${blurVal}px`;
+            document.documentElement.style.setProperty('--bg-blur', `${blurVal}px`);
+        }
+
+        // Custom Soundtrack Uploader Engine
+        function handleMusicUpload(event) {
+            ensureAudioContext();
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Display track name in capital letters for cyber aesthetics
+            document.getElementById('music-track-name').textContent = file.name.toUpperCase();
+            
+            // Create local blob reference URL
+            const fileURL = URL.createObjectURL(file);
+            
+            if (!musicAudioElement) {
+                musicAudioElement = new Audio();
+                musicAudioElement.crossOrigin = "anonymous";
+                
+                // Route soundtrack output through the same visualization analyser node
+                musicSourceNode = audioCtx.createMediaElementSource(musicAudioElement);
+                musicGainNode = audioCtx.createGain();
+                musicGainNode.gain.setValueAtTime(parseFloat(document.getElementById('music-volume').value), audioCtx.currentTime);
+                
+                musicSourceNode.connect(musicGainNode);
+                musicGainNode.connect(analyser);
+                musicGainNode.connect(audioCtx.destination);
+            }
+            
+            musicAudioElement.src = fileURL;
+            
+            // Unlock player buttons
+            const trackPlayBtn = document.getElementById('music-play-btn');
+            trackPlayBtn.removeAttribute('disabled');
+            trackPlayBtn.style.opacity = "1";
+            
+            // Auto reset buttons when soundtrack completes playback
+            musicAudioElement.onended = () => {
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
+            };
+
+            vocalStatus.textContent = "[ Custom Soundtrack Loaded & Sequenced ]";
+        }
+
+        function toggleMusicPlayback() {
+            ensureAudioContext();
+            if (!musicAudioElement) return;
+
+            const trackPlayBtn = document.getElementById('music-play-btn');
+            if (musicAudioElement.paused) {
+                musicAudioElement.play();
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Track`;
+                vocalStatus.textContent = "[ Streaming Live Audio Visualizer Sync... ]";
+            } else {
+                musicAudioElement.pause();
+                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
+                vocalStatus.textContent = "[ Soundstage Paused ]";
+            }
+        }
+
+        function updateMusicVolume() {
+            const vol = parseFloat(document.getElementById('music-volume').value);
+            document.getElementById('music-vol-label').textContent = `${Math.round(vol * 100)}%`;
+            if (musicGainNode) {
+                musicGainNode.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.05);
             }
         }
 
