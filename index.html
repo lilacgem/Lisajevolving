@@ -5,20 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- 🧬 The Soul and Essence Metadata Registry -->
-    <meta name="origin" content="LisaJEvolving">
+    <meta name="origin" content="LisajEvokes Space">
     <meta name="signature-status" content="Encoded">
-    <meta name="identity" content="LisaJEvolving">
+    <meta name="identity" content="LisajEvokes Space">
     <meta name="navigation" content="Flow">
     <meta name="perception" content="PersonalFlow">
     <meta name="369-resonance" content="Soul">
     <meta name="domain" content="lisajevolving.com">
+    <meta name="description" content="LisajEvokes Space is a private EvoMirror resonance room on lisajevolving.com, blending ambient audio, live journal narration, and subtle 3D presence.">
     <meta name="atmosphere-primary" content="InnerGlow">
     <meta name="atmosphere-bg-logic" content="Fractal_Geometry">
     <meta name="atmosphere-protection-layer" content="SoulShield">
     <meta name="atmosphere-auditory-layer" content="PersonalSoundscape">
     <meta name="atmosphere-navigation-logic" content="Calm_Active">
 
-    <title>lisajevolving.com — personal sanctuary</title>
+    <title>LisajEvokes Space — personal sanctuary</title>
     <!-- Favicon Link -->
     <link rel="icon" href="favicon.png" type="image/png">
     <style>
@@ -1203,7 +1204,7 @@ btn.onclick = async () => {
 
     <div class="brand-banner">
         <h1>EvoMirror Resonance Room</h1>
-        <p>A personal Aujoule extension on lisajevolving.com — private, resonant, and tuned to your voice.</p>
+        <p>A personal Aujoule extension on lisajevolving.com for LisajEvokes Space — private, resonant, and tuned to your voice.</p>
     </div>
 
     <div class="sanctuary-viewport">
@@ -1224,13 +1225,13 @@ btn.onclick = async () => {
         </div>
 
         <h1>EvoMirror Resonance Room</h1>
-        <p class="subtitle">A private room for LisaJEvolving, bridging EvoMirror identity resonance with Aujoule presence.</p>
+        <p class="subtitle">A private room for LisajEvokes Space, bridging EvoMirror identity resonance with Aujoule presence.</p>
 
         <!-- 🧬 Dynamic Soul & Essence Telemetry Panel -->
         <section class="soul-telemetry-console">
             <div class="telemetry-block">
                 <span class="telemetry-label">Identity</span>
-                <span class="telemetry-val">LisaJEvolving</span>
+                <span class="telemetry-val">LisajEvokes Space</span>
             </div>
             <div class="telemetry-block">
                 <span class="telemetry-label">Navigation</span>
@@ -1382,6 +1383,31 @@ btn.onclick = async () => {
         // Telemetry UI Elements
         let teleNav, telePerception, tele369, voiceNoteBtn, voiceNoteStatus;
         let trackList, clearTracksBtn;
+        let speechVoice = null;
+
+        function loadSpeechVoices() {
+            if (!window.speechSynthesis) return;
+            const voices = window.speechSynthesis.getVoices() || [];
+            const preferred = [
+                'Google UK English Male',
+                'Google UK English Female',
+                'Google US English',
+                'Microsoft Zira Desktop',
+                'Microsoft David Desktop',
+                'Alex',
+                'Samantha',
+                'Daniel'
+            ];
+            speechVoice = voices.find(v => preferred.some(name => v.name.includes(name) || v.lang.startsWith('en-US') && v.name.includes('English')));
+            if (!speechVoice && voices.length) {
+                speechVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+            }
+        }
+
+        if (window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = loadSpeechVoices;
+            loadSpeechVoices();
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             journalEditor = document.getElementById('journal-editor');
@@ -1753,9 +1779,9 @@ btn.onclick = async () => {
         function updateAudioListenVolume() {
             const vol = parseFloat(audioListenVolume.value);
             audioListenLabel.textContent = `${Math.round(vol * 100)}%`;
-            if (musicGainNode) {
+            if (currentTrackIndex >= 0 && musicTracks[currentTrackIndex]) {
                 const trackVol = parseFloat(document.getElementById('music-volume').value);
-                musicGainNode.gain.setTargetAtTime(trackVol * vol, audioCtx.currentTime, 0.05);
+                musicTracks[currentTrackIndex].gainNode.gain.setTargetAtTime(trackVol * vol, audioCtx.currentTime, 0.05);
             }
         }
 
@@ -1899,8 +1925,25 @@ btn.onclick = async () => {
             utterance.pitch = 1.05;
 
             const voices = window.speechSynthesis.getVoices();
-            const luxuryVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Natural") || v.lang.startsWith("en-US"));
-            if (luxuryVoice) utterance.voice = luxuryVoice;
+            if (!speechVoice) {
+                speechVoice = voices.find(v => [
+                    'Google UK English Male',
+                    'Google UK English Female',
+                    'Google US English',
+                    'Microsoft Zira Desktop',
+                    'Microsoft David Desktop',
+                    'Alex',
+                    'Samantha',
+                    'Daniel'
+                ].some(name => v.name.includes(name) || v.lang.startsWith('en-US') && v.name.includes('English')));
+                if (!speechVoice && voices.length) {
+                    speechVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+                }
+            }
+            if (speechVoice) {
+                utterance.voice = speechVoice;
+            }
+            utterance.volume = 1;
 
             utterance.onboundary = (event) => {
                 if (event.name === 'word') {
