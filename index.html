@@ -39,8 +39,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Prioritizes your custom image. artwork */
-            background-image: url('image.png'), url('bg.jpg'), url('background.jpg'), radial-gradient(circle at center, #14052e 0%, #020106 100%);
+            /* Prioritizes your custom image.png artwork with automatic backup fallbacks */
+            background-image: url('image.png'), url('image.png.png'), url('bg.jpg'), url('background.jpg'), radial-gradient(circle at center, #14052e 0%, #020106 100%);
             background-size: cover;
             background-position: center;
             opacity: 0.25; /* Muted atmospheric background layer */
@@ -85,14 +85,14 @@
         }
 
         /* 🖼️ Image 2: Custom Aura Artwork (Layer 2 - Multi-staged Backplates) */
-        /* Primary close aura layer */
+        /* Primary close aura layer - prioritized for your newly uploaded image_dab60e.png */
         #aura-primary {
             position: absolute;
             width: 190px;
             height: 190px;
             border-radius: 50%;
-            /* Prioritizes your custom aura.png, falls back to glowing violet radial gradient */
-            background-image: url('aura.png'), radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(120, 53, 188, 0.12) 50%, rgba(0, 0, 0, 0) 75%);
+            /* Seamlessly maps your newly uploaded aura image file without needing renaming steps */
+            background-image: url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(120, 53, 188, 0.12) 50%, rgba(0, 0, 0, 0) 75%);
             background-size: cover;
             background-position: center;
             z-index: 1;
@@ -101,14 +101,14 @@
             pointer-events: none;
         }
 
-        /* Outer, deeper blurred aura layer */
+        /* Outer, deeper blurred aura layer - also searches for your gorgeous new image_dab60e.png file */
         #aura-secondary {
             position: absolute;
             width: 240px;
             height: 240px;
             border-radius: 50%;
-            /* Uses the same aura.png but scaled, highly-blurred, and slightly rotated for organic separation */
-            background-image: url('aura.png'), radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.04) 50%, rgba(0, 0, 0, 0) 80%);
+            /* Uses the same custom file but scaled, highly-blurred, and slightly rotated for beautiful layered separation */
+            background-image: url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.04) 50%, rgba(0, 0, 0, 0) 80%);
             background-size: cover;
             background-position: center;
             z-index: 1;
@@ -124,7 +124,7 @@
             height: 150px;
             border-radius: 50%;
             z-index: 2;
-            background-image: url('me.jpg'), url('profile.jpg'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            background-image: url('me.jpg'), url('me.jpg.jpg'), url('profile.jpg'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
             background-size: cover;
             background-position: center;
             border: 2px solid rgba(168, 85, 247, 0.35);
