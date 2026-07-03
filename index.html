@@ -64,11 +64,14 @@
                 radial-gradient(circle at center, #14052e 0%, #020106 100%);
             background-size: cover;
             background-position: center;
-            opacity: 0.25; /* Blended soft presence */
-            filter: blur(var(--bg-blur)) saturate(1.1); /* Soft atmospheric depth, controlled by JS */
+            background-repeat: no-repeat;
+            /* Blend the top image with the underlying gradient/texture for a soft, visible presence */
+            background-blend-mode: overlay;
+            opacity: 0.65; /* More visible while still blended */
+            filter: blur(var(--bg-blur)) saturate(1.05) contrast(0.98); /* Soft atmospheric depth */
             z-index: -2;
             pointer-events: none;
-            transition: filter 0.15s ease-out;
+            transition: filter 0.15s ease-out, opacity 0.2s ease;
             animation: backgroundSlowZoom 40s linear infinite alternate;
         }
 
