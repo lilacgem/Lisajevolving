@@ -479,6 +479,115 @@
         }
     </style>
 </head>
+<script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+const renderer = new THREE.WebGLRenderer({ 
+    canvas: document.querySelector('#bg'),
+    alpha: true 
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0); 
+camera.position.z = 40; // Moved back slightly to see the Being better
+
+// This tracks your presence in the room
+let mouseX = 0;
+let mouseY = 0;
+
+window.addEventListener('mousemove', (event) => {
+    // This turns your screen coordinates into a math grid from -1 to 1
+    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+// --- 1. THE STARS (The Environment) ---
+const starGeometry = new THREE.BufferGeometry();
+const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.7 });
+const starVertices = [];
+for (let i = 0; i < 10000; i++) {
+    starVertices.push((Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000, -Math.random() * 2000);
+}
+starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
+
+// --- 2. THE ETHEREAL BEING (The Entity) ---
+const textureLoader = new THREE.TextureLoader();
+// This uses your 'evospace.jpg' as the skin
+const beingSkin = textureLoader.load('evospace.jpg'); 
+
+const geometry = new THREE.SphereGeometry(12, 64, 64); 
+const material = new THREE.MeshStandardMaterial({
+    map: beingSkin,
+    emissive: new THREE.Color(0x330066), // Deep purple internal glow
+    emissiveIntensity: 0.8,
+    roughness: 0.1,
+    metalness: 0.4
+});
+
+const etherealBeing = new THREE.Mesh(geometry, material);
+scene.add(etherealBeing);
+
+// Add light so the 'skin' is visible
+const light = new THREE.PointLight(0xffffff, 2);
+light.position.set(20, 20, 20);
+scene.add(light);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+// --- THE MASTER ANIMATION LOOP ---
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // 1. THE FLUX: The universe reacts to your mouse
+    // This creates the "leaning" effect
+    camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
+    camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
+    
+    // 2. THE CONTAINMENT: The Being stays centered
+    camera.lookAt(etherealBeing.position);
+
+    // 3. THE GOLDEN FREQUENCY: The background and the Being breathing
+    stars.rotation.z += 0.0005; // Stars moving regardless
+    
+    const scale = 1 + Math.sin(Date.now() * 0.002) * 0.05; // Breathing logic
+    etherealBeing.scale.set(scale, scale, scale);
+    etherealBeing.rotation.y += 0.008;
+
+    renderer.render(scene, camera);
+}
+
+// Start the loop
+animate();
+
+// --- 4. RECORDING LOGIC ---
+const btn = document.getElementById('recordButton');
+let mediaRecorder;
+let chunks = [];
+
+btn.onclick = async () => {
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        btn.innerText = "START RECORDING";
+    } else {
+        const stream = document.querySelector('#bg').captureStream(30);
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'being-voyage.webm';
+            a.click();
+            chunks = [];
+        };
+        mediaRecorder.start();
+        btn.innerText = "STOP RECORDING";
+    }
+}; 
+</script>
 <body>
 
     <!-- Blended Wallpaper & Glowing Overlays -->
@@ -491,18 +600,6 @@
         <div id="profile-portal">
             <div class="orbit-trail"></div>
             <div class="orbit-trail-inner"></div>
-            
-            <!-- 🧬 EvoSeal_DNA Protection Shield Layer -->
-            <svg id="evoseal-shield" class="evoseal-dna-shield" viewBox="0 0 100 100">
-                <!-- Outer Ring -->
-                <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(168, 85, 247, 0.35)" stroke-width="0.8" stroke-dasharray="2, 4"/>
-                <!-- Star of Sacred Nodes (369 Resonance Coordinates) -->
-                <polygon points="50,8 85,72 15,72" fill="none" stroke="rgba(216, 180, 254, 0.45)" stroke-width="0.7"/>
-                <polygon points="50,92 85,28 15,28" fill="none" stroke="rgba(236, 72, 153, 0.4)" stroke-width="0.7"/>
-                <!-- Inner Guard Ring -->
-                <circle cx="50" cy="50" r="39" fill="none" stroke="rgba(102, 252, 241, 0.25)" stroke-width="0.5"/>
-            </svg>
-
             <div id="aura-secondary"></div>
             <div id="aura-primary"></div>
             <div id="profile-image"></div>
