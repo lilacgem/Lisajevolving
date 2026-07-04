@@ -2346,6 +2346,13 @@ async function startVoiceRecording() {
             smoothedVol += (liveVolume - smoothedVol) * 0.15;
             const normalizedIntensity = smoothedVol / 255;
 
+            if (mirrorSphere) {
+                mirrorSphere.rotation.y += 0.002 + normalizedIntensity * 0.015;
+                const mirrorScale = 1 + normalizedIntensity * 0.045;
+                mirrorSphere.scale.set(mirrorScale, mirrorScale, mirrorScale);
+            }
+            updateMirrorTexture(normalizedIntensity);
+
             // 1. Profile image smooth scaling
             const dynamicScale = 1 + (normalizedIntensity * 0.18);
             profileImage.style.transform = `scale(${dynamicScale})`;
