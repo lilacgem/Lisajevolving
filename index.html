@@ -1767,7 +1767,7 @@ async function startVoiceRecording() {
             audio.playsInline = true;
             audio.crossOrigin = 'anonymous';
             audio.volume = 0.15;
-            audio.muted = false;
+            audio.muted = true;
 
             const sourceNode = audioCtx.createMediaElementSource(audio);
             const gainNode = audioCtx.createGain();
@@ -1787,7 +1787,12 @@ async function startVoiceRecording() {
 
             audio.addEventListener('loadedmetadata', () => updateTrackMetadata(track));
             audio.addEventListener('timeupdate', () => updateTrackMetadata(track));
-            audio.addEventListener('play', () => updateTrackMetadata(track));
+            audio.addEventListener('play', () => {
+                updateTrackMetadata(track);
+                setTimeout(() => {
+                    audio.muted = false;
+                }, 250);
+            });
             audio.addEventListener('pause', () => updateTrackMetadata(track));
 
             audio.onended = () => {
@@ -1813,11 +1818,16 @@ async function startVoiceRecording() {
                 playBtn.style.opacity = '1';
                 document.getElementById('music-track-name').textContent = track.name.toUpperCase();
                 track.audio.volume = 0.15;
-                track.audio.muted = false;
+                track.audio.muted = true;
                 track.audio.play().then(() => {
                     updatePlayButton(true);
                     vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
                     updateTrackMetadata(track);
+                    setTimeout(() => {
+                        if (!track.audio.paused) {
+                            track.audio.muted = false;
+                        }
+                    }, 250);
                 }).catch(() => {
                     updatePlayButton(false);
                     vocalStatus.textContent = '[ Aujoulevo ready — tap play if autoplay is blocked ]';
