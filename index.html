@@ -5,47 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LisajEvokes Space</title>
     <style>
-        /* 🌌 Deep Cosmic Void Base */
+        /* 🌌 Deep Cosmic Void Base Matching the Video's Outer Nebula Edge */
         body, html { 
             margin: 0; 
             padding: 0; 
             width: 100%; 
             height: 100%; 
             overflow: hidden; 
-            background-color: #020005;
+            background-color: #0b0716; /* Seamless blend color for the contain margins */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-user-select: none;
             user-select: none;
             color: #ffffff;
         }
 
-        /* 🎬 TRACK 1: Background Video Element (Forced to the front of the backdrop) */
+        /* 🎬 TRACK 1: Video Engine - Set to contain so the top and bottom never crop */
         #bg-video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
-            z-index: 1; /* Pulls it safely in front of the flat black body color */
+            object-fit: contain; /* 🌟 Forces full vertical and horizontal artwork visibility */
+            z-index: 1; 
             display: block !important;
-            opacity: 1 !important; /* Full, crisp visibility */
+            opacity: 1 !important; 
             pointer-events: none;
         }
 
-        /* 🟣 TRACK 2: Crystal Vignette Tint (Protects text readability without washing out the video center) */
+        /* 🟣 TRACK 2: Crystal Overlay Tint (Gently unifies the screen border areas) */
         .ambient-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, transparent 30%, rgba(2, 0, 5, 0.6) 100%);
+            background: radial-gradient(circle at center, transparent 40%, rgba(11, 7, 22, 0.4) 100%);
             z-index: 2;
             pointer-events: none;
         }
 
-        /* 🪐 TRACK 3: Three.js Resonant Cosmic Particles Canvas */
+        /* 🪐 TRACK 3: Three.js Resonant Multi-Color Particle Stream Canvas */
         canvas {
             position: fixed;
             top: 0;
@@ -67,7 +67,7 @@
             justify-content: center; 
             align-items: center;     
             box-sizing: border-box;
-            z-index: 4; /* Absolute top display layer */
+            z-index: 4; 
             pointer-events: none;
             padding: 20px;
         }
@@ -77,55 +77,55 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 500px;
-            gap: 20px;
+            max-width: 600px;
+            gap: 24px;
             text-align: center;
             pointer-events: auto; 
         }
 
-        /* 🔮 Breathing Neon Portrait Aura Rings */
+        /* 🔮 Breathing Portrait Aura Rings - Blended with the Phoenix Gold/Violet hues */
         .orb-shell {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: clamp(180px, 45vw, 240px);
-            height: clamp(180px, 45vw, 240px);
+            width: clamp(170px, 40vw, 220px);
+            height: clamp(170px, 40vw, 220px);
             margin: 0 auto;
         }
 
         #aura-primary {
             position: absolute;
-            width: 80%;
-            height: 80%;
+            width: 85%;
+            height: 85%;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(216, 180, 254, 0.5) 0%, rgba(168, 85, 247, 0.2) 60%, transparent 100%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(168, 85, 247, 0.2) 60%, transparent 100%);
             z-index: 1;
-            filter: blur(12px);
+            filter: blur(14px);
             animation: auraBreathe 4s infinite ease-in-out alternate;
         }
 
         #aura-secondary {
             position: absolute;
-            width: 105%;
-            height: 105%;
+            width: 110%;
+            height: 110%;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(139, 92, 246, 0.05) 70%, transparent 100%);
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(57, 115, 255, 0.15) 70%, transparent 100%);
             z-index: 1;
-            filter: blur(22px);
+            filter: blur(24px);
             animation: auraBreathe 6s infinite ease-in-out alternate-reverse;
         }
 
         #profile-image {
-            width: 70%;
-            height: 70%;
+            width: 75%;
+            height: 75%;
             border-radius: 50%;
             z-index: 2;
             background-image: url('me.png'), url('me.jpg'), url('profile.png'), url('profile.jpg'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
             background-size: cover;
             background-position: center;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(168, 85, 247, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(168, 85, 247, 0.2);
         }
 
         /* ✨ Soft Pink Glowing Perimeter Flairs */
@@ -141,22 +141,22 @@
         .flair-1 { top: 15%; left: 16%; }
         .flair-2 { bottom: 22%; right: 14%; }
 
-        /* ✍️ Responsive Typography */
+        /* ✍️ Responsive Typography with Integrated Protection Shadows for High Legibility */
         h1 {
             color: #ffffff;
-            font-size: clamp(2.2rem, 7vw, 3.6rem); 
+            font-size: clamp(2.2rem, 6.5vw, 3.5rem); 
             font-weight: 900;
             line-height: 1.1;
             margin: 0;
-            letter-spacing: -0.03em;
-            text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 4px 30px rgba(11, 7, 22, 1);
             white-space: nowrap;
         }
 
         /* 🔄 Dynamic Aura Scale Animations */
         @keyframes auraBreathe {
-            0% { transform: scale(0.95); opacity: 0.6; }
-            100% { transform: scale(1.05); opacity: 0.95; filter: blur(14px); }
+            0% { transform: scale(0.95); opacity: 0.55; }
+            100% { transform: scale(1.05); opacity: 0.95; filter: blur(16px); }
         }
     </style>
 </head>
@@ -189,7 +189,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // 🔊 Unmutes audio instantly the split-second anyone clicks/taps anywhere on the screen
+        // 🔊 Safe audio channel activator loop mapping
         function activateAudio() {
             const video = document.getElementById('bg-video');
             if (video && video.muted) {
@@ -199,7 +199,7 @@
         window.addEventListener('click', activateAudio);
         window.addEventListener('touchstart', activateAudio);
 
-        // 🪐 High-Fidelity Lilac and Lavender Particle Stream
+        // 🪐 High-Fidelity Multi-Hue Resonant Particle Engine
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -207,7 +207,7 @@
         document.body.appendChild(renderer.domElement);
 
         const geo = new THREE.BufferGeometry();
-        const count = 2000;
+        const count = 2200;
         const positions = new Float32Array(count * 3);
         const colors = new Float32Array(count * 3);
 
@@ -216,10 +216,24 @@
             positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
             positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
 
-            // Cosmic Lilac / soft pink and violet spectrum blend
-            colors[i * 3] = 0.7 + Math.random() * 0.3;     // Red
-            colors[i * 3 + 1] = 0.4 + Math.random() * 0.3; // Green
-            colors[i * 3 + 2] = 0.9 + Math.random() * 0.1; // Blue
+            // 🌟 FIXED: Generates three distinct color variants perfectly matched to the Phoenix artwork
+            const colorPicker = Math.random();
+            if (colorPicker < 0.45) {
+                // Nebula Violet & Lilac
+                colors[i * 3] = 0.65 + Math.random() * 0.3;     // Red
+                colors[i * 3 + 1] = 0.35 + Math.random() * 0.2; // Green
+                colors[i * 3 + 2] = 0.9 + Math.random() * 0.1;  // Blue
+            } else if (colorPicker < 0.75) {
+                // Phoenix Wing Gold & Warm Amber
+                colors[i * 3] = 0.95 + Math.random() * 0.05;    // Red
+                colors[i * 3 + 1] = 0.72 + Math.random() * 0.15; // Green
+                colors[i * 3 + 2] = 0.2 + Math.random() * 0.15;  // Blue
+            } else {
+                // Flight Feather Deep Royal Blue
+                colors[i * 3] = 0.1 + Math.random() * 0.15;     // Red
+                colors[i * 3 + 1] = 0.45 + Math.random() * 0.2; // Green
+                colors[i * 3 + 2] = 0.95 + Math.random() * 0.05; // Blue
+            }
         }
         
         geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -229,7 +243,7 @@
             size: 0.035,
             vertexColors: true,
             transparent: true,
-            opacity: 0.6,
+            opacity: 0.65,
             blending: THREE.AdditiveBlending
         });
 
@@ -237,21 +251,21 @@
         scene.add(points);
         camera.position.z = 3.2;
 
-        // Particle wave execution animation frame loop
+        // Wave breathing calculation cycle animation frame execution loop
         function animate() {
             requestAnimationFrame(animate);
-            const time = Date.now() * 0.00005;
+            const time = Date.now() * 0.00004;
             
-            points.rotation.y = time * 0.3;
-            points.rotation.x = Math.sin(time * 0.4) * 0.12;
+            points.rotation.y = time * 0.25;
+            points.rotation.x = Math.sin(time * 0.3) * 0.1;
             
-            mat.size = 0.022 + Math.sin(Date.now() * 0.0018) * 0.01;
+            mat.size = 0.022 + Math.sin(Date.now() * 0.0015) * 0.01;
             
             renderer.render(scene, camera);
         }
         animate();
 
-        // Responsive window scaling auto-adjustment calculations
+        // Screen Scale Auto-Adjustment calculation engine
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
