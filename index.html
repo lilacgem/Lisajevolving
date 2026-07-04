@@ -1751,7 +1751,9 @@ async function startVoiceRecording() {
                         playerState.textContent = 'PLAYING';
                         vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
                         updateTrackMetadata(track);
-                    }).catch(() => {});
+                    }).catch(() => {
+                        vocalStatus.textContent = '[ Tap play to hear Aujoulevo ]';
+                    });
                 } else {
                     updatePlayButton(true);
                     playerState.textContent = 'PLAYING';
@@ -1761,10 +1763,14 @@ async function startVoiceRecording() {
             }
             window.removeEventListener('pointerdown', attemptPlaybackUnlock);
             window.removeEventListener('keydown', attemptPlaybackUnlock);
+            window.removeEventListener('touchstart', attemptPlaybackUnlock);
+            window.removeEventListener('click', attemptPlaybackUnlock);
         }
 
         window.addEventListener('pointerdown', attemptPlaybackUnlock);
         window.addEventListener('keydown', attemptPlaybackUnlock);
+        window.addEventListener('touchstart', attemptPlaybackUnlock, { passive: true });
+        window.addEventListener('click', attemptPlaybackUnlock);
 
         // Real-Time Dynamic Background Blur Adjuster
         function updateBackgroundBlur() {
@@ -1841,7 +1847,7 @@ async function startVoiceRecording() {
                 audio.playsInline = true;
                 audio.crossOrigin = 'anonymous';
                 audio.volume = 0.15;
-                audio.muted = true;
+                audio.muted = true; // start muted for autoplay policies
                 audio.style.display = 'none';
                 audio.setAttribute('aria-hidden', 'true');
                 document.body.appendChild(audio);
@@ -1866,6 +1872,9 @@ async function startVoiceRecording() {
             audio.addEventListener('loadedmetadata', () => updateTrackMetadata(track));
             audio.addEventListener('timeupdate', () => updateTrackMetadata(track));
             audio.addEventListener('play', () => updateTrackMetadata(track));
+            audio.addEventListener('pause', () => updateTrackMetadata(track));
+
+            musicTracks.push(track);
             if (currentTrackIndex === -1) {
                 selectTrack(0);
             }
@@ -1873,7 +1882,7 @@ async function startVoiceRecording() {
 
         function tryAutoLoadAujoulevo() {
             ensureAudioContext();
-            addBuiltInTrack('aujoulevol.wav', 'Aujoulevo');
+            addBuiltInTrack('aujoulevo.mp4', 'Aujoulevo');
             updateTrackListUI();
             if (musicTracks.length) {
                 const track = musicTracks[0];
@@ -1882,14 +1891,14 @@ async function startVoiceRecording() {
                 playBtn.style.opacity = '1';
                 document.getElementById('music-track-name').textContent = track.name.toUpperCase();
                 track.audio.volume = 0.4;
-                track.audio.muted = false;
+                track.audio.muted = true;
                 track.audio.play().then(() => {
                     updatePlayButton(true);
                     vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
                     updateTrackMetadata(track);
                 }).catch(() => {
                     updatePlayButton(false);
-                    vocalStatus.textContent = '[ Aujoulevo ready — tap play if autoplay is blocked ]';
+                    vocalStatus.textContent = '[ Aujoulevo ready — tap or click to unlock audio ]';
                 });
             }
         }
