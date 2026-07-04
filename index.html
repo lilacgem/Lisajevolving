@@ -1169,19 +1169,44 @@ function animate() {
     requestAnimationFrame(animate);
     
     // 1. THE FLUX: The universe reacts to your mouse
-    // This creates the "leaning" effect
     camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
     camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
-    
-    // 2. THE CONTAINMENT: The Being stays centered
     camera.lookAt(etherealBeing.position);
 
-    // 3. THE GOLDEN FREQUENCY: The background and the Being breathing
-    stars.rotation.z += 0.0005; // Stars moving regardless
-    
-    const scale = 1 + Math.sin(Date.now() * 0.002) * 0.05; // Breathing logic
+    // 2. THE GOLDEN FREQUENCY: The background and the Being breathing
+    stars.rotation.z += 0.0005;
+    const scale = 1 + Math.sin(Date.now() * 0.002) * 0.05;
     etherealBeing.scale.set(scale, scale, scale);
     etherealBeing.rotation.y += 0.008;
+
+    // 3. AUDIO-REACTIVE MIRROR PULSE
+    if (mirrorSphere) {
+        const normalizedIntensity = Math.min(1, Math.max(0, smoothedVol / 255));
+        mirrorSphere.rotation.y += 0.002 + normalizedIntensity * 0.016;
+        const mirrorScale = 1 + normalizedIntensity * 0.045;
+        mirrorSphere.scale.set(mirrorScale, mirrorScale, mirrorScale);
+    }
+
+    // 4. The left galaxy motion
+    if (leftGalaxyGroup) leftGalaxyGroup.rotation.y += 0.0008;
+
+    // 5. Animate planets in orbit
+    if (planetGroup) {
+        planetGroup.children.forEach((p, idx) => {
+            p.userData.angle += p.userData.orbitSpeed * (1 + idx * 0.2);
+            const r = p.userData.orbitRadius;
+            p.position.x = -60 + Math.cos(p.userData.angle) * r;
+            p.position.z = -140 + Math.sin(p.userData.angle) * r * 0.6;
+            p.position.y = -6 + Math.sin(p.userData.angle * 1.3) * 2.5;
+        });
+    }
+
+    // 6. Twinkle constellation
+    if (constellationGroup) {
+        constellationGroup.children.forEach(c => {
+            if (c.material) c.material.opacity = 0.6 + Math.abs(Math.sin(Date.now() * 0.001)) * 0.5;
+        });
+    }
 
     renderer.render(scene, camera);
 }
@@ -1271,45 +1296,6 @@ function applyVisualSettings(){
     leftGalaxyGroup.visible = s.showGalaxy !== false;
 }
 applyVisualSettings();
-
-// modify animate loop for these elements
-function animate(){
-    requestAnimationFrame(animate);
-
-    // original scene motion (camera reacts to mouse and Being breathes)
-    camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
-    camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
-    camera.lookAt(etherealBeing.position);
-    stars.rotation.z += 0.0005;
-    const scale = 1 + Math.sin(Date.now() * 0.002) * 0.05;
-    etherealBeing.scale.set(scale, scale, scale);
-    etherealBeing.rotation.y += 0.008;
-
-    // left galaxy subtle rotation
-    if (leftGalaxyGroup) leftGalaxyGroup.rotation.y += 0.0008;
-
-    // animate planets in orbit
-    if (planetGroup){
-        planetGroup.children.forEach((p, idx)=>{
-            p.userData.angle += p.userData.orbitSpeed * (1 + idx*0.2);
-            const r = p.userData.orbitRadius;
-            p.position.x = -60 + Math.cos(p.userData.angle) * r;
-            p.position.z = -140 + Math.sin(p.userData.angle) * r * 0.6;
-            p.position.y = -6 + Math.sin(p.userData.angle*1.3) * 2.5;
-        });
-    }
-
-    // twinkle constellation
-    if (constellationGroup){
-        constellationGroup.children.forEach(c=>{
-            if (c.material) c.material.opacity = 0.6 + Math.abs(Math.sin(Date.now()*0.001))*0.5;
-        });
-    }
-
-    // The visualizer render
-    renderer.render(scene, camera);
-}
-
 
 // --- 4. VOICE RECORDING LOGIC ---
 
