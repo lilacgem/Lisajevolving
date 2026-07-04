@@ -19,7 +19,7 @@
             color: #ffffff;
         }
 
-        /* 🎬 Background Video Engine - Fixed to scale and fill perfectly */
+        /* 🎬 TRACK 1: Background Video Element (Forced to the front of the backdrop) */
         #bg-video {
             position: fixed;
             top: 0;
@@ -27,36 +27,36 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover;
-            z-index: -3; 
-            display: block;
-            opacity: 0.9;
+            z-index: 1; /* Pulls it safely in front of the flat black body color */
+            display: block !important;
+            opacity: 1 !important; /* Full, crisp visibility */
             pointer-events: none;
         }
 
-        /* 🟣 Velvet Dark Ambient Glow Overlay */
+        /* 🟣 TRACK 2: Crystal Vignette Tint (Protects text readability without washing out the video center) */
         .ambient-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, rgba(20, 5, 35, 0.2) 0%, rgba(2, 0, 5, 0.75) 100%);
-            z-index: -2;
+            background: radial-gradient(circle at center, transparent 30%, rgba(2, 0, 5, 0.6) 100%);
+            z-index: 2;
             pointer-events: none;
         }
 
-        /* 🪐 Three.js Cosmic Particle Canvas */
+        /* 🪐 TRACK 3: Three.js Resonant Cosmic Particles Canvas */
         canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: 3;
             pointer-events: none;
         }
 
-        /* 🛡️ FIXED: Absolute Dead Center Screen Layout Container for Mobile & Laptop */
+        /* 🛡️ TRACK 4: Foreground User Interface Panel (Perfectly Dead Centered) */
         .ui-container {
             position: fixed;
             top: 0;
@@ -64,10 +64,10 @@
             width: 100vw;
             height: 100vh;
             display: flex;
-            justify-content: center; /* Centers horizontally */
-            align-items: center;     /* Centers vertically */
+            justify-content: center; 
+            align-items: center;     
             box-sizing: border-box;
-            z-index: 10;
+            z-index: 4; /* Absolute top display layer */
             pointer-events: none;
             padding: 20px;
         }
@@ -83,7 +83,7 @@
             pointer-events: auto; 
         }
 
-        /* 🔮 Breathing Neon Portrait Aura Rings (Auto-scaling for smaller screens) */
+        /* 🔮 Breathing Neon Portrait Aura Rings */
         .orb-shell {
             position: relative;
             display: flex;
@@ -141,10 +141,10 @@
         .flair-1 { top: 15%; left: 16%; }
         .flair-2 { bottom: 22%; right: 14%; }
 
-        /* ✍️ FIXED: Dynamic Typography that resizes beautifully on Phones vs Laptops */
+        /* ✍️ Responsive Typography */
         h1 {
             color: #ffffff;
-            font-size: clamp(2.2rem, 7vw, 3.6rem); /* Responsive fluid scaling */
+            font-size: clamp(2.2rem, 7vw, 3.6rem); 
             font-weight: 900;
             line-height: 1.1;
             margin: 0;
@@ -163,8 +163,8 @@
 <body>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="lilacgem.mp4" type="video/mp4">
-        <source src="lilacgem.mp4" type="video/mp4">
+        <source src="lilac%20gem.mp4" type="video/mp4">
+        <source src="lilac gem.mp4" type="video/mp4">
     </video>
 
     <div class="ambient-overlay"></div>
@@ -189,7 +189,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // 🔊 FIXED: Unmutes audio instantly the moment someone taps anywhere on laptop trackpad or mobile screen
+        // 🔊 Unmutes audio instantly the split-second anyone clicks/taps anywhere on the screen
         function activateAudio() {
             const video = document.getElementById('bg-video');
             if (video && video.muted) {
