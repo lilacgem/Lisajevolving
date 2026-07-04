@@ -1048,6 +1048,10 @@ camera.position.z = 40; // Moved back slightly to see the Being better
 // This tracks your presence in the room
 let mouseX = 0;
 let mouseY = 0;
+let mirrorSphere = null;
+let mirrorCanvas = null;
+let mirrorCtx = null;
+let mirrorTexture = null;
 
 window.addEventListener('mousemove', (event) => {
     // This turns your screen coordinates into a math grid from -1 to 1
@@ -1089,7 +1093,78 @@ scene.add(light);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
+setupResonantMirror();
+
 // --- THE MASTER ANIMATION LOOP ---
+
+function setupResonantMirror() {
+    mirrorCanvas = document.createElement('canvas');
+    mirrorCanvas.width = 256;
+    mirrorCanvas.height = 256;
+    mirrorCtx = mirrorCanvas.getContext('2d');
+
+    mirrorTexture = new THREE.CanvasTexture(mirrorCanvas);
+    mirrorTexture.minFilter = THREE.LinearFilter;
+    mirrorTexture.magFilter = THREE.LinearFilter;
+    mirrorTexture.encoding = THREE.sRGBEncoding;
+
+    const mirrorMaterial = new THREE.MeshStandardMaterial({
+        map: mirrorTexture,
+        transparent: true,
+        opacity: 0.18,
+        roughness: 0.12,
+        metalness: 0.95,
+        emissive: new THREE.Color(0x9f6dff),
+        emissiveIntensity: 0.1,
+        side: THREE.DoubleSide
+    });
+
+    const mirrorGeometry = new THREE.SphereGeometry(14.8, 64, 64);
+    mirrorSphere = new THREE.Mesh(mirrorGeometry, mirrorMaterial);
+    mirrorSphere.rotation.x = Math.PI * 0.03;
+    mirrorSphere.rotation.y = Math.PI * 0.02;
+    scene.add(mirrorSphere);
+
+    if (mirrorCtx) {
+        mirrorCtx.fillStyle = 'rgba(8, 4, 24, 1)';
+        mirrorCtx.fillRect(0, 0, mirrorCanvas.width, mirrorCanvas.height);
+        mirrorTexture.needsUpdate = true;
+    }
+}
+
+function updateMirrorTexture(normalizedIntensity) {
+    if (!mirrorCtx || !mirrorTexture) return;
+    const size = mirrorCanvas.width;
+    const hue = 255 - Math.round(normalizedIntensity * 90);
+    const base = mirrorCtx.createLinearGradient(0, 0, size, size);
+    base.addColorStop(0, `hsla(${hue}, 90%, 28%, 0.95)`);
+    base.addColorStop(0.5, `hsla(${hue + 20}, 90%, 22%, 0.35)`);
+    base.addColorStop(1, `rgba(4, 8, 20, 0.2)`);
+    mirrorCtx.fillStyle = base;
+    mirrorCtx.fillRect(0, 0, size, size);
+
+    const ringCount = 5;
+    for (let i = 0; i < ringCount; i++) {
+        const radius = (size * 0.22) + i * (size * 0.09);
+        mirrorCtx.strokeStyle = `hsla(${hue + i * 6}, 92%, ${24 + i * 6}%, ${0.08 + normalizedIntensity * 0.05})`;
+        mirrorCtx.lineWidth = 1 + normalizedIntensity * 0.9;
+        mirrorCtx.beginPath();
+        mirrorCtx.arc(size / 2, size / 2, radius, 0, Math.PI * 2);
+        mirrorCtx.stroke();
+    }
+
+    mirrorCtx.strokeStyle = `rgba(255,255,255,${0.08 + normalizedIntensity * 0.12})`;
+    mirrorCtx.lineWidth = 2;
+    mirrorCtx.beginPath();
+    mirrorCtx.moveTo(size * 0.18, size * 0.18);
+    mirrorCtx.lineTo(size * 0.82, size * 0.82);
+    mirrorCtx.moveTo(size * 0.18, size * 0.82);
+    mirrorCtx.lineTo(size * 0.82, size * 0.18);
+    mirrorCtx.stroke();
+
+    mirrorTexture.needsUpdate = true;
+}
+
 function animate() {
     requestAnimationFrame(animate);
     
