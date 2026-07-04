@@ -1760,7 +1760,8 @@ async function startVoiceRecording() {
         }
 
         function addBuiltInTrack(src, name) {
-            const audio = new Audio(src);
+            const audio = document.createElement('audio');
+            audio.src = src;
             audio.preload = 'auto';
             audio.autoplay = true;
             audio.loop = true;
@@ -1768,6 +1769,9 @@ async function startVoiceRecording() {
             audio.crossOrigin = 'anonymous';
             audio.volume = 0.15;
             audio.muted = true;
+            audio.style.display = 'none';
+            audio.setAttribute('aria-hidden', 'true');
+            document.body.appendChild(audio);
 
             const sourceNode = audioCtx.createMediaElementSource(audio);
             const gainNode = audioCtx.createGain();
@@ -1785,12 +1789,19 @@ async function startVoiceRecording() {
                 gainNode
             };
 
-            audio.addEventListener('loadedmetadata', () => updateTrackMetadata(track));
+            audio.addEventListener('loadedmetadata', () => {
+                updateTrackMetadata(track);
+                if (audio.paused) {
+                    audio.play().catch(() => {});
+                }
+            });
             audio.addEventListener('timeupdate', () => updateTrackMetadata(track));
             audio.addEventListener('play', () => {
                 updateTrackMetadata(track);
                 setTimeout(() => {
-                    audio.muted = false;
+                    if (!audio.paused) {
+                        audio.muted = false;
+                    }
                 }, 250);
             });
             audio.addEventListener('pause', () => updateTrackMetadata(track));
