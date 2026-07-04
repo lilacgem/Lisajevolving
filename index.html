@@ -1108,7 +1108,16 @@ function setupResonantMirror() {
         videoElement.preload = 'auto';
         videoElement.crossOrigin = 'anonymous';
         videoElement.src = 'evolve.mp4';
-        videoElement.style.display = 'none';
+        videoElement.style.position = 'fixed';
+        videoElement.style.bottom = '20px';
+        videoElement.style.right = '20px';
+        videoElement.style.width = '280px';
+        videoElement.style.height = 'auto';
+        videoElement.style.border = '2px solid rgba(255,255,255,0.15)';
+        videoElement.style.borderRadius = '16px';
+        videoElement.style.boxShadow = '0 18px 45px rgba(0,0,0,0.45)';
+        videoElement.style.zIndex = '9999';
+        videoElement.style.display = 'block';
         document.body.appendChild(videoElement);
     }
 
