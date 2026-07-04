@@ -505,6 +505,66 @@
             flex-wrap: wrap;
         }
 
+        .resonance-panel {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(168, 85, 247, 0.16);
+            background: rgba(7, 3, 18, 0.72);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+        }
+
+        .resonance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-family: monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #d8b4fe;
+            margin-bottom: 10px;
+        }
+
+        #waveform-canvas {
+            width: 100%;
+            height: 120px;
+            display: block;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(168, 85, 247, 0.08), rgba(0,0,0,0));
+        }
+
+        .resonance-metadata {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .meta-item {
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .meta-item span {
+            display: block;
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #a78bfa;
+            margin-bottom: 3px;
+        }
+
+        .meta-item strong {
+            font-size: 0.78rem;
+            color: #f8fafc;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
         .cyber-btn {
             background: rgba(168, 85, 247, 0.05);
             border: 1px solid rgba(168, 85, 247, 0.35);
@@ -1363,6 +1423,31 @@ async function startVoiceRecording() {
                         Play Track
                     </button>
                 </div>
+                <div class="resonance-panel">
+                    <div class="resonance-header">
+                        <span>Audio cadence & metadata</span>
+                        <span id="track-metadata">Loading resonance…</span>
+                    </div>
+                    <canvas id="waveform-canvas" width="640" height="120"></canvas>
+                    <div class="resonance-metadata">
+                        <div class="meta-item">
+                            <span>Title</span>
+                            <strong id="meta-title">Aujoulevo</strong>
+                        </div>
+                        <div class="meta-item">
+                            <span>Source</span>
+                            <strong id="meta-source">Local WAV</strong>
+                        </div>
+                        <div class="meta-item">
+                            <span>Duration</span>
+                            <strong id="meta-duration">00:00</strong>
+                        </div>
+                        <div class="meta-item">
+                            <span>Cadence</span>
+                            <strong id="meta-cadence">0%</strong>
+                        </div>
+                    </div>
+                </div>
                 <div class="track-manager">
                     <div class="track-manager-header">
                         <span>Resonant Track List</span>
@@ -1371,7 +1456,6 @@ async function startVoiceRecording() {
                     <div id="track-list" class="track-list">
                         <div class="track-list-empty">No audio files loaded.</div>
                     </div>
-                </div>
                 </div>
                 <div class="deck-sliders" style="margin-top: 5px;">
                     <div class="slider-group" style="width: 100%;">
@@ -1394,7 +1478,8 @@ async function startVoiceRecording() {
     <script>
         let journalText = "Welcome to my home on the web. I spent a long time letting third-party platforms calculate my presence and dictate my voice. I built this corner to take it back. Everything posted here is for an audience of one. This space operates on local-first static architectures. There are no tracking scripts, no centralized corporate algorithms, and no psychological attention loops running in the background. Just pure code, raw thought, and evolution.";
         let journalEditor, saveJournalBtn, clearJournalBtn, audioListenVolume, audioListenLabel;
-        let audioCtx, analyser, dataArray;
+        let audioCtx, analyser, dataArray, waveformData;
+        let waveformCanvas, waveformCtx;
         let ambientSynthNode, synthFilter, synthGain;
         let micStream, micSource;
         let smoothedVol = 0;
@@ -1472,6 +1557,10 @@ async function startVoiceRecording() {
             ambientLabel = document.getElementById('ambient-label');
             trackList = document.getElementById('track-list');
             clearTracksBtn = document.getElementById('clear-tracks-btn');
+            waveformCanvas = document.getElementById('waveform-canvas');
+            waveformCtx = waveformCanvas?.getContext('2d');
+            resizeWaveformCanvas();
+            window.addEventListener('resize', resizeWaveformCanvas);
 
             const savedDraft = localStorage.getItem('lisajevolvingJournalDraft');
             if (savedDraft) {
@@ -1499,12 +1588,105 @@ async function startVoiceRecording() {
                 analyser = audioCtx.createAnalyser();
                 analyser.fftSize = 512;
                 dataArray = new Uint8Array(analyser.frequencyBinCount);
+                waveformData = new Uint8Array(analyser.fftSize);
                 render();
             }
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
         }
+
+        function resizeWaveformCanvas() {
+            if (!waveformCanvas || !waveformCtx) return;
+            const rect = waveformCanvas.getBoundingClientRect();
+            const pixelRatio = window.devicePixelRatio || 1;
+            waveformCanvas.width = Math.max(320, rect.width * pixelRatio);
+            waveformCanvas.height = Math.max(120, rect.height * pixelRatio);
+            waveformCtx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        }
+
+        function updateTrackMetadata(track) {
+            const titleEl = document.getElementById('meta-title');
+            const sourceEl = document.getElementById('meta-source');
+            const durationEl = document.getElementById('meta-duration');
+            const cadenceEl = document.getElementById('meta-cadence');
+            const metadataEl = document.getElementById('track-metadata');
+            if (!titleEl || !sourceEl || !durationEl || !cadenceEl || !metadataEl) return;
+
+            const title = track?.name ? track.name.replace(/\.[^.]+$/, '') : 'Aujoulevo';
+            const duration = Number.isFinite(track?.audio?.duration) ? formatTime(track.audio.duration) : '00:00';
+            const currentTime = Number.isFinite(track?.audio?.currentTime) ? formatTime(track.audio.currentTime) : '00:00';
+            const source = track?.name?.toLowerCase().endsWith('.wav') ? 'Local WAV' : 'Live audio';
+            const status = track?.audio?.paused ? 'Paused' : 'Resonating';
+
+            titleEl.textContent = title;
+            sourceEl.textContent = source;
+            durationEl.textContent = duration;
+            cadenceEl.textContent = `${Math.round((smoothedVol / 255) * 100)}%`;
+            metadataEl.textContent = `${currentTime} / ${duration} • ${status}`;
+        }
+
+        function formatTime(seconds) {
+            if (!Number.isFinite(seconds) || seconds < 0) return '00:00';
+            const total = Math.floor(seconds);
+            const mins = Math.floor(total / 60).toString().padStart(2, '0');
+            const secs = (total % 60).toString().padStart(2, '0');
+            return `${mins}:${secs}`;
+        }
+
+        function drawWaveform() {
+            if (!waveformCanvas || !waveformCtx || !waveformData) return;
+            const width = waveformCanvas.clientWidth;
+            const height = waveformCanvas.clientHeight;
+            waveformCtx.clearRect(0, 0, width, height);
+
+            const gradient = waveformCtx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, 'rgba(168, 85, 247, 0.45)');
+            gradient.addColorStop(1, 'rgba(236, 72, 153, 0.7)');
+
+            waveformCtx.strokeStyle = gradient;
+            waveformCtx.lineWidth = 2;
+            waveformCtx.beginPath();
+
+            const sliceWidth = width / 64;
+            const centerY = height / 2;
+            for (let i = 0; i < 64; i++) {
+                const amplitude = waveformData[i * 2] / 255;
+                const x = i * sliceWidth;
+                const y = centerY + (amplitude - 0.5) * (height * 0.36);
+                if (i === 0) waveformCtx.moveTo(x, y);
+                else waveformCtx.lineTo(x, y);
+            }
+            waveformCtx.stroke();
+
+            waveformCtx.strokeStyle = 'rgba(255,255,255,0.18)';
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(0, centerY);
+            waveformCtx.lineTo(width, centerY);
+            waveformCtx.stroke();
+        }
+
+        function attemptPlaybackUnlock() {
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => {});
+            }
+            if (currentTrackIndex >= 0 && musicTracks[currentTrackIndex]) {
+                const track = musicTracks[currentTrackIndex];
+                if (track.audio.paused) {
+                    track.audio.play().then(() => {
+                        updatePlayButton(true);
+                        playerState.textContent = 'PLAYING';
+                        vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
+                        updateTrackMetadata(track);
+                    }).catch(() => {});
+                }
+            }
+            window.removeEventListener('pointerdown', attemptPlaybackUnlock);
+            window.removeEventListener('keydown', attemptPlaybackUnlock);
+        }
+
+        window.addEventListener('pointerdown', attemptPlaybackUnlock);
+        window.addEventListener('keydown', attemptPlaybackUnlock);
 
         // Real-Time Dynamic Background Blur Adjuster
         function updateBackgroundBlur() {
@@ -1529,7 +1711,12 @@ async function startVoiceRecording() {
             const fileURL = URL.createObjectURL(file);
             const audio = new Audio(fileURL);
             audio.crossOrigin = 'anonymous';
-            audio.preload = 'metadata';
+            audio.preload = 'auto';
+            audio.autoplay = true;
+            audio.loop = true;
+            audio.playsInline = true;
+            audio.volume = 0.15;
+            audio.muted = false;
 
             const sourceNode = audioCtx.createMediaElementSource(audio);
             const gainNode = audioCtx.createGain();
@@ -1547,6 +1734,11 @@ async function startVoiceRecording() {
                 gainNode
             };
 
+            audio.addEventListener('loadedmetadata', () => updateTrackMetadata(track));
+            audio.addEventListener('timeupdate', () => updateTrackMetadata(track));
+            audio.addEventListener('play', () => updateTrackMetadata(track));
+            audio.addEventListener('pause', () => updateTrackMetadata(track));
+
             audio.onended = () => {
                 if (musicTracks[currentTrackIndex] && musicTracks[currentTrackIndex].id === track.id) {
                     updatePlayButton(false);
@@ -1562,8 +1754,12 @@ async function startVoiceRecording() {
         function addBuiltInTrack(src, name) {
             const audio = new Audio(src);
             audio.preload = 'auto';
+            audio.autoplay = true;
+            audio.loop = true;
+            audio.playsInline = true;
             audio.crossOrigin = 'anonymous';
             audio.volume = 0.15;
+            audio.muted = false;
 
             const sourceNode = audioCtx.createMediaElementSource(audio);
             const gainNode = audioCtx.createGain();
@@ -1580,6 +1776,11 @@ async function startVoiceRecording() {
                 sourceNode,
                 gainNode
             };
+
+            audio.addEventListener('loadedmetadata', () => updateTrackMetadata(track));
+            audio.addEventListener('timeupdate', () => updateTrackMetadata(track));
+            audio.addEventListener('play', () => updateTrackMetadata(track));
+            audio.addEventListener('pause', () => updateTrackMetadata(track));
 
             audio.onended = () => {
                 if (musicTracks[currentTrackIndex] && musicTracks[currentTrackIndex].id === track.id) {
@@ -1608,6 +1809,7 @@ async function startVoiceRecording() {
                 track.audio.play().then(() => {
                     updatePlayButton(true);
                     vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
+                    updateTrackMetadata(track);
                 }).catch(() => {
                     updatePlayButton(false);
                     vocalStatus.textContent = '[ Aujoulevo ready — tap play if autoplay is blocked ]';
@@ -1629,6 +1831,7 @@ async function startVoiceRecording() {
             document.getElementById('music-track-name').textContent = musicTracks[index].name.toUpperCase();
             document.getElementById('music-play-btn').removeAttribute('disabled');
             document.getElementById('music-play-btn').style.opacity = '1';
+            updateTrackMetadata(musicTracks[index]);
         }
 
         function updateTrackListUI() {
@@ -1714,6 +1917,7 @@ async function startVoiceRecording() {
                 updatePlayButton(true);
                 vocalStatus.textContent = "[ Streaming Live Audio Visualizer Sync... ]";
                 playerState.textContent = 'PLAYING';
+                updateTrackMetadata(track);
             } else {
                 track.audio.pause();
                 updatePlayButton(false);
@@ -1725,6 +1929,7 @@ async function startVoiceRecording() {
         function updatePlayButton(isPlaying) {
             const trackPlayBtn = document.getElementById('music-play-btn');
             if (isPlaying) {
+                updateTrackMetadata(musicTracks[currentTrackIndex]);
                 trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Track`;
             } else {
                 trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
@@ -2093,6 +2298,11 @@ async function startVoiceRecording() {
                 evosealShield.style.opacity = 0.3 + (normalizedIntensity * 0.7);
             }
 
+            if (waveformData) {
+                analyser.getByteTimeDomainData(waveformData);
+                drawWaveform();
+            }
+
             // 5. 🧬 Real-time Soul Telemetry Value Update Logic
             if (teleNav) {
                 // Procedural "Deep_Thinking_Active" Depth Coordinate simulation
@@ -2110,6 +2320,10 @@ async function startVoiceRecording() {
                 const val9 = dataArray[9] || 0;
                 const teslaResonance = ((val3 + val6 + val9) / 3 * 1.44).toFixed(1);
                 tele369.textContent = `AU // ${teslaResonance}HZ`;
+            }
+
+            if (currentTrackIndex >= 0 && musicTracks[currentTrackIndex]) {
+                updateTrackMetadata(musicTracks[currentTrackIndex]);
             }
         }
     </script>
