@@ -1760,18 +1760,22 @@ async function startVoiceRecording() {
         }
 
         function addBuiltInTrack(src, name) {
-            const audio = document.createElement('audio');
-            audio.src = src;
-            audio.preload = 'auto';
-            audio.autoplay = true;
-            audio.loop = true;
-            audio.playsInline = true;
-            audio.crossOrigin = 'anonymous';
-            audio.volume = 0.15;
-            audio.muted = true;
-            audio.style.display = 'none';
-            audio.setAttribute('aria-hidden', 'true');
-            document.body.appendChild(audio);
+            let audio = document.getElementById('hidden-bgm');
+            if (!audio) {
+                audio = document.createElement('audio');
+                audio.id = 'hidden-bgm';
+                audio.src = src;
+                audio.preload = 'auto';
+                audio.autoplay = true;
+                audio.loop = true;
+                audio.playsInline = true;
+                audio.crossOrigin = 'anonymous';
+                audio.volume = 0.15;
+                audio.muted = true;
+                audio.style.display = 'none';
+                audio.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(audio);
+            }
 
             const sourceNode = audioCtx.createMediaElementSource(audio);
             const gainNode = audioCtx.createGain();
@@ -1789,12 +1793,14 @@ async function startVoiceRecording() {
                 gainNode
             };
 
-            audio.addEventListener('loadedmetadata', () => {
-                updateTrackMetadata(track);
+            function ensurePlay() {
                 if (audio.paused) {
                     audio.play().catch(() => {});
                 }
-            });
+            }
+
+            audio.addEventListener('canplaythrough', ensurePlay, { once: true });
+            audio.addEventListener('loadedmetadata', () => updateTrackMetadata(track));
             audio.addEventListener('timeupdate', () => updateTrackMetadata(track));
             audio.addEventListener('play', () => {
                 updateTrackMetadata(track);
