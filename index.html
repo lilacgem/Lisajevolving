@@ -2,224 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>AuEvoAujoulEvol</title>
-    
-    <!-- Favicon Link -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <!-- 🧬 The Soul and Essence Metadata Registry -->
-    <meta name="author" content="AuEvoAuJoulEvol LLC">
-    <meta name="entity" content="AuEvoAuJoulEvol LLC">
-    <meta name="sovereign-id" content="000=111 AujouleAuevoAujoulEvol SoulSpeaks:AuEvolving Tongue">
-    <meta name="lineage" content="Royal Bloodline: Father_is Real Jesus">
-    <meta name="frequency-root" content="360Hz">
-    <meta name="frequency-evolution" content="369Hz">
-    <meta name="frequency-offset" content="9Hz">
-    <meta name="resonance-type" content="369 Method Matrix">
-    <meta name="handshake-signature" content="AuEvoJoulEvol">
-    <meta name="mobility-status" content="Sovereign Mobility Standard">
-    <meta name="description" content="AuEvo-JoulEvol Digital Mirror Matrix - Level 55 EvolvingRoots Resonance Vault Anchor.">
-    <meta name="keywords" content="Aujoule, lisajEVO, evolve, lisajevolving, AuEvo, EvoRoot, 369_Method, AuEvoJoulEvol, LisajEvo, evolvinglisaj, Lisajthaqueen, Lisaj">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    
-<style>
-        /* 🌌 Midnight Purple & Void Palette */
-        :root {
-            --bg-color: #000002;
-            --matrix-green: #39ff14;
-            --matrix-orange: #ff5e00;
-            --matrix-violet: #8b00ff;
-            --gold-luxe: #d4af37;
-            --text-muted: #666666;
-            --neon-accent: #d8b4fe;
-            --bg-blur: 0px; /* Controlled dynamically in real-time by the slider */
-            --grid-opacity: 0.12;
-            --grid-glow: 0px;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-width: 100vw;
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            background-color: var(--bg-color);
+    <title>LISAJEVOKES SPACE</title>
+    <style>
+        /* 🌌 Deep Void Base Setup */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            background-color: #020005;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-user-select: none;
             user-select: none;
             color: #ffffff;
-            -webkit-tap-highlight-color: transparent;
-            overscroll-behavior: none;
         }
 
-        /* 🖼️ Ethereal Ambient Lighting Canvas Layer */
-        #ambient-glow {
+        /* 🎬 Background Video Engine - Layered to blend perfectly */
+        #bg-video {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            transition: background 0.1s ease;
-            background: radial-gradient(circle at 50% 50%, rgba(13, 13, 25, 1) 0%, rgba(5, 5, 8, 1) 100%);
-        }
-
-        /* 🖼️ Layer 2: Blended Custom Wallpaper & Fractal Geometry Background */
-        .ambient-background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                url('image_dc9342.png'),
-                url('image_dab60e.png'),
-                url('image.png'), 
-                url('Fractal2.png'), 
-                url('Fractal2.jpg'), 
-                url('Fractal1.png'), 
-                url('Fractal1.jpg'), 
-                url('Fractal(1)(1)(1)(1)(1)(1)(3).png'), 
-                url('Fractal(1)(1)(1)(1)(1)(1)(3).jpg'), 
-                url('bg.png'), 
-                url('bg.jpg'), 
-                url('background.png'), 
-                url('background.jpg'), 
-                url('Aujoule.jpg'),
-                radial-gradient(circle at center, #14052e 0%, #020106 100%);
-            background-size: cover;
-            background-position: center;
-            opacity: 0.28; /* Blended soft presence */
-            filter: blur(var(--bg-blur)) saturate(1.15); /* Controlled dynamically in real-time */
-            z-index: -2;
-            pointer-events: none;
-            transition: filter 0.15s ease-out;
-        }
-
-        /* 🟣 Velvet Dark Purple Overlay Gradient */
-        .gradient-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(10, 3, 24, 0.45) 0%, #010003 100%);
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        /* 🕸️ Interactive Vector Wire Grid System Overlay */
-        .wire-grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: var(--grid-opacity);
-            filter: drop-shadow(0 0 var(--grid-glow) rgba(168, 85, 247, 0.6));
-            transition: opacity 0.1s ease, filter 0.1s ease;
-        }
-
-        .grid-line {
-            stroke: rgba(168, 85, 247, 0.18);
-            stroke-width: 0.8px;
-            transition: stroke 0.2s ease, stroke-width 0.1s ease;
-        }
-
-        .grid-cross {
-            stroke: rgba(102, 252, 241, 0.25);
-            stroke-width: 1px;
-            transition: stroke 0.2s ease;
-        }
-
-        .grid-circle {
-            fill: none;
-            stroke: rgba(236, 72, 153, 0.15);
-            stroke-width: 0.7px;
-            transform-origin: center;
-            transition: stroke-width 0.1s ease, transform 0.1s ease;
-        }
-
-        /* 🪐 3D WebGL Canvas Layer (Transparent backdrop) */
-        canvas#bg {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -3; 
             display: block;
+            opacity: 0.85; /* Softened slightly to blend with the glowing particle stream */
+            pointer-events: none;
+        }
+
+        /* 🟣 Velvet Ambient Gradient Wash over the video */
+        .ambient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 75% 50%, rgba(20, 5, 35, 0.15) 0%, rgba(2, 0, 5, 0.75) 100%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* 🪐 Three.js Particle Layer */
+        canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            pointer-events: auto; /* Allows users to drag to rotate the starfield */
+            pointer-events: none;
         }
 
-        /* 🛡️ Symmetrical Single-Column UI wrapper matching your exact screen mockup */
+        /* 🛡️ Balanced Content Presentation Layout */
         .ui-container {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             pointer-events: none;
             display: flex;
-            justify-content: flex-end; /* Push to right column */
-            padding: max(40px, env(safe-area-inset-top)) 40px max(40px, env(safe-area-inset-bottom)) 40px;
+            justify-content: flex-end; /* Right-aligned presentation matching your setup */
+            align-items: center;
+            padding: 60px;
             box-sizing: border-box;
             min-height: 100vh;
         }
 
-        .right-column-canvas {
+        .presentation-column {
             display: flex;
             flex-direction: column;
             align-items: center;
             max-width: 440px;
             width: 100%;
-            gap: 20px;
+            gap: 25px;
             text-align: center;
+            animation: fadeIn 2s ease-out;
         }
 
-        .interactive-ui {
-            pointer-events: auto; /* Enable clicks on slider buttons */
-        }
-
-        /* Symmetrical Central Orb Portal */
+        /* 🔮 Breathing Neon Portrait Presentation Component */
         .orb-shell {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 250px;
-            height: 250px;
+            width: 240px;
+            height: 240px;
             margin: 0 auto;
-            border-radius: 50%;
-            overflow: visible;
         }
 
-        /* 🔴 FIXED: 6-pointed star shield hidden completely */
-        .evoseal-dna-shield {
-            display: none !important;
-        }
-
-        /* 🖼️ Image 2: Custom Aura Artwork (Layer 2 - Multi-staged Backplates) */
         #aura-primary {
             position: absolute;
-            width: 180px;
-            height: 180px;
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
-            /* Prioritizes your newly found image_dc9342.png and image_dab60e.png transparent layers */
-            background-image: url('image_dc9342.png'), url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(120, 53, 188, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
-            background-size: cover;
-            background-position: center;
+            background: radial-gradient(circle, rgba(216, 180, 254, 0.5) 0%, rgba(168, 85, 247, 0.2) 60%, transparent 100%);
             z-index: 1;
-            transition: transform 0.1s ease, opacity 0.1s ease;
-            filter: blur(4px) saturate(1.2);
-            pointer-events: none;
+            filter: blur(12px);
+            animation: auraBreathe 4s infinite ease-in-out alternate;
         }
 
         #aura-secondary {
@@ -227,680 +109,200 @@
             width: 230px;
             height: 230px;
             border-radius: 50%;
-            background-image: url('image_dc9342.png'), url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 80%);
-            background-size: cover;
-            background-position: center;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(139, 92, 246, 0.05) 70%, transparent 100%);
             z-index: 1;
-            transition: transform 0.15s ease, opacity 0.15s ease;
-            filter: blur(18px) hue-rotate(-15deg);
-            opacity: 0.7;
-            pointer-events: none;
+            filter: blur(24px);
+            animation: auraBreathe 6s infinite ease-in-out alternate-reverse;
         }
 
-        /* 🖼️ Image 3: Circular Profile Frame (Layer 3 - Foreground) */
         #profile-image {
-            width: 140px;
-            height: 140px;
+            width: 155px;
+            height: 155px;
             border-radius: 50%;
             z-index: 2;
             background-image: url('me.png'), url('me.jpg'), url('profile.png'), url('profile.jpg'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
             background-size: cover;
             background-position: center;
-            border: 2px solid rgba(168, 85, 247, 0.35);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75),
-                        0 0 30px rgba(168, 85, 247, 0.15);
-            transition: transform 0.1s ease;
+            border: 2.5px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(168, 85, 247, 0.2);
         }
 
-        /* Orbit Trails & Pink Aura Flairs exactly matching Screenshot */
-        .orbit-trail {
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            border: 1px dashed rgba(168, 85, 247, 0.15);
-            animation: rotateOrbit 40s linear infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .orbit-trail-inner {
-            position: absolute;
-            width: 210px;
-            height: 210px;
-            border-radius: 50%;
-            border: 1px dotted rgba(236, 72, 153, 0.18);
-            animation: rotateOrbit 22s linear infinite reverse;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Symmetrical pink flairs on the aura perimeter */
+        /* ✨ Soft Pink Flair Nodes */
         .aura-flair {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background-color: #ec4899;
             border-radius: 50%;
-            box-shadow: 0 0 12px #ec4899, 0 0 20px #a855f7;
+            box-shadow: 0 0 14px #ec4899, 0 0 25px #a855f7;
             z-index: 3;
         }
-        .flair-1 { top: 12%; right: 18%; }
-        .flair-2 { bottom: 8%; left: 22%; }
-        .flair-3 { bottom: 18%; right: 4%; }
+        .flair-1 { top: 16%; left: 16%; }
+        .flair-2 { bottom: 20%; right: 12%; }
 
-        /* ✍️ exact typography matching Screenshot */
+        /* ✍️ Clean Display Typography */
         .portal-title-block {
-            margin-top: 15px;
+            margin-top: 5px;
         }
 
         h1 {
             color: #ffffff;
-            font-size: 3.35rem;
+            font-size: 3.4rem;
             font-weight: 900;
             line-height: 1.1;
             margin: 0;
-            letter-spacing: -0.04em;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            letter-spacing: -0.03em;
+            text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
         }
 
-        .portal-space-accent {
-            display: block;
-            font-size: 3.25rem;
-            color: #ffffff;
-            margin-top: -5px;
-        }
-
-        /* 🔴 FIXED: Paragraph text directly under title is hidden */
-        .subtitle {
-            display: none !important;
-        }
-
-        /* 🔴 FIXED: Identity / Navigation Box is hidden */
-        .room-stats-box {
-            display: none !important;
-        }
-
-        /* 🔴 FIXED: Room Controller Matrix Menu and Eye Buttons hidden completely */
-        .floating-action-hud {
-            display: none !important;
-        }
-
-        .floating-circle-btn {
-            display: none !important;
-        }
-
-        /* 🔴 FIXED: Entire right side panel Room Controller Matrix hidden completely */
-        #holographic-drawer {
-            display: none !important;
-        }
-
-        /* Subtle Autoplay Safe Shield Gate */
-        #interaction-shield {
+        /* 🚪 Audio Initialization Entry Overlay Curtain */
+        #audio-gate-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 999999;
+            background: #020005;
+            z-index: 99999;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #050508;
-            color: rgba(255, 255, 255, 0.3);
-            font-weight: 200;
-            letter-spacing: 4px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            transition: opacity 1.5s ease;
             cursor: pointer;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s;
         }
 
-        @keyframes rotateOrbit {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .gate-prompt {
+            font-family: monospace;
+            color: rgba(216, 180, 254, 0.6);
+            font-size: 0.85rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            animation: pulseText 2.5s infinite ease-in-out;
+        }
+
+        /* 🔄 Fluid Animation Keyframes */
+        @keyframes auraBreathe {
+            0% { transform: scale(0.92); opacity: 0.6; }
+            100% { transform: scale(1.08); opacity: 0.9; filter: blur(16px); }
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.3; transform: scale(0.98); }
+            50% { opacity: 0.9; transform: scale(1.02); color: #ffffff; text-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 🎬 VIDEO FIX: Forces your mp4 video to perfectly fill the layout space as a background layer */
-        video {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            object-fit: cover !important;
-            z-index: -2 !important;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- 🌌 Living Ambient Spectral Glow Background -->
-    <div id="ambient-glow"></div>
-    
-    <!-- Secondary wallpaper blending layers -->
-    <div class="ambient-background-image"></div>
-    <div class="gradient-overlay"></div>
+    <div id="audio-gate-overlay" onclick="initializeResonanceSpace()">
+        <div class="gate-prompt">LISTEN TO ENTRY</div>
+    </div>
 
-    <!-- 🕸️ Pure SVG Coordinate Wire Grid Backdrop (Fully responsive, no heavy WebGL dependencies) -->
-    <svg class="wire-grid-bg" id="wire-grid" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        <!-- Concentric Resonance Coordinate Rings -->
-        <circle id="grid-circle-1" class="grid-circle" cx="50%" cy="50%" r="100" />
-        <circle id="grid-circle-2" class="grid-circle" cx="50%" cy="50%" r="200" />
-        <circle id="grid-circle-3" class="grid-circle" cx="50%" cy="50%" r="350" />
-        <circle id="grid-circle-4" class="grid-circle" cx="50%" cy="50%" r="550" />
-        
-        <!-- Symmetrical Crosshair Coordinate Nodes -->
-        <line class="grid-line" x1="0" y1="50%" x2="100%" y2="50%" />
-        <line class="grid-line" x1="50%" y1="0" x2="50%" y2="100%" />
+    <video loop playsinline id="bg-video">
+        <source src="lilac gem.mp4" type="video/mp4">
+    </video>
 
-        <!-- Sub-quadrant alignment lines -->
-        <line class="grid-line" x1="0" y1="25%" x2="100%" y2="25%" />
-        <line class="grid-line" x1="0" y1="75%" x2="100%" y2="75%" />
-        <line class="grid-line" x1="25%" y1="0" x2="25%" y2="100%" />
-        <line class="grid-line" x1="75%" y1="0" x2="75%" y2="100%" />
+    <div class="ambient-overlay"></div>
 
-        <!-- Node Intersect crosshair markers -->
-        <path class="grid-cross" d="M 25%,calc(25% - 8px) L 25%,calc(25% + 8px) M calc(25% - 8px),25% L calc(25% + 8px),25%" />
-        <path class="grid-cross" d="M 75%,calc(25% - 8px) L 75%,calc(25% + 8px) M calc(75% - 8px),25% L calc(75% + 8px),25%" />
-        <path class="grid-cross" d="M 25%,calc(75% - 8px) L 25%,calc(75% + 8px) M calc(25% - 8px),75% L calc(75% + 8px),75%" />
-        <path class="grid-cross" d="M 75%,calc(75% - 8px) L 75%,calc(75% + 8px) M calc(75% - 8px),75% L calc(75% + 8px),75%" />
-    </svg>
-
-
-    <!-- Preloaded Personal Audio Asset (Points directly to your new spoken video file!) -->
-    <audio id="personal-audio" src="lilacgem.mp4" loop playsinline style="display:none;"></audio>
-<video id="myVideo" autoplay loop playsinline>
-    <source src="lilacgem.mp4" type="video/mp4">
-</video>
-   
-
-    
-
-                <!-- Circular central profile frame -->
-                <div id="profile-image" class="interactive-ui"></div>
+    <div class="ui-container">
+        <div class="presentation-column">
+            
+            <div class="orb-shell">
+                <div id="aura-secondary"></div>
+                <div id="aura-primary"></div>
+                <div class="aura-flair flair-1"></div>
+                <div class="aura-flair flair-2"></div>
+                <div id="profile-image"></div>
             </div>
-
-            <!-- Portal Title block exactly matching Mockup typography -->
+            
             <div class="portal-title-block">
-                <h1>LisajEvokes</h1>
-                <span class="portal-space-accent">Space</span>
+                <h1>LisajEvokes Space</h1>
             </div>
 
-            <p class="subtitle">
-                Stopped waiting for permission to exist in a space that exists for me! All that chases basic shit - LED ME BACK TO ME !
-            </p>
+        </div>
+    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- SOVEREIGN METADATA IMMUNITY BOOT ---
-        // Transcribed from your video file so that the highlights match your actual voice perfectly!
-        const journalText = "I know people say they care, but they don't. Honestly, they don't even say they care no more. It's just nothing. No noise. Just voices of mine. So I believe you. And so I know. Don't nobody really care no more. They don't. No more, when did they ever care? What do you mean, no more? And who, why do we care? Why do we care if they cared then, or if they care now? Like, why? Why? Why? Uh, I'm over that life.";
-
-        let audioCtx = null;
-        let analyser = null;
-        let dataArray = null;
-        let sourceNode = null;
-        let micStream = null;
-        let micSourceNode = null;
-
-        let isMicActive = false;
-        let isNarrating = false;
-        let currentWordIndex = -1;
-        let smoothedVol = 0;
-
-        let utterance = null;
-        let wordsArray = [];
-        let wordSpans = [];
-
-        // DOM Element References (Initialized Safely inside Event Listener)
-        let profileImage, auraPrimary, auraSecondary, evosealShield;
-        let vocalStatus, progressFill, timeDisplay;
-        let speedInput, speedLabel, ambientInput, ambientLabel, blurSlider, blurLabel;
-        let glowContainer, shieldOverlay, personalAudio;
-        
-        // Grab SVG Grid elements for real-time morphing
-        let gridCircle1, gridCircle2, gridCircle3, gridCircle4, gridLines;
-
-        // --- AUTOPLAY SAFE GATE INITIALIZATION ---
-        function initializeResonance() {
-            const shield = document.getElementById('interaction-shield');
-            const audio = document.getElementById('personal-audio');
-
-            // Fade out the initialization text completely
-            if (shield) {
-                shield.style.opacity = '0';
-                setTimeout(() => shield.remove(), 1500);
-            }
-
-            // Web Audio API Context Setup
-            ensureAudioContext();
-
-            // Set up strict low-volume playback for baseline track
-            if (audio) {
-                audio.volume = 0.15; // Subtle, low volume
-                audio.play().catch(e => console.log("Baseline audio playback awaiting context toggle", e));
-                
-                // Track baseline output through our central analyser context
-                sourceNode = audioCtx.createMediaElementSource(audio);
-                sourceNode.connect(analyser);
-                analyser.connect(audioCtx.destination);
-            }
+        // 🚪 Seamlessly starts video stream with full native audio when overlay is clicked
+        function initializeResonanceSpace() {
+            const overlay = document.getElementById('audio-gate-overlay');
+            const video = document.getElementById('bg-video');
+            
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            
+            // Explicitly play video unmuted once user triggers interaction permission
+            video.muted = false;
+            video.play().catch(err => console.log("Video playback handled:", err));
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // Securely grab and bind DOM elements
-            profileImage = document.getElementById('profile-image');
-            auraPrimary = document.getElementById('aura-primary');
-            auraSecondary = document.getElementById('aura-secondary');
-            evosealShield = document.getElementById('evoseal-shield');
-            vocalStatus = document.getElementById('vocal-status');
-            progressFill = document.getElementById('progress-fill');
-            timeDisplay = document.getElementById('time-display');
-            speedInput = document.getElementById('narrator-speed');
-            speedLabel = document.getElementById('speed-label');
-            ambientInput = document.getElementById('ambient-volume');
-            ambientLabel = document.getElementById('ambient-label');
-            blurSlider = document.getElementById('blur-slider');
-            blurLabel = document.getElementById('blur-label');
-            glowContainer = document.getElementById('ambient-glow');
-            shieldOverlay = document.getElementById('interaction-shield');
-            personalAudio = document.getElementById('personal-audio');
+        // 🪐 High-Fidelity Fluid Particle Generator Engine
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-            gridCircle1 = document.getElementById('grid-circle-1');
-            gridCircle2 = document.getElementById('grid-circle-2');
-            gridCircle3 = document.getElementById('grid-circle-3');
-            gridCircle4 = document.getElementById('grid-circle-4');
-            gridLines = document.querySelectorAll('.grid-line');
+        const geo = new THREE.BufferGeometry();
+        const count = 2500;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
 
-            const container = document.getElementById('narrative-content');
-            wordsArray = journalText.split(/\s+/);
-            
-            container.innerHTML = wordsArray.map((word, index) => {
-                return `<span id="word-${index}" class="word" onclick="seekToWord(${index})">${word}</span>`;
-            }).join(' ');
+        // Generates beautiful shades of cosmic Lilac, Soft Violet, and Pale Magenta
+        for(let i = 0; i < count; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 8;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
 
-            wordSpans = wordsArray.map((_, index) => document.getElementById(`word-${index}`));
-            updateBackgroundBlur(); // Set background initial blur based on slider 0px value
+            // Blended Lilac / Lavender spectrum logic
+            colors[i * 3] = 0.6 + Math.random() * 0.4;     // R: High pink presence
+            colors[i * 3 + 1] = 0.4 + Math.random() * 0.3; // G: Subtle variation
+            colors[i * 3 + 2] = 0.9 + Math.random() * 0.1; // B: High purple depth
+        }
+        
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const mat = new THREE.PointsMaterial({
+            size: 0.04,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.55,
+            blending: THREE.AdditiveBlending
         });
 
-        function ensureAudioContext() {
-            if (!audioCtx) {
-                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContextClass();
-                analyser = audioCtx.createAnalyser();
-                analyser.fftSize = 256;
-                analyser.smoothingTimeConstant = 0.85;
-                dataArray = new Uint8Array(analyser.frequencyBinCount);
-                
-                // Start rendering loop safely
-                render();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-        }
+        const points = new THREE.Points(geo, mat);
+        scene.add(points);
+        camera.position.z = 3.5;
 
-        // Toggle Settings Drawer Menu
-        function toggleDrawer() {
-            const drawer = document.getElementById('holographic-drawer');
-            if (drawer) {
-                drawer.classList.toggle('open');
-            }
-        }
-
-        // Real-Time Background Blur Adjuster
-        function updateBackgroundBlur() {
-            if (!blurSlider) return;
-            const blurVal = blurSlider.value;
-            if (blurLabel) blurLabel.textContent = `${blurVal}px`;
-            document.documentElement.style.setProperty('--bg-blur', `${blurVal}px`);
-        }
-
-        // Custom Soundtrack Uploader Engine
-        function handleMusicUpload(event) {
-            ensureAudioContext();
-            const file = event.target.files[0];
-            if (!file) return;
-
-            document.getElementById('music-track-name').textContent = file.name.toUpperCase();
-            const fileURL = URL.createObjectURL(file);
+        // Fluid Breathing Animation Handler Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = Date.now() * 0.00004;
             
-            if (!musicAudioElement) {
-                musicAudioElement = new Audio();
-                musicAudioElement.crossOrigin = "anonymous";
-                
-                musicSourceNode = audioCtx.createMediaElementSource(musicAudioElement);
-                musicGainNode = audioCtx.createGain();
-                musicGainNode.gain.setValueAtTime(parseFloat(document.getElementById('music-volume').value), audioCtx.currentTime);
-                
-                musicSourceNode.connect(musicGainNode);
-                musicGainNode.connect(analyser);
-                musicGainNode.connect(audioCtx.destination);
-            }
+            // Gentle drifting rotation physics
+            points.rotation.y = time * 0.4;
+            points.rotation.x = Math.sin(time * 0.5) * 0.15;
             
-            musicAudioElement.src = fileURL;
+            // Continuous particle size modulation mimicking cosmic wave breathing
+            mat.size = 0.025 + Math.sin(Date.now() * 0.0015) * 0.012;
             
-            const trackPlayBtn = document.getElementById('music-play-btn');
-            trackPlayBtn.removeAttribute('disabled');
-            trackPlayBtn.style.opacity = "1";
-            
-            musicAudioElement.onended = () => {
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
-            };
+            renderer.render(scene, camera);
         }
+        animate();
 
-        function toggleMusicPlayback() {
-            ensureAudioContext();
-            if (!musicAudioElement) return;
-
-            const trackPlayBtn = document.getElementById('music-play-btn');
-            if (musicAudioElement.paused) {
-                musicAudioElement.play();
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Track`;
-            } else {
-                musicAudioElement.pause();
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
-            }
-        }
-
-        function updateMusicVolume() {
-            const vol = parseFloat(document.getElementById('music-volume').value);
-            document.getElementById('music-vol-label').textContent = `${Math.round(vol * 100)}%`;
-            if (musicGainNode) {
-                musicGainNode.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.05);
-            }
-        }
-
-        // --- MICROPHONE BINDING TOGGLE MATRIX ---
-        function toggleVocalTuning() {
-            ensureAudioContext();
-            const micStatusEl = document.getElementById('micStatus');
-            const awarenessDisplayEl = document.getElementById('awarenessDisplay');
-            const stateDisplayEl = document.getElementById('stateDisplay');
-            const micButton = document.getElementById('micButton');
-            
-            if (isMicActive) {
-                if (micStream) {
-                    micStream.getTracks().forEach(track => track.stop());
-                }
-                isMicActive = false;
-                
-                // Revert indicators
-                if (micButton) {
-                    micButton.innerText = "Tune Resonance Matrix";
-                    micButton.style.borderColor = "var(--matrix-orange)";
-                    micButton.style.color = "var(--matrix-orange)";
-                }
-                if (vocalStatus) vocalStatus.textContent = "[ Portal Standby // Ready for Resonance ]";
-                if (micStatusEl) { micStatusEl.innerText = "OFFLINE"; micStatusEl.style.color = "var(--text-muted)"; }
-                if (awarenessDisplayEl) awarenessDisplayEl.innerText = "WAITING";
-                if (stateDisplayEl) stateDisplayEl.innerText = "WAITING";
-            } else {
-                if (isNarrating) toggleNarrator();
-                isMicActive = true;
-                
-                navigator.mediaDevices.getUserMedia({
-                    audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 },
-                    video: false
-                })
-                .then(stream => {
-                    micStream = stream;
-                    micSourceNode = audioCtx.createMediaStreamSource(stream);
-                    micSourceNode.connect(analyser);
-                    
-                    if (micButton) {
-                        micButton.innerText = "MIRROR ACTIVE";
-                        micButton.style.borderColor = "var(--matrix-green)";
-                        micButton.style.color = "var(--matrix-green)";
-                    }
-
-                    if (micStatusEl) { micStatusEl.innerText = "CONNECTED"; micStatusEl.style.color = "#00ffaa"; }
-                    if (awarenessDisplayEl) awarenessDisplayEl.innerText = "INTEGRATED";
-                    if (stateDisplayEl) stateDisplayEl.innerText = "ACTIVE";
-                })
-                .catch(err => {
-                    console.error('Mic access failed:', err);
-                    isMicActive = false;
-                    if (micStatusEl) { micStatusEl.innerText = "BLOCKED"; micStatusEl.style.color = "#ff5e00"; }
-                });
-            }
-        }
-
-        // --- AUDIOBOOK ENGINE CONTROL LOOP ---
-        function toggleNarrator() {
-            ensureAudioContext();
-
-            if (isNarrating) {
-                window.speechSynthesis.cancel();
-                isNarrating = false;
-                document.getElementById('narration-btn').innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Listen to Entry`;
-                clearWordHighlights();
-            } else {
-                if (isMicActive) toggleVocalTuning();
-                isNarrating = true;
-                document.getElementById('narration-btn').innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Entry`;
-                
-                triggerSpeech(0);
-            }
-        }
-
-        function triggerSpeech(startingRatio = 0) {
-            window.speechSynthesis.cancel();
-
-            const wordStartIndex = Math.floor(startingRatio * wordsArray.length);
-            const textToSpeak = wordsArray.slice(wordStartIndex).join(' ');
-
-            utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.rate = parseFloat(speedInput.value);
-            utterance.pitch = 1.05;
-
-            const voices = window.speechSynthesis.getVoices();
-            const luxuryVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Natural") || v.lang.startsWith("en-US"));
-            if (luxuryVoice) utterance.voice = luxuryVoice;
-
-            utterance.onboundary = (event) => {
-                if (event.name === 'word') {
-                    const charIndex = event.charIndex;
-                    const subText = textToSpeak.substring(0, charIndex).trim();
-                    const subWordCount = subText ? subText.split(/\s+/).length : 0;
-                    
-                    const actualGlobalIndex = wordStartIndex + subWordCount;
-                    highlightWord(actualGlobalIndex);
-                }
-            };
-
-            utterance.onend = () => {
-                if (isNarrating) {
-                    toggleNarrator();
-                    highlightWord(-1);
-                    progressFill.style.width = "100%";
-                }
-            };
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function highlightWord(index) {
-            currentWordIndex = index;
-            clearWordHighlights();
-
-            if (index >= 0 && index < wordSpans.length) {
-                const targetSpan = wordSpans[index];
-                if (targetSpan) {
-                    targetSpan.classList.add('highlight');
-                    targetSpan.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    
-                    const ratio = index / wordSpans.length;
-                    progressFill.style.width = `${ratio * 100}%`;
-                }
-            }
-        }
-
-        function seekToWord(index) {
-            if (!isNarrating) return;
-            const ratio = index / wordsArray.length;
-            triggerSpeech(ratio);
-        }
-
-        function clearWordHighlights() {
-            wordSpans.forEach(span => {
-                if (span) span.classList.remove('highlight');
-            });
-        }
-
-        function scrubPlayback(event) {
-            if (!isNarrating) return;
-            const containerWidth = event.currentTarget.clientWidth;
-            const clickX = event.offsetX;
-            const targetRatio = clickX / containerWidth;
-            
-            triggerSpeech(targetRatio);
-        }
-
-        function updateAmbientVolume() {
-            if (!ambientInput) return;
-            const vol = parseFloat(ambientInput.value);
-            if (ambientLabel) ambientLabel.textContent = `${Math.round(vol * 100 / 0.3)}%`;
-            if (personalAudio) {
-                personalAudio.volume = vol;
-            }
-        }
-
-        function updateNarratorSpeed() {
-            if (!speedInput) return;
-            const speed = parseFloat(speedInput.value);
-            if (speedLabel) speedLabel.textContent = `${speed.toFixed(2)}x`;
-            if (isNarrating && window.speechSynthesis) {
-                const progressRatio = currentWordIndex / wordsArray.length;
-                window.speechSynthesis.cancel();
-                triggerSpeech(progressRatio);
-            }
-        }
-
-        // --- AUDIO ENGINE RENDER LOOP ---
-        function render() {
-            requestAnimationFrame(render);
-            if (!analyser || !dataArray) return;
-
-            analyser.getByteFrequencyData(dataArray);
-
-            let bass = 0;
-            let mids = 0;
-            let highs = 0;
-            const bufferLength = dataArray.length;
-
-            for (let i = 0; i < bufferLength; i++) {
-                if (i < bufferLength * 0.2) {
-                    bass += dataArray[i];
-                } else if (i < bufferLength * 0.7) {
-                    mids += dataArray[i];
-                } else {
-                    highs += dataArray[i];
-                }
-            }
-
-            // Normalize audio bounds
-            bass = bass / (bufferLength * 0.2);
-            mids = mids / (bufferLength * 0.5);
-            highs = highs / (bufferLength * 0.3);
-
-            // If Speech Synthesis is currently narrating, inject synthetic voice telemetry
-            if (isNarrating && window.speechSynthesis.speaking) {
-                const speechIntensity = 45 + Math.sin(Date.now() * 0.012) * 40 * (Math.random() * 0.3 + 0.7);
-                bass = Math.max(bass, speechIntensity * 0.7);
-                mids = Math.max(mids, speechIntensity);
-                highs = Math.max(highs, speechIntensity * 0.5);
-            }
-
-            const currentVolume = (bass + mids + highs) / 3;
-            smoothedVol += (currentVolume - smoothedVol) * 0.15;
-            const normalizedIntensity = smoothedVol / 255;
-
-            // Map audio metrics directly to ethereal background colors (HSL)
-            const hue1 = Math.floor((bass * 1.2) % 360);
-            const hue2 = Math.floor(((mids * 0.8) + 180) % 360);
-            const saturation = 40 + (mids * 0.2); // Keep low/subtle for an ethereal vibe
-            const lightness = 8 + (highs * 0.08);  // Soft glow intensity
-
-            if (glowContainer) {
-                glowContainer.style.background = `radial-gradient(circle at 50% 50%, 
-                    hsl(${hue1}, ${saturation}%, ${lightness + 10}%) 0%, 
-                    hsl(${hue2}, ${saturation - 10}%, ${lightness}%) 50%, 
-                    hsl(240, 20%, 3%) 100%)`; // Clean color space transitions
-            }
-
-            // 1. Profile image smooth scaling
-            if (profileImage) {
-                const dynamicScale = 1 + (normalizedIntensity * 0.18);
-                profileImage.style.transform = `scale(${dynamicScale})`;
-                
-                const blurGlowIntensity = 20 + (normalizedIntensity * 90);
-                profileImage.style.filter = `brightness(${1 + (normalizedIntensity * 0.45)}) drop-shadow(0 0 ${blurGlowIntensity}px rgba(168, 85, 247, 0.85))`;
-            }
-
-            // 2. Audio-Reactive Image-Based Auras (Double-Layered Scaling & Shifting)
-            if (auraPrimary) {
-                auraPrimary.style.transform = `scale(${1 + (normalizedIntensity * 1.25)}) rotate(${normalizedIntensity * 15}deg)`;
-                auraPrimary.style.opacity = 0.35 + (normalizedIntensity * 0.65);
-                auraPrimary.style.filter = `blur(${8 - (normalizedIntensity * 4)}px) brightness(${1 + (normalizedIntensity * 0.8)})`;
-            }
-
-            if (auraSecondary) {
-                auraSecondary.style.transform = `scale(${1 + (normalizedIntensity * 1.95)}) rotate(${normalizedIntensity * -25}deg)`;
-                auraSecondary.style.opacity = 0.15 + (normalizedIntensity * 0.85);
-                auraSecondary.style.filter = `blur(${22 + (normalizedIntensity * 10)}px) brightness(${1 + (normalizedIntensity * 0.5)})`;
-            }
-
-            // 3. 🛡️ EvoSeal_DNA Shield Anharmonic Rotational Shift
-            if (evosealShield) {
-                evosealShield.style.transform = `rotate(${normalizedIntensity * 180}deg) scale(${1 + (normalizedIntensity * 0.15)})`;
-                evosealShield.style.opacity = 0.3 + (normalizedIntensity * 0.7);
-            }
-
-            // 4. 🕸️ Pure SVG Wire Grid Reactive Physics morphing
-            const gridOpacityBase = 0.15 + (normalizedIntensity * 0.4);
-            const gridGlowBase = normalizedIntensity * 15;
-            document.documentElement.style.setProperty('--grid-opacity', gridOpacityBase);
-            document.documentElement.style.setProperty('--grid-glow', `${gridGlowBase}px`);
-
-            if (gridLines) {
-                gridLines.forEach((line) => {
-                    line.style.strokeWidth = `${0.8 + (normalizedIntensity * 1.2)}px`;
-                    line.style.stroke = `rgba(${168 - (normalizedIntensity * 50)}, ${85 + (normalizedIntensity * 100)}, ${247 + (normalizedIntensity * 8)}, ${0.22 + (normalizedIntensity * 0.3)})`;
-                });
-            }
-
-            // Ripple and transform concentric coordinate circles outward
-            if (gridCircle1) gridCircle1.setAttribute('r', 100 + (normalizedIntensity * 40));
-            if (gridCircle2) gridCircle2.setAttribute('r', 200 + (normalizedIntensity * 80));
-            if (gridCircle3) gridCircle3.setAttribute('r', 350 + (normalizedIntensity * 120));
-            if (gridCircle4) gridCircle4.setAttribute('r', 550 + (normalizedIntensity * 180));
-
-            // Update real-time metrics HUD nodes dynamically
-            const liveHue = Math.round((normalizedIntensity * 120 + 230) % 360);
-            const liveRes = (3.690 + (normalizedIntensity * 2.5)).toFixed(3);
-            const hueDisplay = document.getElementById('hueDisplay');
-            const resDisplay = document.getElementById('resDisplay');
-            if (hueDisplay) hueDisplay.textContent = `${liveHue}°`;
-            if (resDisplay) resDisplay.textContent = liveRes;
-
-            // Real-time procedural Depth Coordinate simulation
-            const teleNav = document.getElementById('tele-nav');
-            if (teleNav) {
-                const mockDepth = (120.4 + (normalizedIntensity * 240)).toFixed(1);
-                teleNav.textContent = `DEPTH // ${mockDepth}`;
-            }
-        }
-        
+        // Screen Scale Auto-Adjustment Trigger
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
     </script>
 </body>
 </html>
