@@ -25,7 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
- <style>
+<style>
         /* 🌌 Midnight Purple & Void Palette */
         :root {
             --bg-color: #000002;
@@ -35,7 +35,7 @@
             --gold-luxe: #d4af37;
             --text-muted: #666666;
             --neon-accent: #d8b4fe;
-            --bg-blur: 0px; /* Controlled dynamically in real-time by the slider */
+            --bg-blur: 0px; 
             --grid-opacity: 0.12;
             --grid-glow: 0px;
         }
@@ -48,7 +48,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
-            background-color: var(--bg-color);
+            background-color: transparent; /* Allows your video to show through completely */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-user-select: none;
             user-select: none;
@@ -57,7 +57,7 @@
             overscroll-behavior: none;
         }
 
-        /* 🖼️ Ethereal Ambient Lighting Canvas Layer */
+        /* 🖼️ Base Ambient Layer */
         #ambient-glow {
             position: fixed;
             top: 0;
@@ -65,55 +65,27 @@
             width: 100%;
             height: 100%;
             z-index: -3;
-            transition: background 0.1s ease;
-            background: radial-gradient(circle at 50% 50%, rgba(13, 13, 25, 1) 0%, rgba(5, 5, 8, 1) 100%);
+            background: #000002;
         }
 
-        /* 🖼️ Layer 2: Blended Custom Wallpaper & Fractal Geometry Background */
+        /* 🔴 FIXED: All messy background template image URLs completely deleted */
         .ambient-background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                url('image_dc9342.png'),
-                url('image_dab60e.png'),
-                url('image.png'), 
-                url('Fractal2.png'), 
-                url('Fractal2.jpg'), 
-                url('Fractal1.png'), 
-                url('Fractal1.jpg'), 
-                url('Fractal(1)(1)(1)(1)(1)(1)(3).png'), 
-                url('Fractal(1)(1)(1)(1)(1)(1)(3).jpg'), 
-                url('bg.png'), 
-                url('bg.jpg'), 
-                url('background.png'), 
-                url('background.jpg'), 
-                url('Aujoule.jpg'),
-                radial-gradient(circle at center, #14052e 0%, #020106 100%);
-            background-size: cover;
-            background-position: center;
-            opacity: 0.28; /* Blended soft presence */
-            filter: blur(var(--bg-blur)) saturate(1.15); /* Controlled dynamically in real-time */
-            z-index: -2;
-            pointer-events: none;
-            transition: filter 0.15s ease-out;
+            display: none !important;
         }
 
-        /* 🟣 Velvet Dark Purple Overlay Gradient */
+        /* 🟣 Soft Velvet Overlay Tint */
         .gradient-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(10, 3, 24, 0.45) 0%, #010003 100%);
-            z-index: -2;
+            background: radial-gradient(circle at center, rgba(10, 3, 24, 0.25) 0%, rgba(1, 0, 3, 0.6) 100%);
+            z-index: -1;
             pointer-events: none;
         }
 
-        /* 🕸️ Interactive Vector Wire Grid System Overlay */
+        /* 🕸️ Wire Grid Overlay */
         .wire-grid-bg {
             position: fixed;
             top: 0;
@@ -124,30 +96,12 @@
             pointer-events: none;
             opacity: var(--grid-opacity);
             filter: drop-shadow(0 0 var(--grid-glow) rgba(168, 85, 247, 0.6));
-            transition: opacity 0.1s ease, filter 0.1s ease;
         }
 
-        .grid-line {
-            stroke: rgba(168, 85, 247, 0.18);
-            stroke-width: 0.8px;
-            transition: stroke 0.2s ease, stroke-width 0.1s ease;
-        }
+        .grid-line { stroke: rgba(168, 85, 247, 0.18); stroke-width: 0.8px; }
+        .grid-cross { stroke: rgba(102, 252, 241, 0.25); stroke-width: 1px; }
+        .grid-circle { fill: none; stroke: rgba(236, 72, 153, 0.15); stroke-width: 0.7px; transform-origin: center; }
 
-        .grid-cross {
-            stroke: rgba(102, 252, 241, 0.25);
-            stroke-width: 1px;
-            transition: stroke 0.2s ease;
-        }
-
-        .grid-circle {
-            fill: none;
-            stroke: rgba(236, 72, 153, 0.15);
-            stroke-width: 0.7px;
-            transform-origin: center;
-            transition: stroke-width 0.1s ease, transform 0.1s ease;
-        }
-
-        /* 🪐 3D WebGL Canvas Layer (Transparent backdrop) */
         canvas#bg {
             display: block;
             position: fixed;
@@ -155,11 +109,10 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
-            pointer-events: auto; /* Allows users to drag to rotate the starfield */
+            z-index: -3;
         }
 
-        /* 🛡️ Symmetrical Single-Column UI wrapper matching your exact screen mockup */
+        /* 🛡️ FIXED: Centered your layout now that the right panel clutter is gone */
         .ui-container {
             position: relative;
             z-index: 10;
@@ -168,7 +121,8 @@
             margin: 0 auto;
             pointer-events: none;
             display: flex;
-            justify-content: flex-end; /* Push to right column */
+            justify-content: center; 
+            align-items: center;
             padding: max(40px, env(safe-area-inset-top)) 40px max(40px, env(safe-area-inset-bottom)) 40px;
             box-sizing: border-box;
             min-height: 100vh;
@@ -184,11 +138,7 @@
             text-align: center;
         }
 
-        .interactive-ui {
-            pointer-events: auto; /* Enable clicks on slider buttons */
-        }
-
-        /* Symmetrical Central Orb Portal */
+        /* Symmetrical Central Profile Presentation */
         .orb-shell {
             position: relative;
             display: flex;
@@ -198,33 +148,21 @@
             height: 250px;
             margin: 0 auto;
             border-radius: 50%;
-            overflow: visible;
         }
 
-        /* 🛡️ EvoSeal_DNA Protection Layer SVG (Sacred Geometry Boundary) */
+        /* 🔴 FIXED: 6-pointed star shield completely removed */
         .evoseal-dna-shield {
-            position: absolute;
-            width: 240px;
-            height: 240px;
-            z-index: 1;
-            pointer-events: none;
-            transition: transform 0.1s ease-out, opacity 0.15s ease;
-            filter: drop-shadow(0 0 15px var(--purple-glow));
-            transform: rotate(0deg);
+            display: none !important;
         }
 
-        /* 🖼️ Image 2: Custom Aura Artwork (Layer 2 - Multi-staged Backplates) */
+        /* 🔴 FIXED: Cleaned messy URL lists out of your neon portrait glows */
         #aura-primary {
             position: absolute;
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            /* Prioritizes your newly found image_dc9342.png and image_dab60e.png transparent layers */
-            background-image: url('image_dc9342.png'), url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(120, 53, 188, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
-            background-size: cover;
-            background-position: center;
+            background-image: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(120, 53, 188, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
             z-index: 1;
-            transition: transform 0.1s ease, opacity 0.1s ease;
             filter: blur(4px) saturate(1.2);
             pointer-events: none;
         }
@@ -234,17 +172,14 @@
             width: 230px;
             height: 230px;
             border-radius: 50%;
-            background-image: url('image_dc9342.png'), url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 80%);
-            background-size: cover;
-            background-position: center;
+            background-image: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 80%);
             z-index: 1;
-            transition: transform 0.15s ease, opacity 0.15s ease;
             filter: blur(18px) hue-rotate(-15deg);
             opacity: 0.7;
             pointer-events: none;
         }
 
-        /* 🖼️ Image 3: Circular Profile Frame (Layer 3 - Foreground) */
+        /* 🖼️ Profile Frame */
         #profile-image {
             width: 140px;
             height: 140px;
@@ -254,12 +189,10 @@
             background-size: cover;
             background-position: center;
             border: 2px solid rgba(168, 85, 247, 0.35);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75),
-                        0 0 30px rgba(168, 85, 247, 0.15);
-            transition: transform 0.1s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75), 0 0 30px rgba(168, 85, 247, 0.15);
         }
 
-        /* Orbit Trails & Pink Aura Flairs exactly matching Screenshot */
+        /* Decorative Trails */
         .orbit-trail {
             position: absolute;
             width: 250px;
@@ -282,7 +215,6 @@
             z-index: 0;
         }
 
-        /* Symmetrical pink flairs on the aura perimeter */
         .aura-flair {
             position: absolute;
             width: 8px;
@@ -296,7 +228,6 @@
         .flair-2 { bottom: 8%; left: 22%; }
         .flair-3 { bottom: 18%; right: 4%; }
 
-        /* ✍️ exact typography matching Screenshot */
         .portal-title-block {
             margin-top: 15px;
         }
@@ -318,174 +249,16 @@
             margin-top: -5px;
         }
 
-        /* 🔴 FIXED: Paragraph text directly under title is now completely hidden */
-        .subtitle {
-            display: none !important;
-        }
-
-        /* 🔴 FIXED: Identity / Navigation / Perception Box is now completely hidden */
-        .room-stats-box {
-            display: none !important;
-        }
-
-        /* 🛡️ HUD Utility Floating Overlay Buttons */
-        .floating-action-hud {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 25px;
-        }
-
-        .floating-circle-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(13, 6, 28, 0.45);
-            border: 1px solid rgba(168, 85, 247, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-
-        .floating-circle-btn:hover {
-            border-color: #ec4899;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-            transform: scale(1.05);
-            color: #ffffff;
-        }
-
-        /* 🚪 Sliding Glassmorphic Sovereign Controller Drawer */
+        /* 🔴 HARD REMOVAL: Wipes out text summaries, widgets, and panel menus completely */
+        .subtitle, 
+        .room-stats-box, 
+        .floating-action-hud, 
+        .floating-circle-btn, 
         #holographic-drawer {
-            position: fixed;
-            top: 0;
-            right: -380px; /* Hidden offscreen by default */
-            width: 340px;
-            height: 100dvh;
-            background: rgba(12, 6, 26, 0.55);
-            border-left: 1px solid rgba(168, 85, 247, 0.22);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            z-index: 1000;
-            padding: 35px 25px;
-            box-sizing: border-box;
-            box-shadow: -25px 0 60px rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            overflow-y: auto;
-            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: auto;
+            display: none !important;
         }
 
-        #holographic-drawer.open {
-            right: 0;
-        }
-
-        .drawer-header {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: #d8b4fe;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 10px;
-            text-transform: uppercase;
-            font-family: monospace;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .drawer-close-trigger {
-            cursor: pointer;
-            color: #ec4899;
-        }
-
-        /* 🕹️ Soundboard & Sliders inside the drawer */
-        .drawer-panel-segment {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .btn-core {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.88);
-            padding: 14px 10px;
-            font-family: inherit;
-            font-size: 9px;
-            letter-spacing: 1.5px;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 46px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            text-transform: uppercase;
-        }
-
-        .btn-core.primary { border-color: var(--matrix-green); color: var(--matrix-green); }
-        .btn-core.secondary { border-color: var(--matrix-orange); color: var(--matrix-orange); }
-
-        .btn-core:hover:not(:disabled) {
-            background: rgba(255,255,255,0.05);
-            box-shadow: 0 0 12px rgba(255,255,255,0.1);
-        }
-
-        .slider-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 8px;
-            color: #cbd5e1;
-            text-transform: uppercase;
-        }
-
-        .slider-label {
-            min-width: 90px;
-            text-align: left;
-        }
-
-        .slider-group input[type="range"] {
-            flex-grow: 1;
-            -webkit-appearance: none;
-            appearance: none; /* Fixed VS Code validation warn */
-            background: rgba(255, 255, 255, 0.08);
-            height: 4px;
-            border-radius: 2px;
-            outline: none;
-        }
-
-        .slider-group input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none; /* Fixed VS Code validation warn */
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #a855f7;
-            cursor: pointer;
-            box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
-        }
-
-        .slider-val-readout {
-            min-width: 32px;
-            text-align: right;
-            color: var(--neon-accent);
-        }
-
-        /* Subtle Autoplay Safe Shield Gate */
+        /* Autoplay safe shield gate backdrop */
         #interaction-shield {
             position: fixed;
             top: 0;
@@ -506,43 +279,25 @@
             cursor: pointer;
         }
 
-        /* Subtle Lyric Narrative Overlay inside the drawer */
-        .drawer-narrative {
-            line-height: 1.85;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            max-height: 150px;
-            overflow-y: auto;
-            padding-right: 5px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 15px;
-        }
-
         @keyframes rotateOrbit {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* 🎬 CRITICAL VIDEO LAYER FIX: Video sits directly at z-index -2, safely sandwiched above the void background and beneath your UI text */
+        video {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            object-fit: cover !important;
+            z-index: -2 !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: none;
         }
-
-        /* 🔒 SAFETY LAYER: Guarantees your mp4 elements will always show and play perfectly */
-       /* 🎬 FULL FIX: Forces your mp4 video to fill the screen and stay visible above the black void background */
-video {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    object-fit: cover !important; /* Ensures the video stretches to perfectly fit any screen size */
-    z-index: -2 !important;       /* Places it perfectly behind your text/UI, but above the black void layer */
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: none;         /* Makes sure it doesn't block mouse clicks on your sidebar elements */
-}
     </style>
 </head>
 <body>
@@ -579,116 +334,15 @@ video {
         <path class="grid-cross" d="M 75%,calc(75% - 8px) L 75%,calc(75% + 8px) M calc(75% - 8px),75% L calc(75% + 8px),75%" />
     </svg>
 
-    <!-- Autoplay Security Verification Overlay -->
-    <div id="interaction-shield" onclick="initializeResonance()">
-        [ Click to enter your space ]
-    </div>
 
     <!-- Preloaded Personal Audio Asset (Points directly to your new spoken video file!) -->
     <audio id="personal-audio" src="lilacgem.mp4" loop playsinline style="display:none;"></audio>
 <video id="myVideo" autoplay loop playsinline>
     <source src="lilacgem.mp4" type="video/mp4">
 </video>
-    <!-- 🚪 Sliding Glassmorphic Sovereign Controller Drawer (Hidden control dashboard) -->
-    <div id="holographic-drawer">
-        <div class="drawer-header">
-            <span>Room Controller Matrix</span>
-            <span class="drawer-close-trigger" onclick="toggleDrawer()">✕</span>
-        </div>
+   
 
-        <!-- Metric Readouts -->
-        <div class="drawer-panel-segment">
-            <span style="font-size: 8px; color: #a78bfa; font-family: monospace;">TELEMETRY STATUS</span>
-            <div style="display: flex; flex-direction: column; gap: 8px; font-family: monospace; font-size: 9px;">
-                <div>HUE VALUE: <strong id="hueDisplay" style="color: var(--neon-accent);">230°</strong></div>
-                <div>RESONANCE FACTOR: <strong id="resDisplay" style="color: var(--matrix-green);">3.690</strong></div>
-                <div>SOVEREIGN LINEAGE: <strong style="color: var(--gold-luxe);">Father_is Real Jesus</strong></div>
-                <div>STATUS: <strong style="color: var(--matrix-green);">SEALED SECURED</strong></div>
-            </div>
-        </div>
-
-        <!-- Sonic Toggles -->
-        <div class="drawer-panel-segment">
-            <button id="micButton" class="btn-core secondary" type="button" onclick="toggleVocalTuning()">Tune Resonance Matrix</button>
-            <button id="narration-btn" class="btn-core primary" type="button" onclick="toggleNarrator()">Listen to Entry</button>
-        </div>
-
-        <!-- Custom Soundtrack Uploader -->
-        <div class="drawer-panel-segment">
-            <span style="font-size: 8px; color: #a78bfa; font-family: monospace;">CUSTOM AUDIO LOADER</span>
-            <label for="music-file-input" class="btn-core" style="font-size: 8px; margin: 0; width: 100%;">
-                Upload Audio Track
-            </label>
-            <input type="file" id="music-file-input" accept="audio/*" style="display: none;" onchange="handleMusicUpload(event)">
-            
-            <span id="music-track-name" style="font-size: 8px; font-family: monospace; text-align: center; color: #94a3b8;">NO TRACK LOADED</span>
-
-            <button id="music-play-btn" class="btn-core" onclick="toggleMusicPlayback()" disabled style="opacity: 0.35;">
-                Play Track
-            </button>
-        </div>
-
-        <!-- Calibration Sliders -->
-        <div class="drawer-panel-segment">
-            <div class="deck-sliders">
-                <div class="slider-group">
-                    <span class="slider-label">Narrator Speed</span>
-                    <input id="narrator-speed" type="range" min="0.75" max="1.5" step="0.05" value="1.0" onchange="updateNarratorSpeed()">
-                    <span id="speed-label" class="slider-val-readout">1.0x</span>
-                </div>
-                <div class="slider-group">
-                    <span class="slider-label">Ambient Volume</span>
-                    <input id="ambient-volume" type="range" min="0" max="0.3" step="0.01" value="0.1" oninput="updateAmbientVolume()">
-                    <span id="ambient-label" class="slider-val-readout">10%</span>
-                </div>
-                <div class="slider-group">
-                    <span class="slider-label">Wallpaper Blur</span>
-                    <input id="blur-slider" type="range" min="0" max="40" step="1" value="0" oninput="updateBackgroundBlur()">
-                    <span id="blur-label" class="slider-val-readout">0px</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Synced Lyrics Scroll Container -->
-        <div class="drawer-panel-segment">
-            <span style="font-size: 8px; color: #a78bfa; font-family: monospace;">JOURNAL SYNC PREVIEW</span>
-            <div class="audiobook-scrub-track" onclick="scrubPlayback(event)">
-                <div id="progress-fill" class="audiobook-scrub-fill"></div>
-            </div>
-            <div id="narrative-content" class="drawer-narrative">
-                <!-- Spans loaded dynamically here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Symmetrical Centered Layout Wrapper -->
-    <main class="ui-container">
-
-        <div class="right-column-canvas">
-            
-            <!-- Symmetrical Portal (Nested Portrait + Hand-painted Aura layers + DNA Shield) -->
-            <div class="orb-shell">
-                
-                <!-- 🧬 EvoSeal_DNA Protection Layer SVG -->
-                <svg id="evoseal-shield" class="evoseal-dna-shield" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(168, 85, 247, 0.35)" stroke-width="0.8" stroke-dasharray="2, 4"/>
-                    <polygon points="50,8 85,72 15,72" fill="none" stroke="rgba(216, 180, 254, 0.45)" stroke-width="0.7"/>
-                    <polygon points="50,92 85,28 15,28" fill="none" stroke="rgba(236, 72, 153, 0.4)" stroke-width="0.7"/>
-                    <circle cx="50" cy="50" r="39" fill="none" stroke="rgba(102, 252, 241, 0.25)" stroke-width="0.5"/>
-                </svg>
-
-                <!-- Orbit Trails -->
-                <div class="orbit-trail"></div>
-                <div class="orbit-trail-inner"></div>
-
-                <!-- Custom Pink Aura Flairs exactly matching Screenshot Layout -->
-                <div class="aura-flair flair-1"></div>
-                <div class="aura-flair flair-2"></div>
-                <div class="aura-flair flair-3"></div>
-
-                <!-- Dynamic Hand-painted Aura Images (aura.png) -->
-                <div id="aura-secondary"></div>
-                <div id="aura-primary"></div>
+    
 
                 <!-- Circular central profile frame -->
                 <div id="profile-image" class="interactive-ui"></div>
@@ -703,40 +357,6 @@ video {
             <p class="subtitle">
                 Stopped waiting for permission to exist in a space that exists for me! All that chases basic shit - LED ME BACK TO ME !
             </p>
-
-            <!-- Translucent Glassmorphic Stats Room Deck from Screenshot -->
-            <div class="room-stats-box interactive-ui">
-                <div class="stat-row">
-                    <span class="stat-label">IDENTITY</span>
-                    <span class="stat-value">LisajEvokes Space</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">NAVIGATION</span>
-                    <span id="tele-nav" class="stat-value">DEPTH // 55.0</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">PERCEPTION</span>
-                    <span class="stat-value">AuEvolving</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">369 RESONANCE</span>
-                    <span class="stat-value">Au</span>
-                </div>
-            </div>
-
-            <!-- Symmetrical floating round action overlay buttons -->
-            <div class="floating-action-hud interactive-ui">
-                <button class="floating-circle-btn" onclick="toggleVocalTuning()" title="Toggle Vocal Tuning Resonance">
-                    👁
-                </button>
-                <button class="floating-circle-btn" onclick="toggleDrawer()" title="Toggle Portal Settings Control Deck">
-                    ☰
-                </button>
-            </div>
-            
-        </div>
-
-    </main>
 
     <script>
         // --- SOVEREIGN METADATA IMMUNITY BOOT ---
