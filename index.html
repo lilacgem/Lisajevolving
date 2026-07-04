@@ -529,11 +529,20 @@
         }
 
         /* 🔒 SAFETY LAYER: Guarantees your mp4 elements will always show and play perfectly */
-        video {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
+       /* 🎬 FULL FIX: Forces your mp4 video to fill the screen and stay visible above the black void background */
+video {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover !important; /* Ensures the video stretches to perfectly fit any screen size */
+    z-index: -2 !important;       /* Places it perfectly behind your text/UI, but above the black void layer */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: none;         /* Makes sure it doesn't block mouse clicks on your sidebar elements */
+}
     </style>
 </head>
 <body>
