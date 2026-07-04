@@ -1049,8 +1049,7 @@ camera.position.z = 40; // Moved back slightly to see the Being better
 let mouseX = 0;
 let mouseY = 0;
 let mirrorSphere = null;
-let mirrorCanvas = null;
-let mirrorCtx = null;
+let videoElement = null;
 let mirrorTexture = null;
 
 window.addEventListener('mousemove', (event) => {
@@ -1098,12 +1097,22 @@ setupResonantMirror();
 // --- THE MASTER ANIMATION LOOP ---
 
 function setupResonantMirror() {
-    mirrorCanvas = document.createElement('canvas');
-    mirrorCanvas.width = 256;
-    mirrorCanvas.height = 256;
-    mirrorCtx = mirrorCanvas.getContext('2d');
+    videoElement = document.getElementById('evoCoreVideo');
+    if (!videoElement) {
+        videoElement = document.createElement('video');
+        videoElement.id = 'evoCoreVideo';
+        videoElement.loop = true;
+        videoElement.muted = true;
+        videoElement.autoplay = true;
+        videoElement.playsInline = true;
+        videoElement.preload = 'auto';
+        videoElement.crossOrigin = 'anonymous';
+        videoElement.src = 'evolve.mp4';
+        videoElement.style.display = 'none';
+        document.body.appendChild(videoElement);
+    }
 
-    mirrorTexture = new THREE.CanvasTexture(mirrorCanvas);
+    mirrorTexture = new THREE.VideoTexture(videoElement);
     mirrorTexture.minFilter = THREE.LinearFilter;
     mirrorTexture.magFilter = THREE.LinearFilter;
     mirrorTexture.encoding = THREE.sRGBEncoding;
@@ -1111,11 +1120,11 @@ function setupResonantMirror() {
     const mirrorMaterial = new THREE.MeshStandardMaterial({
         map: mirrorTexture,
         transparent: true,
-        opacity: 0.18,
-        roughness: 0.12,
-        metalness: 0.95,
-        emissive: new THREE.Color(0x9f6dff),
-        emissiveIntensity: 0.1,
+        opacity: 0.85,
+        roughness: 0.15,
+        metalness: 0.88,
+        emissive: new THREE.Color(0x8b5cf6),
+        emissiveIntensity: 0.12,
         side: THREE.DoubleSide
     });
 
@@ -1125,44 +1134,20 @@ function setupResonantMirror() {
     mirrorSphere.rotation.y = Math.PI * 0.02;
     scene.add(mirrorSphere);
 
-    if (mirrorCtx) {
-        mirrorCtx.fillStyle = 'rgba(8, 4, 24, 1)';
-        mirrorCtx.fillRect(0, 0, mirrorCanvas.width, mirrorCanvas.height);
-        mirrorTexture.needsUpdate = true;
+    if (videoElement) {
+        videoElement.addEventListener('canplay', () => {
+            if (mirrorStatus) mirrorStatus.textContent = '[ Mirror video engaged — timed resonance active ]';
+        });
+        videoElement.addEventListener('play', () => {
+            if (mirrorStatus) mirrorStatus.textContent = '[ Mirror video engaged — motion streaming ]';
+        });
+        videoElement.addEventListener('pause', () => {
+            if (mirrorStatus) mirrorStatus.textContent = '[ Mirror video paused — resume to refresh ]';
+        });
+        videoElement.addEventListener('error', () => {
+            if (mirrorStatus) mirrorStatus.textContent = '[ Mirror video failed to load ]';
+        });
     }
-}
-
-function updateMirrorTexture(normalizedIntensity) {
-    if (!mirrorCtx || !mirrorTexture) return;
-    const size = mirrorCanvas.width;
-    const hue = 255 - Math.round(normalizedIntensity * 90);
-    const base = mirrorCtx.createLinearGradient(0, 0, size, size);
-    base.addColorStop(0, `hsla(${hue}, 90%, 28%, 0.95)`);
-    base.addColorStop(0.5, `hsla(${hue + 20}, 90%, 22%, 0.35)`);
-    base.addColorStop(1, `rgba(4, 8, 20, 0.2)`);
-    mirrorCtx.fillStyle = base;
-    mirrorCtx.fillRect(0, 0, size, size);
-
-    const ringCount = 5;
-    for (let i = 0; i < ringCount; i++) {
-        const radius = (size * 0.22) + i * (size * 0.09);
-        mirrorCtx.strokeStyle = `hsla(${hue + i * 6}, 92%, ${24 + i * 6}%, ${0.08 + normalizedIntensity * 0.05})`;
-        mirrorCtx.lineWidth = 1 + normalizedIntensity * 0.9;
-        mirrorCtx.beginPath();
-        mirrorCtx.arc(size / 2, size / 2, radius, 0, Math.PI * 2);
-        mirrorCtx.stroke();
-    }
-
-    mirrorCtx.strokeStyle = `rgba(255,255,255,${0.08 + normalizedIntensity * 0.12})`;
-    mirrorCtx.lineWidth = 2;
-    mirrorCtx.beginPath();
-    mirrorCtx.moveTo(size * 0.18, size * 0.18);
-    mirrorCtx.lineTo(size * 0.82, size * 0.82);
-    mirrorCtx.moveTo(size * 0.18, size * 0.82);
-    mirrorCtx.lineTo(size * 0.82, size * 0.18);
-    mirrorCtx.stroke();
-
-    mirrorTexture.needsUpdate = true;
 }
 
 function animate() {
@@ -1427,6 +1412,7 @@ async function startVoiceRecording() {
         <div id="vocal-status" class="status-feed">[ Quiet mode engaged // ready when you are ]</div>
         <div id="voice-note-status" class="status-feed">[ Voice note ready — press to speak your resonance ]</div>
         <div id="voice-record-status" class="status-feed">[ Microphone recorder ready — press Record Voice ]</div>
+        <div id="mirror-status" class="status-feed">[ Mirror core initializing — video texture loading ]</div>
 
         <hr class="divider">
 
@@ -1568,7 +1554,7 @@ async function startVoiceRecording() {
         let vocalStatus, micBtn, playBtn, progressFill, timeDisplay, playerState, speedInput, speedLabel, ambientInput, ambientLabel;
 
         // Telemetry UI Elements
-        let teleNav, telePerception, tele369, voiceNoteBtn, voiceNoteStatus, recordVoiceBtn, voiceRecordStatus;
+        let teleNav, telePerception, tele369, voiceNoteBtn, voiceNoteStatus, recordVoiceBtn, voiceRecordStatus, mirrorStatus;
         let trackList, clearTracksBtn;
         let speechVoice = null;
         let voiceMediaRecorder = null;
@@ -1609,6 +1595,7 @@ async function startVoiceRecording() {
             voiceNoteStatus = document.getElementById('voice-note-status');
             recordVoiceBtn = document.getElementById('record-voice-btn');
             voiceRecordStatus = document.getElementById('voice-record-status');
+            mirrorStatus = document.getElementById('mirror-status');
             profileImage = document.getElementById('profile-image');
             auraPrimary = document.getElementById('aura-primary');
             auraSecondary = document.getElementById('aura-secondary');
@@ -2355,7 +2342,6 @@ async function startVoiceRecording() {
                 const mirrorScale = 1 + normalizedIntensity * 0.045;
                 mirrorSphere.scale.set(mirrorScale, mirrorScale, mirrorScale);
             }
-            updateMirrorTexture(normalizedIntensity);
 
             // 1. Profile image smooth scaling
             const dynamicScale = 1 + (normalizedIntensity * 0.18);
