@@ -1755,6 +1755,10 @@ async function startVoiceRecording() {
             }
             if (currentTrackIndex >= 0 && musicTracks[currentTrackIndex]) {
                 const track = musicTracks[currentTrackIndex];
+                if (track.audio.muted) {
+                    track.audio.muted = false;
+                    track.audio.volume = 0.35;
+                }
                 if (track.audio.paused) {
                     track.audio.play().then(() => {
                         updatePlayButton(true);
@@ -1762,6 +1766,11 @@ async function startVoiceRecording() {
                         vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
                         updateTrackMetadata(track);
                     }).catch(() => {});
+                } else {
+                    updatePlayButton(true);
+                    playerState.textContent = 'PLAYING';
+                    vocalStatus.textContent = '[ Aujoulevo is resonating gently ]';
+                    updateTrackMetadata(track);
                 }
             }
             window.removeEventListener('pointerdown', attemptPlaybackUnlock);
