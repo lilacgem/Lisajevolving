@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LisajEvokes Space</title>
     <style>
         /* 🌌 Deep Cosmic Void Base */
@@ -18,7 +19,7 @@
             color: #ffffff;
         }
 
-        /* 🎬 Background Video Engine - Fixed to display instantly */
+        /* 🎬 Background Video Engine - Fixed to scale and fill perfectly */
         #bg-video {
             position: fixed;
             top: 0;
@@ -39,7 +40,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at 75% 50%, rgba(20, 5, 35, 0.1) 0%, rgba(2, 0, 5, 0.7) 100%);
+            background: radial-gradient(circle at center, rgba(20, 5, 35, 0.2) 0%, rgba(2, 0, 5, 0.75) 100%);
             z-index: -2;
             pointer-events: none;
         }
@@ -55,47 +56,48 @@
             pointer-events: none;
         }
 
-        /* 🛡️ Restored Elegant Layout - Locked to the right side exactly like the mockup */
+        /* 🛡️ FIXED: Absolute Dead Center Screen Layout Container for Mobile & Laptop */
         .ui-container {
             position: fixed;
             top: 0;
-            right: 0;
-            width: 100%;
+            left: 0;
+            width: 100vw;
             height: 100vh;
             display: flex;
-            justify-content: flex-end; /* Pushes content beautifully to the right side */
-            align-items: center;
-            padding-right: 10%; /* Creates the elegant side spacing */
+            justify-content: center; /* Centers horizontally */
+            align-items: center;     /* Centers vertically */
             box-sizing: border-box;
             z-index: 10;
             pointer-events: none;
+            padding: 20px;
         }
 
         .presentation-column {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 400px;
+            width: 100%;
+            max-width: 500px;
             gap: 20px;
             text-align: center;
-            pointer-events: auto; /* Allows users to click text area to activate audio */
+            pointer-events: auto; 
         }
 
-        /* 🔮 Breathing Neon Portrait Aura Rings */
+        /* 🔮 Breathing Neon Portrait Aura Rings (Auto-scaling for smaller screens) */
         .orb-shell {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 240px;
-            height: 240px;
+            width: clamp(180px, 45vw, 240px);
+            height: clamp(180px, 45vw, 240px);
             margin: 0 auto;
         }
 
         #aura-primary {
             position: absolute;
-            width: 175px;
-            height: 175px;
+            width: 80%;
+            height: 80%;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(216, 180, 254, 0.5) 0%, rgba(168, 85, 247, 0.2) 60%, transparent 100%);
             z-index: 1;
@@ -105,8 +107,8 @@
 
         #aura-secondary {
             position: absolute;
-            width: 235px;
-            height: 235px;
+            width: 105%;
+            height: 105%;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(139, 92, 246, 0.05) 70%, transparent 100%);
             z-index: 1;
@@ -115,11 +117,10 @@
         }
 
         #profile-image {
-            width: 155px;
-            height: 155px;
+            width: 70%;
+            height: 70%;
             border-radius: 50%;
             z-index: 2;
-            /* Gracefully checks for all potential naming variations of your uploaded image asset */
             background-image: url('me.png'), url('me.jpg'), url('profile.png'), url('profile.jpg'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
             background-size: cover;
             background-position: center;
@@ -127,7 +128,7 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(168, 85, 247, 0.25);
         }
 
-        /* ✨ Soft Pink Glowing Perimeters */
+        /* ✨ Soft Pink Glowing Perimeter Flairs */
         .aura-flair {
             position: absolute;
             width: 7px;
@@ -140,33 +141,30 @@
         .flair-1 { top: 15%; left: 16%; }
         .flair-2 { bottom: 22%; right: 14%; }
 
-        /* ✍️ Typography */
-        .portal-title-block {
-            margin-top: 5px;
-        }
-
+        /* ✍️ FIXED: Dynamic Typography that resizes beautifully on Phones vs Laptops */
         h1 {
             color: #ffffff;
-            font-size: 3.4rem;
+            font-size: clamp(2.2rem, 7vw, 3.6rem); /* Responsive fluid scaling */
             font-weight: 900;
             line-height: 1.1;
             margin: 0;
             letter-spacing: -0.03em;
             text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
+            white-space: nowrap;
         }
 
-        /* 🔄 Dynamic Animations */
+        /* 🔄 Dynamic Aura Scale Animations */
         @keyframes auraBreathe {
-            0% { transform: scale(0.94); opacity: 0.6; }
-            100% { transform: scale(1.06); opacity: 0.95; filter: blur(14px); }
+            0% { transform: scale(0.95); opacity: 0.6; }
+            100% { transform: scale(1.05); opacity: 0.95; filter: blur(14px); }
         }
     </style>
 </head>
-<body onclick="activateAudio resonance()">
+<body>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="lilac%20gem.mp4" type="video/mp4">
-        <source src="lilac gem.mp4" type="video/mp4">
+        <source src="lilacgem.mp4" type="video/mp4">
+        <source src="lilacgem.mp4" type="video/mp4">
     </video>
 
     <div class="ambient-overlay"></div>
@@ -182,7 +180,7 @@
                 <div id="profile-image"></div>
             </div>
             
-            <div class="portal-title-block">
+            <div>
                 <h1>LisajEvokes Space</h1>
             </div>
 
@@ -191,17 +189,17 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // 🔊 Unmutes the video automatically on first click anywhere on screen
+        // 🔊 FIXED: Unmutes audio instantly the moment someone taps anywhere on laptop trackpad or mobile screen
         function activateAudio() {
             const video = document.getElementById('bg-video');
-            if (video) {
+            if (video && video.muted) {
                 video.muted = false;
             }
         }
-        // Bind to screen click events safely
         window.addEventListener('click', activateAudio);
+        window.addEventListener('touchstart', activateAudio);
 
-        // 🪐 Upgraded Fluid Particle Engine (Lilac / Lavender spectrum nodes)
+        // 🪐 High-Fidelity Lilac and Lavender Particle Stream
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -218,7 +216,7 @@
             positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
             positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
 
-            // Fluid Lilac color spectrum logic
+            // Cosmic Lilac / soft pink and violet spectrum blend
             colors[i * 3] = 0.7 + Math.random() * 0.3;     // Red
             colors[i * 3 + 1] = 0.4 + Math.random() * 0.3; // Green
             colors[i * 3 + 2] = 0.9 + Math.random() * 0.1; // Blue
@@ -239,7 +237,7 @@
         scene.add(points);
         camera.position.z = 3.2;
 
-        // Continuous fluid breathing cycle loop
+        // Particle wave execution animation frame loop
         function animate() {
             requestAnimationFrame(animate);
             const time = Date.now() * 0.00005;
@@ -253,7 +251,7 @@
         }
         animate();
 
-        // Responsive window auto-resize handler
+        // Responsive window scaling auto-adjustment calculations
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
