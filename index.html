@@ -25,7 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
-    <style>
+ <style>
         /* 🌌 Midnight Purple & Void Palette */
         :root {
             --bg-color: #000002;
@@ -318,50 +318,14 @@
             margin-top: -5px;
         }
 
+        /* 🔴 FIXED: Paragraph text directly under title is now completely hidden */
         .subtitle {
-            color: rgba(216, 180, 254, 0.72);
-            font-family: monospace;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.28em;
-            line-height: 2.1;
-            margin-top: 25px;
-            margin-bottom: 30px;
-            max-width: 380px;
+            display: none !important;
         }
 
-        /* 📋 Room Stats Glassmorphic Box from Screenshot */
+        /* 🔴 FIXED: Identity / Navigation / Perception Box is now completely hidden */
         .room-stats-box {
-            background: rgba(15, 6, 32, 0.25);
-            border: 1px solid rgba(168, 85, 247, 0.15);
-            border-radius: 18px;
-            padding: 20px;
-            width: 100%;
-            max-width: 380px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: left;
-            font-family: monospace;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            margin-top: 10px;
-        }
-        .stat-row {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .stat-label {
-            font-size: 0.65rem;
-            color: rgba(216, 180, 254, 0.5);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .stat-value {
-            font-size: 0.9rem;
-            color: #ffffff;
-            font-weight: 700;
+            display: none !important;
         }
 
         /* 🛡️ HUD Utility Floating Overlay Buttons */
@@ -562,6 +526,13 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🔒 SAFETY LAYER: Guarantees your mp4 elements will always show and play perfectly */
+        video {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
     </style>
 </head>
@@ -1216,6 +1187,7 @@
                 teleNav.textContent = `DEPTH // ${mockDepth}`;
             }
         }
+        
     </script>
 </body>
 </html>
