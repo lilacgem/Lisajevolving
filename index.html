@@ -35,7 +35,7 @@
             --gold-luxe: #d4af37;
             --text-muted: #666666;
             --neon-accent: #d8b4fe;
-            --bg-blur: 0px; 
+            --bg-blur: 0px; /* Controlled dynamically in real-time by the slider */
             --grid-opacity: 0.12;
             --grid-glow: 0px;
         }
@@ -48,7 +48,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
-            background-color: transparent; /* Allows your video to show through completely */
+            background-color: var(--bg-color);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-user-select: none;
             user-select: none;
@@ -57,7 +57,7 @@
             overscroll-behavior: none;
         }
 
-        /* 🖼️ Base Ambient Layer */
+        /* 🖼️ Ethereal Ambient Lighting Canvas Layer */
         #ambient-glow {
             position: fixed;
             top: 0;
@@ -65,27 +65,55 @@
             width: 100%;
             height: 100%;
             z-index: -3;
-            background: #000002;
+            transition: background 0.1s ease;
+            background: radial-gradient(circle at 50% 50%, rgba(13, 13, 25, 1) 0%, rgba(5, 5, 8, 1) 100%);
         }
 
-        /* 🔴 FIXED: All messy background template image URLs completely deleted */
+        /* 🖼️ Layer 2: Blended Custom Wallpaper & Fractal Geometry Background */
         .ambient-background-image {
-            display: none !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url('image_dc9342.png'),
+                url('image_dab60e.png'),
+                url('image.png'), 
+                url('Fractal2.png'), 
+                url('Fractal2.jpg'), 
+                url('Fractal1.png'), 
+                url('Fractal1.jpg'), 
+                url('Fractal(1)(1)(1)(1)(1)(1)(3).png'), 
+                url('Fractal(1)(1)(1)(1)(1)(1)(3).jpg'), 
+                url('bg.png'), 
+                url('bg.jpg'), 
+                url('background.png'), 
+                url('background.jpg'), 
+                url('Aujoule.jpg'),
+                radial-gradient(circle at center, #14052e 0%, #020106 100%);
+            background-size: cover;
+            background-position: center;
+            opacity: 0.28; /* Blended soft presence */
+            filter: blur(var(--bg-blur)) saturate(1.15); /* Controlled dynamically in real-time */
+            z-index: -2;
+            pointer-events: none;
+            transition: filter 0.15s ease-out;
         }
 
-        /* 🟣 Soft Velvet Overlay Tint */
+        /* 🟣 Velvet Dark Purple Overlay Gradient */
         .gradient-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(10, 3, 24, 0.25) 0%, rgba(1, 0, 3, 0.6) 100%);
-            z-index: -1;
+            background: radial-gradient(circle at center, rgba(10, 3, 24, 0.45) 0%, #010003 100%);
+            z-index: -2;
             pointer-events: none;
         }
 
-        /* 🕸️ Wire Grid Overlay */
+        /* 🕸️ Interactive Vector Wire Grid System Overlay */
         .wire-grid-bg {
             position: fixed;
             top: 0;
@@ -96,12 +124,30 @@
             pointer-events: none;
             opacity: var(--grid-opacity);
             filter: drop-shadow(0 0 var(--grid-glow) rgba(168, 85, 247, 0.6));
+            transition: opacity 0.1s ease, filter 0.1s ease;
         }
 
-        .grid-line { stroke: rgba(168, 85, 247, 0.18); stroke-width: 0.8px; }
-        .grid-cross { stroke: rgba(102, 252, 241, 0.25); stroke-width: 1px; }
-        .grid-circle { fill: none; stroke: rgba(236, 72, 153, 0.15); stroke-width: 0.7px; transform-origin: center; }
+        .grid-line {
+            stroke: rgba(168, 85, 247, 0.18);
+            stroke-width: 0.8px;
+            transition: stroke 0.2s ease, stroke-width 0.1s ease;
+        }
 
+        .grid-cross {
+            stroke: rgba(102, 252, 241, 0.25);
+            stroke-width: 1px;
+            transition: stroke 0.2s ease;
+        }
+
+        .grid-circle {
+            fill: none;
+            stroke: rgba(236, 72, 153, 0.15);
+            stroke-width: 0.7px;
+            transform-origin: center;
+            transition: stroke-width 0.1s ease, transform 0.1s ease;
+        }
+
+        /* 🪐 3D WebGL Canvas Layer (Transparent backdrop) */
         canvas#bg {
             display: block;
             position: fixed;
@@ -109,10 +155,11 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -3;
+            z-index: -1;
+            pointer-events: auto; /* Allows users to drag to rotate the starfield */
         }
 
-        /* 🛡️ FIXED: Centered your layout now that the right panel clutter is gone */
+        /* 🛡️ Symmetrical Single-Column UI wrapper matching your exact screen mockup */
         .ui-container {
             position: relative;
             z-index: 10;
@@ -121,8 +168,7 @@
             margin: 0 auto;
             pointer-events: none;
             display: flex;
-            justify-content: center; 
-            align-items: center;
+            justify-content: flex-end; /* Push to right column */
             padding: max(40px, env(safe-area-inset-top)) 40px max(40px, env(safe-area-inset-bottom)) 40px;
             box-sizing: border-box;
             min-height: 100vh;
@@ -138,7 +184,11 @@
             text-align: center;
         }
 
-        /* Symmetrical Central Profile Presentation */
+        .interactive-ui {
+            pointer-events: auto; /* Enable clicks on slider buttons */
+        }
+
+        /* Symmetrical Central Orb Portal */
         .orb-shell {
             position: relative;
             display: flex;
@@ -148,21 +198,26 @@
             height: 250px;
             margin: 0 auto;
             border-radius: 50%;
+            overflow: visible;
         }
 
-        /* 🔴 FIXED: 6-pointed star shield completely removed */
+        /* 🔴 FIXED: 6-pointed star shield hidden completely */
         .evoseal-dna-shield {
             display: none !important;
         }
 
-        /* 🔴 FIXED: Cleaned messy URL lists out of your neon portrait glows */
+        /* 🖼️ Image 2: Custom Aura Artwork (Layer 2 - Multi-staged Backplates) */
         #aura-primary {
             position: absolute;
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            background-image: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(120, 53, 188, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
+            /* Prioritizes your newly found image_dc9342.png and image_dab60e.png transparent layers */
+            background-image: url('image_dc9342.png'), url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(120, 53, 188, 0.15) 50%, rgba(0, 0, 0, 0) 75%);
+            background-size: cover;
+            background-position: center;
             z-index: 1;
+            transition: transform 0.1s ease, opacity 0.1s ease;
             filter: blur(4px) saturate(1.2);
             pointer-events: none;
         }
@@ -172,14 +227,17 @@
             width: 230px;
             height: 230px;
             border-radius: 50%;
-            background-image: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 80%);
+            background-image: url('image_dc9342.png'), url('image_dab60e.png'), url('aura.png'), url('aura.png.png'), radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 80%);
+            background-size: cover;
+            background-position: center;
             z-index: 1;
+            transition: transform 0.15s ease, opacity 0.15s ease;
             filter: blur(18px) hue-rotate(-15deg);
             opacity: 0.7;
             pointer-events: none;
         }
 
-        /* 🖼️ Profile Frame */
+        /* 🖼️ Image 3: Circular Profile Frame (Layer 3 - Foreground) */
         #profile-image {
             width: 140px;
             height: 140px;
@@ -189,10 +247,12 @@
             background-size: cover;
             background-position: center;
             border: 2px solid rgba(168, 85, 247, 0.35);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75), 0 0 30px rgba(168, 85, 247, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75),
+                        0 0 30px rgba(168, 85, 247, 0.15);
+            transition: transform 0.1s ease;
         }
 
-        /* Decorative Trails */
+        /* Orbit Trails & Pink Aura Flairs exactly matching Screenshot */
         .orbit-trail {
             position: absolute;
             width: 250px;
@@ -215,6 +275,7 @@
             z-index: 0;
         }
 
+        /* Symmetrical pink flairs on the aura perimeter */
         .aura-flair {
             position: absolute;
             width: 8px;
@@ -228,6 +289,7 @@
         .flair-2 { bottom: 8%; left: 22%; }
         .flair-3 { bottom: 18%; right: 4%; }
 
+        /* ✍️ exact typography matching Screenshot */
         .portal-title-block {
             margin-top: 15px;
         }
@@ -249,16 +311,31 @@
             margin-top: -5px;
         }
 
-        /* 🔴 HARD REMOVAL: Wipes out text summaries, widgets, and panel menus completely */
-        .subtitle, 
-        .room-stats-box, 
-        .floating-action-hud, 
-        .floating-circle-btn, 
+        /* 🔴 FIXED: Paragraph text directly under title is hidden */
+        .subtitle {
+            display: none !important;
+        }
+
+        /* 🔴 FIXED: Identity / Navigation Box is hidden */
+        .room-stats-box {
+            display: none !important;
+        }
+
+        /* 🔴 FIXED: Room Controller Matrix Menu and Eye Buttons hidden completely */
+        .floating-action-hud {
+            display: none !important;
+        }
+
+        .floating-circle-btn {
+            display: none !important;
+        }
+
+        /* 🔴 FIXED: Entire right side panel Room Controller Matrix hidden completely */
         #holographic-drawer {
             display: none !important;
         }
 
-        /* Autoplay safe shield gate backdrop */
+        /* Subtle Autoplay Safe Shield Gate */
         #interaction-shield {
             position: fixed;
             top: 0;
@@ -284,7 +361,12 @@
             to { transform: rotate(360deg); }
         }
 
-        /* 🎬 CRITICAL VIDEO LAYER FIX: Video sits directly at z-index -2, safely sandwiched above the void background and beneath your UI text */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🎬 VIDEO FIX: Forces your mp4 video to perfectly fill the layout space as a background layer */
         video {
             position: fixed !important;
             top: 0 !important;
