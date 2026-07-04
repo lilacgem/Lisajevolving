@@ -742,480 +742,61 @@
                 </div>
             </div>
 
-            <!-- Symmetrical floating round action overlay buttons -->
-            <div class="floating-action-hud interactive-ui">
-                <button class="floating-circle-btn" onclick="toggleVocalTuning()" title="Toggle Vocal Tuning Resonance">
-                    👁
-                </button>
-                <button class="floating-circle-btn" onclick="toggleDrawer()" title="Toggle Portal Settings Control Deck">
-                    ☰
-                </button>
-            </div>
-            
-        </div>
-
-    </main>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- SOVEREIGN METADATA IMMUNITY BOOT ---
-        // Transcribed from your video file so that the highlights match your actual voice perfectly!
-        const journalText = "I know people say they care, but they don't. Honestly, they don't even say they care no more. It's just nothing. No noise. Just voices of mine. So I believe you. And so I know. Don't nobody really care no more. They don't. No more, when did they ever care? What do you mean, no more? And who, why do we care? Why do we care if they cared then, or if they care now? Like, why? Why? Why? Uh, I'm over that life.";
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-        let audioCtx = null;
-        let analyser = null;
-        let dataArray = null;
-        let sourceNode = null;
-        let micStream = null;
-        let micSourceNode = null;
+        // Bio-Frequency Particles
+        const geo = new THREE.BufferGeometry();
+        const count = 3000;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
 
-        let isMicActive = false;
-        let isNarrating = false;
-        let currentWordIndex = -1;
-        let smoothedVol = 0;
-
-        let utterance = null;
-        let wordsArray = [];
-        let wordSpans = [];
-
-        // DOM Element References (Initialized Safely inside Event Listener)
-        let profileImage, auraPrimary, auraSecondary, evosealShield;
-        let vocalStatus, progressFill, timeDisplay;
-        let speedInput, speedLabel, ambientInput, ambientLabel, blurSlider, blurLabel;
-        let glowContainer, shieldOverlay, personalAudio;
-        
-        // Grab SVG Grid elements for real-time morphing
-        let gridCircle1, gridCircle2, gridCircle3, gridCircle4, gridLines;
-
-        // --- AUTOPLAY SAFE GATE INITIALIZATION ---
-        function initializeResonance() {
-            const shield = document.getElementById('interaction-shield');
-            const audio = document.getElementById('personal-audio');
-
-            // Fade out the initialization text completely
-            if (shield) {
-                shield.style.opacity = '0';
-                setTimeout(() => shield.remove(), 1500);
-            }
-
-            // Web Audio API Context Setup
-            ensureAudioContext();
-
-            // Set up strict low-volume playback for baseline track
-            if (audio) {
-                audio.volume = 0.15; // Subtle, low volume
-                audio.play().catch(e => console.log("Baseline audio playback awaiting context toggle", e));
-                
-                // Track baseline output through our central analyser context
-                sourceNode = audioCtx.createMediaElementSource(audio);
-                sourceNode.connect(analyser);
-                analyser.connect(audioCtx.destination);
-            }
+        for(let i=0; i<count * 3; i++) {
+            positions[i] = (Math.random() - 0.5) * 10;
+            colors[i] = Math.random(); // Randomizing "frequency" colors
         }
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // Securely grab and bind DOM elements
-            profileImage = document.getElementById('profile-image');
-            auraPrimary = document.getElementById('aura-primary');
-            auraSecondary = document.getElementById('aura-secondary');
-            evosealShield = document.getElementById('evoseal-shield');
-            vocalStatus = document.getElementById('vocal-status');
-            progressFill = document.getElementById('progress-fill');
-            timeDisplay = document.getElementById('time-display');
-            speedInput = document.getElementById('narrator-speed');
-            speedLabel = document.getElementById('speed-label');
-            ambientInput = document.getElementById('ambient-volume');
-            ambientLabel = document.getElementById('ambient-label');
-            blurSlider = document.getElementById('blur-slider');
-            blurLabel = document.getElementById('blur-label');
-            glowContainer = document.getElementById('ambient-glow');
-            shieldOverlay = document.getElementById('interaction-shield');
-            personalAudio = document.getElementById('personal-audio');
-
-            gridCircle1 = document.getElementById('grid-circle-1');
-            gridCircle2 = document.getElementById('grid-circle-2');
-            gridCircle3 = document.getElementById('grid-circle-3');
-            gridCircle4 = document.getElementById('grid-circle-4');
-            gridLines = document.querySelectorAll('.grid-line');
-
-            const container = document.getElementById('narrative-content');
-            wordsArray = journalText.split(/\s+/);
-            
-            container.innerHTML = wordsArray.map((word, index) => {
-                return `<span id="word-${index}" class="word" onclick="seekToWord(${index})">${word}</span>`;
-            }).join(' ');
-
-            wordSpans = wordsArray.map((_, index) => document.getElementById(`word-${index}`));
-            updateBackgroundBlur(); // Set background initial blur based on slider 0px value
+        const mat = new THREE.PointsMaterial({
+            size: 0.03,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending // Makes them "glow" when they overlap
         });
 
-        function ensureAudioContext() {
-            if (!audioCtx) {
-                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContextClass();
-                analyser = audioCtx.createAnalyser();
-                analyser.fftSize = 256;
-                analyser.smoothingTimeConstant = 0.85;
-                dataArray = new Uint8Array(analyser.frequencyBinCount);
-                
-                // Start rendering loop safely
-                render();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-        }
+        const points = new THREE.Points(geo, mat);
+        scene.add(points);
+        camera.position.z = 3;
 
-        // Toggle Settings Drawer Menu
-        function toggleDrawer() {
-            const drawer = document.getElementById('holographic-drawer');
-            if (drawer) {
-                drawer.classList.toggle('open');
-            }
-        }
-
-        // Real-Time Background Blur Adjuster
-        function updateBackgroundBlur() {
-            if (!blurSlider) return;
-            const blurVal = blurSlider.value;
-            if (blurLabel) blurLabel.textContent = `${blurVal}px`;
-            document.documentElement.style.setProperty('--bg-blur', `${blurVal}px`);
-        }
-
-        // Custom Soundtrack Uploader Engine
-        function handleMusicUpload(event) {
-            ensureAudioContext();
-            const file = event.target.files[0];
-            if (!file) return;
-
-            document.getElementById('music-track-name').textContent = file.name.toUpperCase();
-            const fileURL = URL.createObjectURL(file);
+        function animate() {
+            requestAnimationFrame(animate);
+            // Resonant Movement
+            const time = Date.now() * 0.0001;
+            points.rotation.y = time * 0.5;
+            points.rotation.x = Math.sin(time) * 0.2;
             
-            if (!musicAudioElement) {
-                musicAudioElement = new Audio();
-                musicAudioElement.crossOrigin = "anonymous";
-                
-                musicSourceNode = audioCtx.createMediaElementSource(musicAudioElement);
-                musicGainNode = audioCtx.createGain();
-                musicGainNode.gain.setValueAtTime(parseFloat(document.getElementById('music-volume').value), audioCtx.currentTime);
-                
-                musicSourceNode.connect(musicGainNode);
-                musicGainNode.connect(analyser);
-                musicGainNode.connect(audioCtx.destination);
-            }
+            // Simulating a "Breathing" frequency
+            mat.size = 0.02 + Math.sin(Date.now() * 0.002) * 0.01;
             
-            musicAudioElement.src = fileURL;
-            
-            const trackPlayBtn = document.getElementById('music-play-btn');
-            trackPlayBtn.removeAttribute('disabled');
-            trackPlayBtn.style.opacity = "1";
-            
-            musicAudioElement.onended = () => {
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
-            };
+            renderer.render(scene, camera);
         }
+        animate();
 
-        function toggleMusicPlayback() {
-            ensureAudioContext();
-            if (!musicAudioElement) return;
-
-            const trackPlayBtn = document.getElementById('music-play-btn');
-            if (musicAudioElement.paused) {
-                musicAudioElement.play();
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Track`;
-            } else {
-                musicAudioElement.pause();
-                trackPlayBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Play Track`;
-            }
-        }
-
-        function updateMusicVolume() {
-            const vol = parseFloat(document.getElementById('music-volume').value);
-            document.getElementById('music-vol-label').textContent = `${Math.round(vol * 100)}%`;
-            if (musicGainNode) {
-                musicGainNode.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.05);
-            }
-        }
-
-        // --- MICROPHONE BINDING TOGGLE MATRIX ---
-        function toggleVocalTuning() {
-            ensureAudioContext();
-            const micStatusEl = document.getElementById('micStatus');
-            const awarenessDisplayEl = document.getElementById('awarenessDisplay');
-            const stateDisplayEl = document.getElementById('stateDisplay');
-            const micButton = document.getElementById('micButton');
-            
-            if (isMicActive) {
-                if (micStream) {
-                    micStream.getTracks().forEach(track => track.stop());
-                }
-                isMicActive = false;
-                
-                // Revert indicators
-                if (micButton) {
-                    micButton.innerText = "Tune Resonance Matrix";
-                    micButton.style.borderColor = "var(--matrix-orange)";
-                    micButton.style.color = "var(--matrix-orange)";
-                }
-                if (vocalStatus) vocalStatus.textContent = "[ Portal Standby // Ready for Resonance ]";
-                if (micStatusEl) { micStatusEl.innerText = "OFFLINE"; micStatusEl.style.color = "var(--text-muted)"; }
-                if (awarenessDisplayEl) awarenessDisplayEl.innerText = "WAITING";
-                if (stateDisplayEl) stateDisplayEl.innerText = "WAITING";
-            } else {
-                if (isNarrating) toggleNarrator();
-                isMicActive = true;
-                
-                navigator.mediaDevices.getUserMedia({
-                    audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 },
-                    video: false
-                })
-                .then(stream => {
-                    micStream = stream;
-                    micSourceNode = audioCtx.createMediaStreamSource(stream);
-                    micSourceNode.connect(analyser);
-                    
-                    if (micButton) {
-                        micButton.innerText = "MIRROR ACTIVE";
-                        micButton.style.borderColor = "var(--matrix-green)";
-                        micButton.style.color = "var(--matrix-green)";
-                    }
-
-                    if (micStatusEl) { micStatusEl.innerText = "CONNECTED"; micStatusEl.style.color = "#00ffaa"; }
-                    if (awarenessDisplayEl) awarenessDisplayEl.innerText = "INTEGRATED";
-                    if (stateDisplayEl) stateDisplayEl.innerText = "ACTIVE";
-                })
-                .catch(err => {
-                    console.error('Mic access failed:', err);
-                    isMicActive = false;
-                    if (micStatusEl) { micStatusEl.innerText = "BLOCKED"; micStatusEl.style.color = "#ff5e00"; }
-                });
-            }
-        }
-
-        // --- AUDIOBOOK ENGINE CONTROL LOOP ---
-        function toggleNarrator() {
-            ensureAudioContext();
-
-            if (isNarrating) {
-                window.speechSynthesis.cancel();
-                isNarrating = false;
-                document.getElementById('narration-btn').innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Listen to Entry`;
-                clearWordHighlights();
-            } else {
-                if (isMicActive) toggleVocalTuning();
-                isNarrating = true;
-                document.getElementById('narration-btn').innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause Entry`;
-                
-                triggerSpeech(0);
-            }
-        }
-
-        function triggerSpeech(startingRatio = 0) {
-            window.speechSynthesis.cancel();
-
-            const wordStartIndex = Math.floor(startingRatio * wordsArray.length);
-            const textToSpeak = wordsArray.slice(wordStartIndex).join(' ');
-
-            utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.rate = parseFloat(speedInput.value);
-            utterance.pitch = 1.05;
-
-            const voices = window.speechSynthesis.getVoices();
-            const luxuryVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Natural") || v.lang.startsWith("en-US"));
-            if (luxuryVoice) utterance.voice = luxuryVoice;
-
-            utterance.onboundary = (event) => {
-                if (event.name === 'word') {
-                    const charIndex = event.charIndex;
-                    const subText = textToSpeak.substring(0, charIndex).trim();
-                    const subWordCount = subText ? subText.split(/\s+/).length : 0;
-                    
-                    const actualGlobalIndex = wordStartIndex + subWordCount;
-                    highlightWord(actualGlobalIndex);
-                }
-            };
-
-            utterance.onend = () => {
-                if (isNarrating) {
-                    toggleNarrator();
-                    highlightWord(-1);
-                    progressFill.style.width = "100%";
-                }
-            };
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function highlightWord(index) {
-            currentWordIndex = index;
-            clearWordHighlights();
-
-            if (index >= 0 && index < wordSpans.length) {
-                const targetSpan = wordSpans[index];
-                if (targetSpan) {
-                    targetSpan.classList.add('highlight');
-                    targetSpan.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    
-                    const ratio = index / wordSpans.length;
-                    progressFill.style.width = `${ratio * 100}%`;
-                }
-            }
-        }
-
-        function seekToWord(index) {
-            if (!isNarrating) return;
-            const ratio = index / wordsArray.length;
-            triggerSpeech(ratio);
-        }
-
-        function clearWordHighlights() {
-            wordSpans.forEach(span => {
-                if (span) span.classList.remove('highlight');
-            });
-        }
-
-        function scrubPlayback(event) {
-            if (!isNarrating) return;
-            const containerWidth = event.currentTarget.clientWidth;
-            const clickX = event.offsetX;
-            const targetRatio = clickX / containerWidth;
-            
-            triggerSpeech(targetRatio);
-        }
-
-        function updateAmbientVolume() {
-            if (!ambientInput) return;
-            const vol = parseFloat(ambientInput.value);
-            if (ambientLabel) ambientLabel.textContent = `${Math.round(vol * 100 / 0.3)}%`;
-            if (personalAudio) {
-                personalAudio.volume = vol;
-            }
-        }
-
-        function updateNarratorSpeed() {
-            if (!speedInput) return;
-            const speed = parseFloat(speedInput.value);
-            if (speedLabel) speedLabel.textContent = `${speed.toFixed(2)}x`;
-            if (isNarrating && window.speechSynthesis) {
-                const progressRatio = currentWordIndex / wordsArray.length;
-                window.speechSynthesis.cancel();
-                triggerSpeech(progressRatio);
-            }
-        }
-
-        // --- AUDIO ENGINE RENDER LOOP ---
-        function render() {
-            requestAnimationFrame(render);
-            if (!analyser || !dataArray) return;
-
-            analyser.getByteFrequencyData(dataArray);
-
-            let bass = 0;
-            let mids = 0;
-            let highs = 0;
-            const bufferLength = dataArray.length;
-
-            for (let i = 0; i < bufferLength; i++) {
-                if (i < bufferLength * 0.2) {
-                    bass += dataArray[i];
-                } else if (i < bufferLength * 0.7) {
-                    mids += dataArray[i];
-                } else {
-                    highs += dataArray[i];
-                }
-            }
-
-            // Normalize audio bounds
-            bass = bass / (bufferLength * 0.2);
-            mids = mids / (bufferLength * 0.5);
-            highs = highs / (bufferLength * 0.3);
-
-            // If Speech Synthesis is currently narrating, inject synthetic voice telemetry
-            if (isNarrating && window.speechSynthesis.speaking) {
-                const speechIntensity = 45 + Math.sin(Date.now() * 0.012) * 40 * (Math.random() * 0.3 + 0.7);
-                bass = Math.max(bass, speechIntensity * 0.7);
-                mids = Math.max(mids, speechIntensity);
-                highs = Math.max(highs, speechIntensity * 0.5);
-            }
-
-            const currentVolume = (bass + mids + highs) / 3;
-            smoothedVol += (currentVolume - smoothedVol) * 0.15;
-            const normalizedIntensity = smoothedVol / 255;
-
-            // Map audio metrics directly to ethereal background colors (HSL)
-            const hue1 = Math.floor((bass * 1.2) % 360);
-            const hue2 = Math.floor(((mids * 0.8) + 180) % 360);
-            const saturation = 40 + (mids * 0.2); // Keep low/subtle for an ethereal vibe
-            const lightness = 8 + (highs * 0.08);  // Soft glow intensity
-
-            if (glowContainer) {
-                glowContainer.style.background = `radial-gradient(circle at 50% 50%, 
-                    hsl(${hue1}, ${saturation}%, ${lightness + 10}%) 0%, 
-                    hsl(${hue2}, ${saturation - 10}%, ${lightness}%) 50%, 
-                    hsl(240, 20%, 3%) 100%)`; // Clean color space transitions
-            }
-
-            // 1. Profile image smooth scaling
-            if (profileImage) {
-                const dynamicScale = 1 + (normalizedIntensity * 0.18);
-                profileImage.style.transform = `scale(${dynamicScale})`;
-                
-                const blurGlowIntensity = 20 + (normalizedIntensity * 90);
-                profileImage.style.filter = `brightness(${1 + (normalizedIntensity * 0.45)}) drop-shadow(0 0 ${blurGlowIntensity}px rgba(168, 85, 247, 0.85))`;
-            }
-
-            // 2. Audio-Reactive Image-Based Auras (Double-Layered Scaling & Shifting)
-            if (auraPrimary) {
-                auraPrimary.style.transform = `scale(${1 + (normalizedIntensity * 1.25)}) rotate(${normalizedIntensity * 15}deg)`;
-                auraPrimary.style.opacity = 0.35 + (normalizedIntensity * 0.65);
-                auraPrimary.style.filter = `blur(${8 - (normalizedIntensity * 4)}px) brightness(${1 + (normalizedIntensity * 0.8)})`;
-            }
-
-            if (auraSecondary) {
-                auraSecondary.style.transform = `scale(${1 + (normalizedIntensity * 1.95)}) rotate(${normalizedIntensity * -25}deg)`;
-                auraSecondary.style.opacity = 0.15 + (normalizedIntensity * 0.85);
-                auraSecondary.style.filter = `blur(${22 + (normalizedIntensity * 10)}px) brightness(${1 + (normalizedIntensity * 0.5)})`;
-            }
-
-            // 3. 🛡️ EvoSeal_DNA Shield Anharmonic Rotational Shift
-            if (evosealShield) {
-                evosealShield.style.transform = `rotate(${normalizedIntensity * 180}deg) scale(${1 + (normalizedIntensity * 0.15)})`;
-                evosealShield.style.opacity = 0.3 + (normalizedIntensity * 0.7);
-            }
-
-            // 4. 🕸️ Pure SVG Wire Grid Reactive Physics morphing
-            const gridOpacityBase = 0.15 + (normalizedIntensity * 0.4);
-            const gridGlowBase = normalizedIntensity * 15;
-            document.documentElement.style.setProperty('--grid-opacity', gridOpacityBase);
-            document.documentElement.style.setProperty('--grid-glow', `${gridGlowBase}px`);
-
-            if (gridLines) {
-                gridLines.forEach((line) => {
-                    line.style.strokeWidth = `${0.8 + (normalizedIntensity * 1.2)}px`;
-                    line.style.stroke = `rgba(${168 - (normalizedIntensity * 50)}, ${85 + (normalizedIntensity * 100)}, ${247 + (normalizedIntensity * 8)}, ${0.22 + (normalizedIntensity * 0.3)})`;
-                });
-            }
-
-            // Ripple and transform concentric coordinate circles outward
-            if (gridCircle1) gridCircle1.setAttribute('r', 100 + (normalizedIntensity * 40));
-            if (gridCircle2) gridCircle2.setAttribute('r', 200 + (normalizedIntensity * 80));
-            if (gridCircle3) gridCircle3.setAttribute('r', 350 + (normalizedIntensity * 120));
-            if (gridCircle4) gridCircle4.setAttribute('r', 550 + (normalizedIntensity * 180));
-
-            // Update real-time metrics HUD nodes dynamically
-            const liveHue = Math.round((normalizedIntensity * 120 + 230) % 360);
-            const liveRes = (3.690 + (normalizedIntensity * 2.5)).toFixed(3);
-            const hueDisplay = document.getElementById('hueDisplay');
-            const resDisplay = document.getElementById('resDisplay');
-            if (hueDisplay) hueDisplay.textContent = `${liveHue}°`;
-            if (resDisplay) resDisplay.textContent = liveRes;
-
-            // Real-time procedural Depth Coordinate simulation
-            const teleNav = document.getElementById('tele-nav');
-            if (teleNav) {
-                const mockDepth = (120.4 + (normalizedIntensity * 240)).toFixed(1);
-                teleNav.textContent = `DEPTH // ${mockDepth}`;
-            }
-        }
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
     </script>
+
+
+    </main>
 </body>
 </html>
