@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LISAJEVOKES SPACE</title>
+    <title>LisajEvokes Space</title>
     <style>
-        /* 🌌 Deep Void Base Setup */
+        /* 🌌 Deep Cosmic Void Base */
         body, html { 
             margin: 0; 
             padding: 0; 
@@ -18,7 +18,7 @@
             color: #ffffff;
         }
 
-        /* 🎬 Background Video Engine - Layered to blend perfectly */
+        /* 🎬 Background Video Engine - Fixed to display instantly */
         #bg-video {
             position: fixed;
             top: 0;
@@ -28,23 +28,23 @@
             object-fit: cover;
             z-index: -3; 
             display: block;
-            opacity: 0.85; /* Softened slightly to blend with the glowing particle stream */
+            opacity: 0.9;
             pointer-events: none;
         }
 
-        /* 🟣 Velvet Ambient Gradient Wash over the video */
+        /* 🟣 Velvet Dark Ambient Glow Overlay */
         .ambient-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at 75% 50%, rgba(20, 5, 35, 0.15) 0%, rgba(2, 0, 5, 0.75) 100%);
+            background: radial-gradient(circle at 75% 50%, rgba(20, 5, 35, 0.1) 0%, rgba(2, 0, 5, 0.7) 100%);
             z-index: -2;
             pointer-events: none;
         }
 
-        /* 🪐 Three.js Particle Layer */
+        /* 🪐 Three.js Cosmic Particle Canvas */
         canvas {
             position: fixed;
             top: 0;
@@ -55,34 +55,33 @@
             pointer-events: none;
         }
 
-        /* 🛡️ Balanced Content Presentation Layout */
+        /* 🛡️ Restored Elegant Layout - Locked to the right side exactly like the mockup */
         .ui-container {
-            position: relative;
-            z-index: 10;
+            position: fixed;
+            top: 0;
+            right: 0;
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            pointer-events: none;
+            height: 100vh;
             display: flex;
-            justify-content: flex-end; /* Right-aligned presentation matching your setup */
+            justify-content: flex-end; /* Pushes content beautifully to the right side */
             align-items: center;
-            padding: 60px;
+            padding-right: 10%; /* Creates the elegant side spacing */
             box-sizing: border-box;
-            min-height: 100vh;
+            z-index: 10;
+            pointer-events: none;
         }
 
         .presentation-column {
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width: 440px;
-            width: 100%;
-            gap: 25px;
+            width: 400px;
+            gap: 20px;
             text-align: center;
-            animation: fadeIn 2s ease-out;
+            pointer-events: auto; /* Allows users to click text area to activate audio */
         }
 
-        /* 🔮 Breathing Neon Portrait Presentation Component */
+        /* 🔮 Breathing Neon Portrait Aura Rings */
         .orb-shell {
             position: relative;
             display: flex;
@@ -95,8 +94,8 @@
 
         #aura-primary {
             position: absolute;
-            width: 170px;
-            height: 170px;
+            width: 175px;
+            height: 175px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(216, 180, 254, 0.5) 0%, rgba(168, 85, 247, 0.2) 60%, transparent 100%);
             z-index: 1;
@@ -106,12 +105,12 @@
 
         #aura-secondary {
             position: absolute;
-            width: 230px;
-            height: 230px;
+            width: 235px;
+            height: 235px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(139, 92, 246, 0.05) 70%, transparent 100%);
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(139, 92, 246, 0.05) 70%, transparent 100%);
             z-index: 1;
-            filter: blur(24px);
+            filter: blur(22px);
             animation: auraBreathe 6s infinite ease-in-out alternate-reverse;
         }
 
@@ -120,27 +119,28 @@
             height: 155px;
             border-radius: 50%;
             z-index: 2;
+            /* Gracefully checks for all potential naming variations of your uploaded image asset */
             background-image: url('me.png'), url('me.jpg'), url('profile.png'), url('profile.jpg'), linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
             background-size: cover;
             background-position: center;
-            border: 2.5px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(168, 85, 247, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(168, 85, 247, 0.25);
         }
 
-        /* ✨ Soft Pink Flair Nodes */
+        /* ✨ Soft Pink Glowing Perimeters */
         .aura-flair {
             position: absolute;
             width: 7px;
             height: 7px;
             background-color: #ec4899;
             border-radius: 50%;
-            box-shadow: 0 0 14px #ec4899, 0 0 25px #a855f7;
+            box-shadow: 0 0 12px #ec4899, 0 0 20px #a855f7;
             z-index: 3;
         }
-        .flair-1 { top: 16%; left: 16%; }
-        .flair-2 { bottom: 20%; right: 12%; }
+        .flair-1 { top: 15%; left: 16%; }
+        .flair-2 { bottom: 22%; right: 14%; }
 
-        /* ✍️ Clean Display Typography */
+        /* ✍️ Typography */
         .portal-title-block {
             margin-top: 5px;
         }
@@ -155,55 +155,17 @@
             text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
         }
 
-        /* 🚪 Audio Initialization Entry Overlay Curtain */
-        #audio-gate-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #020005;
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s;
-        }
-
-        .gate-prompt {
-            font-family: monospace;
-            color: rgba(216, 180, 254, 0.6);
-            font-size: 0.85rem;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            animation: pulseText 2.5s infinite ease-in-out;
-        }
-
-        /* 🔄 Fluid Animation Keyframes */
+        /* 🔄 Dynamic Animations */
         @keyframes auraBreathe {
-            0% { transform: scale(0.92); opacity: 0.6; }
-            100% { transform: scale(1.08); opacity: 0.9; filter: blur(16px); }
-        }
-
-        @keyframes pulseText {
-            0%, 100% { opacity: 0.3; transform: scale(0.98); }
-            50% { opacity: 0.9; transform: scale(1.02); color: #ffffff; text-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { transform: scale(0.94); opacity: 0.6; }
+            100% { transform: scale(1.06); opacity: 0.95; filter: blur(14px); }
         }
     </style>
 </head>
-<body>
+<body onclick="activateAudio resonance()">
 
-    <div id="audio-gate-overlay" onclick="initializeResonanceSpace()">
-        <div class="gate-prompt">LISTEN TO ENTRY</div>
-    </div>
-
-    <video loop playsinline id="bg-video">
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="lilac%20gem.mp4" type="video/mp4">
         <source src="lilac gem.mp4" type="video/mp4">
     </video>
 
@@ -229,20 +191,17 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // 🚪 Seamlessly starts video stream with full native audio when overlay is clicked
-        function initializeResonanceSpace() {
-            const overlay = document.getElementById('audio-gate-overlay');
+        // 🔊 Unmutes the video automatically on first click anywhere on screen
+        function activateAudio() {
             const video = document.getElementById('bg-video');
-            
-            overlay.style.opacity = '0';
-            overlay.style.visibility = 'hidden';
-            
-            // Explicitly play video unmuted once user triggers interaction permission
-            video.muted = false;
-            video.play().catch(err => console.log("Video playback handled:", err));
+            if (video) {
+                video.muted = false;
+            }
         }
+        // Bind to screen click events safely
+        window.addEventListener('click', activateAudio);
 
-        // 🪐 High-Fidelity Fluid Particle Generator Engine
+        // 🪐 Upgraded Fluid Particle Engine (Lilac / Lavender spectrum nodes)
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -250,54 +209,51 @@
         document.body.appendChild(renderer.domElement);
 
         const geo = new THREE.BufferGeometry();
-        const count = 2500;
+        const count = 2000;
         const positions = new Float32Array(count * 3);
         const colors = new Float32Array(count * 3);
 
-        // Generates beautiful shades of cosmic Lilac, Soft Violet, and Pale Magenta
         for(let i = 0; i < count; i++) {
             positions[i * 3] = (Math.random() - 0.5) * 8;
             positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
 
-            // Blended Lilac / Lavender spectrum logic
-            colors[i * 3] = 0.6 + Math.random() * 0.4;     // R: High pink presence
-            colors[i * 3 + 1] = 0.4 + Math.random() * 0.3; // G: Subtle variation
-            colors[i * 3 + 2] = 0.9 + Math.random() * 0.1; // B: High purple depth
+            // Fluid Lilac color spectrum logic
+            colors[i * 3] = 0.7 + Math.random() * 0.3;     // Red
+            colors[i * 3 + 1] = 0.4 + Math.random() * 0.3; // Green
+            colors[i * 3 + 2] = 0.9 + Math.random() * 0.1; // Blue
         }
         
         geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
         const mat = new THREE.PointsMaterial({
-            size: 0.04,
+            size: 0.035,
             vertexColors: true,
             transparent: true,
-            opacity: 0.55,
+            opacity: 0.6,
             blending: THREE.AdditiveBlending
         });
 
         const points = new THREE.Points(geo, mat);
         scene.add(points);
-        camera.position.z = 3.5;
+        camera.position.z = 3.2;
 
-        // Fluid Breathing Animation Handler Loop
+        // Continuous fluid breathing cycle loop
         function animate() {
             requestAnimationFrame(animate);
-            const time = Date.now() * 0.00004;
+            const time = Date.now() * 0.00005;
             
-            // Gentle drifting rotation physics
-            points.rotation.y = time * 0.4;
-            points.rotation.x = Math.sin(time * 0.5) * 0.15;
+            points.rotation.y = time * 0.3;
+            points.rotation.x = Math.sin(time * 0.4) * 0.12;
             
-            // Continuous particle size modulation mimicking cosmic wave breathing
-            mat.size = 0.025 + Math.sin(Date.now() * 0.0015) * 0.012;
+            mat.size = 0.022 + Math.sin(Date.now() * 0.0018) * 0.01;
             
             renderer.render(scene, camera);
         }
         animate();
 
-        // Screen Scale Auto-Adjustment Trigger
+        // Responsive window auto-resize handler
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
