@@ -49,7 +49,7 @@
             overflow-x: hidden;
             overflow-y: auto;
             background-color: var(--bg-color);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-user-select: none;
             user-select: none;
             color: #ffffff;
@@ -330,12 +330,46 @@
             max-width: 380px;
         }
 
+        /* 📋 Room Stats Glassmorphic Box from Screenshot */
+        .room-stats-box {
+            background: rgba(15, 6, 32, 0.25);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 18px;
+            padding: 20px;
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            font-family: monospace;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            margin-top: 10px;
+        }
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            color: rgba(216, 180, 254, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .stat-value {
+            font-size: 0.9rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
         /* 🛡️ HUD Utility Floating Overlay Buttons */
         .floating-action-hud {
             display: flex;
             flex-direction: column;
             gap: 16px;
-            margin-top: 15px;
+            margin-top: 25px;
         }
 
         .floating-circle-btn {
@@ -570,8 +604,8 @@
         [ Click to enter your space ]
     </div>
 
-    <!-- Preloaded Personal Audio Asset -->
-    <audio id="personal-audio" src="aujoulevol.mp4" loop playsinline style="display:none;"></audio>
+    <!-- Preloaded Personal Audio Asset (Points directly to your new spoken video file!) -->
+    <audio id="personal-audio" src="lilacgem.mp4" loop playsinline style="display:none;"></audio>
 
     <!-- 🚪 Sliding Glassmorphic Sovereign Controller Drawer (Hidden control dashboard) -->
     <div id="holographic-drawer">
@@ -688,6 +722,26 @@
                 A PRIVATE ROOM FOR LISAJEVOKES SPACE, BRIDGING EVOMIRROR IDENTITY RESONANCE WITH AUJOULE PRESENCE.
             </p>
 
+            <!-- Translucent Glassmorphic Stats Room Deck from Screenshot -->
+            <div class="room-stats-box interactive-ui">
+                <div class="stat-row">
+                    <span class="stat-label">IDENTITY</span>
+                    <span class="stat-value">LisajEvokes Space</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">NAVIGATION</span>
+                    <span id="tele-nav" class="stat-value">DEPTH // 55.0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">PERCEPTION</span>
+                    <span class="stat-value">AuEvolving</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">369 RESONANCE</span>
+                    <span class="stat-value">Au</span>
+                </div>
+            </div>
+
             <!-- Symmetrical floating round action overlay buttons -->
             <div class="floating-action-hud interactive-ui">
                 <button class="floating-circle-btn" onclick="toggleVocalTuning()" title="Toggle Vocal Tuning Resonance">
@@ -704,7 +758,9 @@
 
     <script>
         // --- SOVEREIGN METADATA IMMUNITY BOOT ---
-        // --- GLOBAL VARIABLES (To Prevent Scope Errors) ---
+        // Transcribed from your video file so that the highlights match your actual voice perfectly!
+        const journalText = "I know people say they care, but they don't. Honestly, they don't even say they care no more. It's just nothing. No noise. Just voices of mine. So I believe you. And so I know. Don't nobody really care no more. They don't. No more, when did they ever care? What do you mean, no more? And who, why do we care? Why do we care if they cared then, or if they care now? Like, why? Why? Why? Uh, I'm over that life.";
+
         let audioCtx = null;
         let analyser = null;
         let dataArray = null;
@@ -1152,6 +1208,13 @@
             const resDisplay = document.getElementById('resDisplay');
             if (hueDisplay) hueDisplay.textContent = `${liveHue}°`;
             if (resDisplay) resDisplay.textContent = liveRes;
+
+            // Real-time procedural Depth Coordinate simulation
+            const teleNav = document.getElementById('tele-nav');
+            if (teleNav) {
+                const mockDepth = (120.4 + (normalizedIntensity * 240)).toFixed(1);
+                teleNav.textContent = `DEPTH // ${mockDepth}`;
+            }
         }
     </script>
 </body>
