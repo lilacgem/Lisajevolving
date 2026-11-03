@@ -1,0 +1,213 @@
+:root {
+    --bg-deep: #08080a;
+    --panel-bg: #121217;
+    --accent-teal: #00f2ff;
+    --accent-purple: #2e0a5e;
+    --text-primary: #f0f0f5;
+    --text-secondary: #9494a0;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent-teal);
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 80px);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media (max-width: 968px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Left: Orb Section */
+.orb-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: radial-gradient(circle at center, #1a0836 0%, var(--bg-deep) 70%);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.morph-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin-bottom: 30px;
+}
+
+.morph-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 50px rgba(0, 242, 255, 0.3);
+    background-size: cover;
+    background-position: center;
+    animation: cycle 18s infinite ease-in-out;
+}
+
+.layer-1 {
+    background: radial-gradient(circle, #00f2ff22 0%, #2e0a5e 100%);
+    animation-delay: 0s;
+    border: 2px solid var(--accent-teal);
+}
+
+.layer-2 {
+    background: radial-gradient(circle, #ff007f22 0%, #121217 100%);
+    animation-delay: 6s;
+    border: 2px solid #ff007f;
+}
+
+.layer-3 {
+    background: radial-gradient(circle, #00ffaa22 0%, #08080a 100%);
+    animation-delay: 12s;
+    border: 2px solid #00ffaa;
+}
+
+@keyframes cycle {
+    0%, 33% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    34%, 100% {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+}
+
+.metadata-banner {
+    text-align: center;
+    background: rgba(18, 18, 23, 0.8);
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 360px;
+    backdrop-filter: blur(10px);
+}
+
+    .metadata-banner h2 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+    }
+
+.crypto-ticker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-teal);
+}
+
+/* Right: Ebook Reader Section */
+.ebook-reader-section {
+    padding: 60px;
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+}
+
+.reader-header h1 {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    margin: 0 0 15px;
+}
+
+.reader-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.audio-player-card {
+    background: var(--panel-bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+}
+
+.badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-teal);
+    background: rgba(0, 242, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.audio-player-card h3 {
+    margin: 0 0 5px;
+    font-size: 1.2rem;
+}
+
+.custom-audio {
+    width: 100%;
+    margin-top: 15px;
+    filter: invert(1);
+}
+
+.ebook-content-pane .chapter {
+    margin-bottom: 45px;
+}
+
+.ebook-content-pane h2 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 10px;
+}
+
+.lead {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--accent-teal);
+    margin: 20px 0;
+}
+
+.ebook-content-pane p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-deep);
+}
