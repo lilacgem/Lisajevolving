@@ -21,6 +21,7 @@ const ACCOUNTS_ENABLED = false;
 const ORB_SCALE = .78 * 1.4;
 const ORB_RADIUS = 6.8;
 const ORB_CENTER_Y = 3.5;
+const AUJOULEVOL = new URLSearchParams(location.search).get('track') === 'aujoulevol';
 
 // WebAuthn base64url helpers
 const b64uToBuf = (s) => {
@@ -322,6 +323,10 @@ export default function App() {
                 camera.fov = 60;
                 camera.position.set(0.0, -1.0, 36.0);
             }
+            if(new URLSearchParams(location.search).has('embedded') && w/h > .8 && w/h < 1.2) {
+                camera.fov = 52;
+                camera.position.set(0.0,-1.0,32.0);
+            }
             camera.updateProjectionMatrix();
             renderer.setSize(w, h);
         };
@@ -394,6 +399,21 @@ export default function App() {
             depthWrite: false,
         });
         const orb = new THREE.Mesh(orbGeometry, orbMaterial);
+        if (AUJOULEVOL) {
+            orbMaterial.fragmentShader = cosmicOrbFragment
+                .replace('vec3(.10,.23,.70),vec3(.63,.08,.47)', 'vec3(.025,.45,.43),vec3(.59,.35,.12)')
+                .replace('vec3(.23,.56,1.),vec3(1.,.46,.66)', 'vec3(.22,.90,.78),vec3(1.,.73,.34)')
+                .replace('vec3(.25,.6,1.),vec3(.95,.5,.7)', 'vec3(.12,.64,.67),vec3(.95,.76,.37)')
+                .replace('vec3(.20,.42,1.),vec3(.7,.23,.65)', 'vec3(.08,.68,.62),vec3(.70,.49,.22)');
+        }
+        const orbitalRibbons = new THREE.Group();
+        if(AUJOULEVOL) {
+            for(let i=0;i<3;i++) {
+                const ribbon = new THREE.Mesh(new THREE.TorusGeometry(ORB_RADIUS*(1.2+i*.13),.025,8,160),new THREE.MeshBasicMaterial({color:i===1?'#deb676':'#68d5cc',transparent:true,opacity:.3,blending:THREE.AdditiveBlending,depthWrite:false}));
+                ribbon.rotation.set(.6+i*.6,.3+i*.4,i*.7);orbitalRibbons.add(ribbon);
+            }
+            sacredGroup.add(orbitalRibbons);
+        }
         sacredGroup.add(orb);
         // Soft radial glow has no hard sphere edge.
         const glowCanvas = document.createElement('canvas');
@@ -463,6 +483,12 @@ export default function App() {
             const song = {energy:live.energy, bass:live.bass, mid:live.mid, high:live.high, brightness:live.high, change:live.mid};
             bassValRef.current = live.bass; midValRef.current = live.mid; highValRef.current = live.high;
             const songEnergy = song.energy;
+            if(AUJOULEVOL) {
+                orbitalRibbons.rotation.y += delta*(.08+song.mid*.45);
+                orbitalRibbons.rotation.z = Math.sin(time*.09)*.25;
+                orbitalRibbons.scale.setScalar(1+song.bass*.18);
+                orbitalRibbons.children.forEach((ribbon,i)=>{ribbon.material.opacity=.16+song.mid*.24+song.high*.5;ribbon.rotation.z+=delta*(i+1)*(.025+song.mid*.08);});
+            }
             colorAccumulatorRef.current = (colorAccumulatorRef.current + delta * (.04 + song.brightness * .045 + song.change * .025 + highValRef.current * .6 + touchVelocityRef.current * .18)) % 1.0;
             const activeColor = new THREE.Color().setHSL(colorAccumulatorRef.current, 0.95, 0.5);
             wiregridMat.uniforms.tint.value.copy(activeColor).lerp(new THREE.Color("#8d9fe5"), .65);

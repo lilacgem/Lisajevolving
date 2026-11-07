@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { lazy, Suspense } from 'react'
-const App = lazy(() => new URLSearchParams(location.search).has('mirror') ? import('./App.jsx') : import('./Home.jsx'))
+const App = lazy(() => import.meta.env.DEV && new URLSearchParams(location.search).has('export') ? import('./Export.jsx') : new URLSearchParams(location.search).has('mirror') ? import('./App.jsx') : import('./Home.jsx'))
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

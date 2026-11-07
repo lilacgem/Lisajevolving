@@ -1,0 +1,42 @@
+{
+  "track": "aujoulevol",
+  "durationSeconds": 341.568,
+  "sampleRate": 48000,
+  "channels": 1,
+  "rmsDbfs": -26.064536882927843,
+  "peakDbfs": -3.2908643884370936,
+  "spectralEnergyShare": {
+    "low": 0.1906565048527756,
+    "mid": 0.8069163906272832,
+    "high": 0.002392801077050398
+  },
+  "medianActiveCentroidHz": 362.1980904314331,
+  "analysis": {
+    "fftSize": 2048,
+    "hopSeconds": 0.1,
+    "bandsHz": {
+      "low": [
+        20,
+        250
+      ],
+      "mid": [
+        250,
+        4000
+      ],
+      "high": [
+        4000,
+        16000
+      ]
+    }
+  },
+  "visualDirection": {
+    "palette": [
+      "#79ded2",
+      "#d2a966",
+      "#173c51"
+    ],
+    "low": "broad halo expansion",
+    "mid": "orbital ribbons",
+    "high": "fine starlight"
+  }
+}
